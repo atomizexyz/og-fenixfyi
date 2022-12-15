@@ -1,8 +1,6 @@
 import { linkItems, textLinkItems } from "~/components/Constants";
 import { chain, useNetwork, Chain } from "wagmi";
 import Link from "next/link";
-import { xenContract } from "~/lib/xen-contract";
-import { useState } from "react";
 import { DONATION_ADDRESS } from "~/lib/helpers";
 import AddressLink from "~/components/AddressLink";
 import { useTranslation } from "next-i18next";
@@ -13,7 +11,6 @@ const Footer = () => {
   const { chain: currentChain } = useNetwork();
 
   const defaultChain: Chain = currentChain ?? chain.mainnet;
-  const [address] = useState(xenContract(defaultChain).addressOrName);
 
   return (
     <footer className="footer footer-center text-base-content py-8">
@@ -32,11 +29,6 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      <AddressLink
-        name={t("contract")}
-        address={address}
-        chain={defaultChain}
-      />
       <AddressLink
         name={t("donate")}
         address={DONATION_ADDRESS}

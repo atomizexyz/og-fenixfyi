@@ -4,6 +4,7 @@ import {
   LockClosedIcon,
   DocumentTextIcon,
   ViewListIcon,
+  FireIcon,
 } from "@heroicons/react/outline";
 import {
   DuneIcon,
@@ -51,9 +52,9 @@ export const navigationItems = [
   },
   {
     id: 1,
-    t: "mint.title",
-    icon: <DiamondIcon />,
-    href: "/mint",
+    t: "burn.title",
+    icon: <FireIcon className="h-5 w-5" />,
+    href: "/burn",
     canDisable: true,
   },
   {
@@ -82,22 +83,22 @@ export const textLinkItems = [
   {
     name: "Website Source Code",
     t: "link.website-source-code",
-    href: "https://github.com/atomizexyz/xenfyi",
+    href: "https://github.com/atomizexyz/fenixfyi",
   },
 ];
 
 export const linkItems = [
   {
-    name: "Whitepaper",
-    t: "link.whitepaper",
+    name: "Litepaper",
+    t: "link.litepaper",
     icon: <DocumentTextIcon className="h-5 w-5" />,
-    href: "https://faircrypto.org/xencryptolp.pdf",
+    href: "http://github.com/atomizexyz/litepaper",
   },
   {
     name: "Docs",
     t: "link.docs",
     icon: <BookOpenIcon className="h-5 w-5" />,
-    href: "https://xensource.gitbook.io/www.xenpedia.io/",
+    href: "http://docs.atomize.xyz",
   },
   {
     name: "Twitter",

@@ -154,7 +154,11 @@ export const Navbar: NextPage = () => {
                     </button>
                   </>
                 ) : (
-                  <button onClick={show} className="btn glass text-neutral">
+                  <button
+                    disabled
+                    onClick={show}
+                    className="btn glass text-neutral"
+                  >
                     {t("connect-wallet")}
                   </button>
                 )}

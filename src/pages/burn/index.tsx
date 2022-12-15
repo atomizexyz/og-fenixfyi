@@ -1,8 +1,7 @@
-import { NextPage } from "next";
 import Container from "~/components/containers/Container";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-const Chains: NextPage = () => {
+const Burn = () => {
   return (
     <Container className="max-w-5xl">
       <div className="space-y-4 w-full">Coming Soon</div>
@@ -18,4 +17,4 @@ export async function getStaticProps({ locale }: any) {
   };
 }
 
-export default Chains;
+export default Burn;
