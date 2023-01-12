@@ -12,6 +12,11 @@ const nextConfig = {
         destination: "/dashboard",
         permanent: false,
       },
+      {
+        source: "/portfolio",
+        destination: "/portfolio/active",
+        permanent: false,
+      },
     ];
   },
 };

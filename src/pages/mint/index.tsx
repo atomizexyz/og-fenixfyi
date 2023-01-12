@@ -5,9 +5,8 @@ import { MaxValueField } from "~/components/FormFields";
 import { InformationCircleIcon } from "@heroicons/react/outline";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { NumberStatCard } from "~/components/StatCards";
+import { Container, CardContainer } from "~/components/containers/";
 
-import Container from "~/components/containers/Container";
-import CardContainer from "~/components/containers/CardContainer";
 import FENIXContext from "~/contexts/FENIXContext";
 import GasEstimate from "~/components/GasEstimate";
 

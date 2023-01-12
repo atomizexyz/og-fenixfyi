@@ -1,11 +1,14 @@
 import { NextPage } from "next";
-import Container from "~/components/containers/Container";
+import { Container, CardContainer } from "~/components/containers/";
+
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Chains: NextPage = () => {
   return (
     <Container className="max-w-5xl">
-      <div className="space-y-4 w-full">Coming Soon</div>
+      <CardContainer>
+        <div className="space-y-4 w-full">Coming Soon</div>
+      </CardContainer>
     </Container>
   );
 };

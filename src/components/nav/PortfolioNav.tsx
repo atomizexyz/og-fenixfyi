@@ -6,34 +6,33 @@ import { clsx } from "clsx";
 const PortfolioNav: NextPage = () => {
   const router = useRouter();
   const { pathname } = router;
-  console.log(pathname);
   return (
     <div className="tabs">
-      <Link href="/portfolio/balance">
+      <Link href="/portfolio/active">
         <a
           className={clsx("tab tab-lg tab-lifted text-neutral", {
-            "tab-active glass": pathname == "/portfolio/balance",
+            "tab-active glass": pathname == "/portfolio/active",
           })}
         >
-          Balance
+          Active
         </a>
       </Link>
-      <Link href="/portfolio/calendar">
+      <Link href="/portfolio/defer">
         <a
           className={clsx("tab tab-lg tab-lifted text-neutral", {
-            "tab-active glass": pathname == "/portfolio/calendar",
+            "tab-active glass": pathname == "/portfolio/defer",
           })}
         >
-          Calendar
+          Deferred
         </a>
       </Link>
-      <Link href="/portfolio/manage">
+      <Link href="/portfolio/end">
         <a
           className={clsx("tab tab-lg tab-lifted text-neutral", {
-            "tab-active glass": pathname == "/portfolio/manage",
+            "tab-active glass": pathname == "/portfolio/end",
           })}
         >
-          Manage
+          Ended
         </a>
       </Link>
     </div>
