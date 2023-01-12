@@ -5,7 +5,7 @@ import { Toaster, resolveValue } from "react-hot-toast";
 import { CheckIcon } from "@heroicons/react/outline";
 import Footer from "./nav/Footer";
 import { useState, useEffect } from "react";
-import { XENProvider } from "~/contexts/XENContext";
+import { FENIXProvider } from "~/contexts/FENIXContext";
 import { useTranslation } from "next-i18next";
 
 const Layout = ({ children }: any) => {
@@ -21,7 +21,7 @@ const Layout = ({ children }: any) => {
   }
 
   return (
-    <XENProvider>
+    <FENIXProvider>
       <div className="pb-24 lg:pb-0">
         <Meta />
         <Navbar />
@@ -35,9 +35,7 @@ const Layout = ({ children }: any) => {
                 </div>
                 <div>
                   <h3 className="font-bold text-neutral">🎉 {t("success")}</h3>
-                  <div className="text-xs text-neutral">
-                    {resolveValue(toast.message, toast)}
-                  </div>
+                  <div className="text-xs text-neutral">{resolveValue(toast.message, toast)}</div>
                 </div>
               </div>
             </div>
@@ -46,7 +44,7 @@ const Layout = ({ children }: any) => {
         <Footer />
         <BottomNav />
       </div>
-    </XENProvider>
+    </FENIXProvider>
   );
 };
 

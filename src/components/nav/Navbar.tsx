@@ -14,7 +14,7 @@ import { isMobile } from "react-device-detect";
 import { StatusBadge } from "../StatusBadge";
 import { navigationItems, linkItems, chainIcons } from "~/components/Constants";
 import { UTC_TIME } from "~/lib/helpers";
-import XENContext from "~/contexts/XENContext";
+import XENContext from "~/contexts/FENIXContext";
 import { useTranslation } from "next-i18next";
 
 export const Navbar: NextPage = () => {
@@ -39,8 +39,7 @@ export const Navbar: NextPage = () => {
             <Link href={item.href}>
               <a
                 className={clsx({
-                  "btn-disabled text-neutral-content":
-                    router.pathname.startsWith(item.href),
+                  "btn-disabled text-neutral-content": router.pathname.startsWith(item.href),
                   "glass text-neutral": !router.pathname.startsWith(item.href),
                 })}
                 onClick={() => {
@@ -129,36 +128,25 @@ export const Navbar: NextPage = () => {
                 {isConnected ? (
                   <>
                     <div className="dropdown">
-                      <label
-                        tabIndex={0}
-                        className="btn glass btn-square text-neutral"
-                      >
+                      <label tabIndex={0} className="btn glass btn-square text-neutral">
                         {chainIcons[chain?.id ?? 1]}
                       </label>
                       <ul
                         tabIndex={0}
                         className="menu menu-compact dropdown-content mt-3 p-2 shadow glass rounded-box w-64 space-y-2"
                       >
-                        <ChainList
-                          chains={chains.filter((chain) => !chain.testnet)}
-                        />
+                        <ChainList chains={chains.filter((chain) => !chain.testnet)} />
                       </ul>
                     </div>
 
                     <button onClick={show} className="btn glass text-neutral">
                       <div className="flex space-x-2 items-center">
-                        <pre className="text-base font-light">
-                          {truncatedAddress}
-                        </pre>
+                        <pre className="text-base font-light">{truncatedAddress}</pre>
                       </div>
                     </button>
                   </>
                 ) : (
-                  <button
-                    disabled
-                    onClick={show}
-                    className="btn glass text-neutral"
-                  >
+                  <button disabled onClick={show} className="btn glass text-neutral">
                     {t("connect-wallet")}
                   </button>
                 )}

@@ -1,11 +1,16 @@
 import type { NextPage } from "next";
-import Container from "~/components/containers/Container";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
+import Container from "~/components/containers/Container";
+import CardContainer from "~/components/containers/CardContainer";
+import FENIXContext from "~/contexts/FENIXContext";
 
 const Portfolio: NextPage = () => {
   return (
     <Container className="max-w-5xl">
-      <div className="space-y-4 w-full">Coming Soon</div>
+      <CardContainer>
+        <div className="space-y-4 w-full">Coming Soon</div>
+      </CardContainer>
     </Container>
   );
 };

@@ -20,20 +20,10 @@ export const ProgressStatCard: NextPage<ProgressStat> = (props) => {
     <div className="stat">
       <div className="stat-title">{props.title}</div>
       <div className="stat-value text-lg md:text-2xl text-right">
-        <CountUp
-          end={props.percentComplete}
-          preserveValue={true}
-          separator=","
-          suffix="%"
-          decimals={2}
-        />
+        <CountUp end={props.percentComplete} preserveValue={true} separator="," suffix="%" decimals={2} />
       </div>
       <div>
-        <progress
-          className="progress progress-secondary"
-          value={props.value}
-          max={props.max}
-        ></progress>
+        <progress className="progress progress-secondary" value={props.value} max={props.max}></progress>
       </div>
       <div className="stat-desc text-right">{formatFullDate(props.dateTs)}</div>
     </div>
@@ -126,9 +116,7 @@ export const ChainStatCard: NextPage<ChainStat> = (props) => {
   return (
     <div className="stat">
       <div className="stat-title">{t("card.chain")}</div>
-      <code className="stat-value text-lg md:text-2xl text-right">
-        {props.value}
-      </code>
+      <code className="stat-value text-lg md:text-2xl text-right">{props.value}</code>
       <div className="stat-desc text-right">{`Chain ID: ${props.id}`}</div>
     </div>
   );
@@ -144,9 +132,7 @@ export const DataCard: NextPage<DataStat> = (props) => {
   return (
     <div className="stat">
       <div className="stat-title">{props.title}</div>
-      <code className="stat-value text-lg md:text-2xl text-right">
-        {props.value}
-      </code>
+      <code className="stat-value text-lg md:text-2xl text-right">{props.value}</code>
       <div className="stat-desc text-right">{props?.description}</div>
     </div>
   );
@@ -166,12 +152,7 @@ export const CountDataCard: NextPage<GrossRewardStat> = (props) => {
     <div className="stat">
       <div className="stat-title">{props.title}</div>
       <code className="stat-value text-lg md:text-2xl text-right">
-        <CountUp
-          end={props.value}
-          preserveValue={true}
-          separator=","
-          suffix={props.suffix ?? ""}
-        />
+        <CountUp end={props.value} preserveValue={true} separator="," suffix={props.suffix ?? ""} />
       </code>
 
       <div className="stat-desc text-right">
@@ -223,6 +204,94 @@ export const CountdownCard: NextPage<CountdownCardStat> = (props) => {
         )}
       </code>
       <div className="stat-desc text-right">{t("card.countdown-details")}</div>
+    </div>
+  );
+};
+
+const projects = [
+  { id: 1, name: "Time", fenix: "$900.00" },
+  { id: 1, name: "Size", fenix: "$900.00" },
+  // More projects...
+];
+interface BonusShareCardStat {}
+
+export const BonusShareCard: NextPage<BonusShareCardStat> = (props) => {
+  return (
+    <div className="stat">
+      <div className="stat-title">{"Calculator"}</div>
+
+      <div className="min-w-full">
+        <table className="min-w-full divide-y divide-gray-300">
+          <thead>
+            <tr>
+              <th
+                scope="col"
+                colSpan={2}
+                className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-neutral sm:pl-6 md:pl-0"
+              >
+                Bonus
+              </th>
+              <th
+                scope="col"
+                className="py-3.5 pl-3 pr-4 text-right text-sm font-semibold text-neutral sm:pr-6 md:pr-0"
+              >
+                FENIX
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {projects.map((project) => (
+              <tr key={project.id} className="border-b border-gray-200">
+                <td className="py-4 pl-4 pr-3 text-sm sm:pl-6 md:pl-0" colSpan={2}>
+                  <div className="font-medium text-neutral">{project.name}</div>
+                </td>
+                <td className="py-4 pl-3 pr-4 text-right text-sm text-base-content sm:pr-6 md:pr-0">{project.fenix}</td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <th
+                scope="row"
+                colSpan={2}
+                className="hidden pl-6 pr-3 pt-4 text-right text-sm text-base-content sm:table-cell md:pl-0"
+              >
+                Subtotal
+              </th>
+              <th scope="row" className="pl-4 pr-3 pt-4 text-left text-sm text-base-content sm:hidden">
+                Subtotal
+              </th>
+              <td className="pl-3 pr-4 pt-4 text-right text-sm text-base-content sm:pr-6 md:pr-0">$4,485.00</td>
+            </tr>
+            <tr>
+              <th
+                scope="row"
+                colSpan={2}
+                className="hidden pl-6 pr-3 pt-4 text-right text-sm text-base-content sm:table-cell md:pl-0"
+              >
+                Share Rate
+              </th>
+              <th scope="row" className="pl-4 pr-3 pt-4 text-left text-sm text-base-content sm:hidden">
+                Share Rate
+              </th>
+              <td className="pl-3 pr-4 pt-4 text-right text-sm text-base-content  sm:pr-6 md:pr-0">1.0%</td>
+            </tr>
+            <tr>
+              <th
+                scope="row"
+                colSpan={2}
+                className="hidden pl-6 pr-3 pt-4 text-right text-sm text-neutral sm:table-cell md:pl-0"
+              >
+                Shares
+              </th>
+              <th scope="row" className="pl-4 pr-3 pt-4 text-left text-sm text-neutral sm:hidden">
+                Shares
+              </th>
+              <td className="pl-3 pr-4 pt-4 text-right text-sm text-neutral sm:pr-6 md:pr-0">$4,485.00</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
     </div>
   );
 };
