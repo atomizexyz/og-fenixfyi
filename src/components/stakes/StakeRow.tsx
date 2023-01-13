@@ -1,5 +1,7 @@
 import type { NextPage } from "next";
 import { formatDate, formatDecimals } from "~/lib/helpers";
+import Link from "next/link";
+
 export const StakeRow: NextPage<any> = (props) => {
   const { stake } = props;
 
@@ -32,10 +34,14 @@ export const StakeRow: NextPage<any> = (props) => {
           </label>
           <ul tabIndex={0} className="dropdown-content menu menu-compact p-2 shadow glass rounded-box w-48 space-y-2">
             <li>
-              <a className="btn btn-sm glass text-neutral">Defer Stake</a>
+              <Link href={`/stake/${stake.id}/defer`}>
+                <a className="btn btn-sm glass text-neutral">Defer Stake</a>
+              </Link>
             </li>
             <li>
-              <a className="btn btn-sm glass text-neutral">End Stake</a>
+              <Link href={`/stake/${stake.id}/end`}>
+                <a className="btn btn-sm glass text-neutral">End Stake</a>
+              </Link>
             </li>
           </ul>
         </div>

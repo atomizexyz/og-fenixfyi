@@ -22,7 +22,7 @@ const Defer = () => {
                 loading: processing,
               })}
             >
-              Start Stake
+              Defer Stake
             </button>
           </div>
 

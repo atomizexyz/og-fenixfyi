@@ -24,6 +24,8 @@ module.exports = {
           neutral: "black",
           "base-100": "white",
           "neutral-content": "#6b7280",
+          accent: "#F6781A",
+          "accent-focus": "#F9386D",
         },
       },
       {
@@ -33,6 +35,8 @@ module.exports = {
           neutral: "white",
           "base-100": "black",
           "neutral-content": "#d1d5db",
+          accent: "#A55113",
+          "accent-focus": "#A8274A",
         },
       },
     ],

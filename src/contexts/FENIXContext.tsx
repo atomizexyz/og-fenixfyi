@@ -11,7 +11,7 @@ import {
 } from "wagmi";
 import { BigNumber } from "ethers";
 import { chainList } from "~/lib/client";
-import { xenContract } from "~/lib/xen-contract";
+import { fenixContract } from "~/lib/fenix-contract";
 
 export interface UserMint {
   user: string;
@@ -86,7 +86,7 @@ export const FENIXProvider = ({ children }: any) => {
   const chain = chainOverride ?? networkChain ?? chainList[0];
 
   useToken({
-    address: xenContract(chain).addressOrName,
+    address: fenixContract(chain).addressOrName,
     chainId: chain?.id,
     onSuccess(data) {
       setToken({

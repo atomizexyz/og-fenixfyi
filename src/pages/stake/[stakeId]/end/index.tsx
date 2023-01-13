@@ -22,7 +22,7 @@ const End = () => {
                 loading: processing,
               })}
             >
-              Start Stake
+              End Stake
             </button>
           </div>
 

@@ -11,7 +11,7 @@ import { evmosMainnet } from "~/lib/chains/evmosMainnet";
 import { fantomMainnet } from "~/lib/chains/fantomMainnet";
 import { dogechainMainnet } from "~/lib/chains/dogechainMainnet";
 
-export const xenContract = (contractChain?: Chain) => {
+export const fenixContract = (contractChain?: Chain) => {
   switch (contractChain?.id) {
     case dogechainMainnet.id:
     case pulseChain.id:
