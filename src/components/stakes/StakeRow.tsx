@@ -1,8 +1,11 @@
 import type { NextPage } from "next";
 import { formatDate, formatDecimals } from "~/lib/helpers";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 export const StakeRow: NextPage<any> = (props) => {
+  const { t } = useTranslation("common");
+
   const { stake } = props;
 
   const startTime = stake.startTs.getTime() / 1000;
@@ -30,17 +33,17 @@ export const StakeRow: NextPage<any> = (props) => {
       <td className="bg-transparent text-right">
         <div className="dropdown dropdown-left">
           <label tabIndex={0} className="btn btn-sm glass text-neutral m-1">
-            Actions
+            {t("portfolio.actions")}
           </label>
           <ul tabIndex={0} className="dropdown-content menu menu-compact p-2 shadow glass rounded-box w-48 space-y-2">
             <li>
               <Link href={`/stake/${stake.id}/defer`}>
-                <a className="btn btn-sm glass text-neutral">Defer Stake</a>
+                <a className="btn btn-sm glass text-neutral">{t("portfolio.defer-stake")}</a>
               </Link>
             </li>
             <li>
               <Link href={`/stake/${stake.id}/end`}>
-                <a className="btn btn-sm glass text-neutral">End Stake</a>
+                <a className="btn btn-sm glass text-neutral">{t("portfolio.end-stake")}</a>
               </Link>
             </li>
           </ul>

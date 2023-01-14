@@ -3,14 +3,18 @@ import { Container, CardContainer } from "~/components/containers/";
 import { StakeHeaderFooter, StakeRow } from "~/components/stakes";
 import PortfolioNav from "~/components/nav/PortfolioNav";
 import { stakes } from "~/components/Constants";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Manage: NextPage = () => {
+  const { t } = useTranslation("common");
+
   return (
     <Container className="max-w-5xl">
       <PortfolioNav />
       <CardContainer>
         <div className="space-y-4 w-full">
-          <h2 className="card-title">Ended Stakes</h2>
+          <h2 className="card-title">{t("portfolio.ended-stakes")}</h2>
 
           <div className="overflow-x-auto">
             <table className="table w-full">
@@ -44,5 +48,13 @@ const Manage: NextPage = () => {
     </Container>
   );
 };
+
+export async function getStaticProps({ locale }: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export default Manage;

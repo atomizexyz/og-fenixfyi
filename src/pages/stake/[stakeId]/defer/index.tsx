@@ -1,11 +1,14 @@
 import { clsx } from "clsx";
 import { useState, useContext } from "react";
 import { BigNumber } from "ethers";
+import { useTranslation } from "next-i18next";
 import { Container, CardContainer } from "~/components/containers/";
 import FENIXContext from "~/contexts/FENIXContext";
 import GasEstimate from "~/components/GasEstimate";
 
 const Defer = () => {
+  const { t } = useTranslation("common");
+
   const { feeData } = useContext(FENIXContext);
   const [processing, setProcessing] = useState(false);
 
@@ -22,7 +25,7 @@ const Defer = () => {
                 loading: processing,
               })}
             >
-              Defer Stake
+              {t("stake.defer")}
             </button>
           </div>
 

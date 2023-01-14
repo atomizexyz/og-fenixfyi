@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 import { BigNumber } from "ethers";
 import { useState, useContext } from "react";
+import { useTranslation } from "next-i18next";
 import { MaxValueField } from "~/components/FormFields";
 import { InformationCircleIcon } from "@heroicons/react/outline";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -11,6 +12,8 @@ import FENIXContext from "~/contexts/FENIXContext";
 import GasEstimate from "~/components/GasEstimate";
 
 const Mint = () => {
+  const { t } = useTranslation("common");
+
   const [disabled, setDisabled] = useState(true);
   const [processing, setProcessing] = useState(false);
   const { feeData } = useContext(FENIXContext);
@@ -18,11 +21,11 @@ const Mint = () => {
     <Container className="max-w-2xl">
       <CardContainer>
         <div className="flex flex-col space-y-4">
-          <h2 className="card-title text-neutral">Mint</h2>
+          <h2 className="card-title text-neutral">{t("mint.title")}</h2>
 
           <MaxValueField
-            title={"Burn".toUpperCase()}
-            description={"XEN to burn"}
+            title={t("form-field.xen").toUpperCase()}
+            description={t("form-field.xen-details")}
             decimals={0}
             value={100000}
             disabled={disabled}
@@ -38,10 +41,8 @@ const Mint = () => {
                 <InformationCircleIcon className="w-8 h-8" />
               </div>
               <div>
-                <h3 className="font-bold">{"Approve"}</h3>
-                <div className="text-xs">
-                  {"In order to burn your XEN, you need to give the FENIX contract permission."}
-                </div>
+                <h3 className="font-bold">{t("mint.approve")}</h3>
+                <div className="text-xs">{t("mint.approve-details")}</div>
               </div>
             </div>
           </div>
@@ -53,7 +54,7 @@ const Mint = () => {
                 loading: processing,
               })}
             >
-              Approve
+              {t("mint.approve")}
             </button>
           </div>
 

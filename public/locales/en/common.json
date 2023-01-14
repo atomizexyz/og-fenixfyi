@@ -1,1 +1,99 @@
-{}
+{
+  "contract": "Contract",
+  "donate": "Donate",
+  "theme": "Theme",
+  "chain": "Chain",
+  "connect-wallet": "Connect Wallet",
+  "share-rate": "Share Rate",
+  "address": "Address",
+  "fenix": "Fenix",
+  "dashboard": {
+    "title": "Dashboard",
+    "chains": "Chains",
+    "general-stats": "General Stats",
+    "chain-id": "Chain ID: {{chainId}}",
+    "select-chain": "Select Chain"
+  },
+  "mint": {
+    "title": "Mint",
+    "burn": "Burn",
+
+    "approve": "Approve",
+    "approve-details": "In order to burn your XEN, you need to give the FENIX contract permission."
+  },
+  "stake": {
+    "title": "Stake",
+    "calculator": "Calculator",
+    "time-bonus": "Time Bonus",
+    "size-bonus": "Size Bonus",
+    "subtotal": "Subtotal",
+    "shares": "Shares",
+    "start": "Start Stake",
+    "start-details": "Staking FENIX will enter you into an agreement with the FENIX smart contract that will lock your FENIX for a specified amount of time. You will receive shares in return that can be redeemed for FENIX at the end of the stake period.",
+    "end": "End Stake",
+    "defer": "Defer Stake"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "active": "Active",
+    "active-stakes": "Active Stakes",
+    "deferred": "Deferred",
+    "deferred-stakes": "Deferred Stakes",
+    "ended": "Ended",
+    "ended-stakes": "Ended Stakes",
+    "start": "Start",
+    "end": "End",
+    "principal": "Principal",
+    "shares": "Shares",
+    "total": "Total",
+    "progress": "Progress",
+    "actions": "Actions",
+    "defer-stake": "Defer Stake",
+    "end-stake": "End Stake"
+  },
+  "meta": {
+    "description": "FENIX.fyi is an open-source project to help users understand the FENIX protocol and its ecosystem."
+  },
+  "link": {
+    "developer": "Developer",
+    "website-source-code": "Website Source Code",
+    "litepaper": "Litepaper",
+    "docs": "Documentation",
+    "twitter": "Twitter",
+    "telegram": "Telegram",
+    "github": "GitHub",
+    "coinmarketcap": "CoinMarketCap",
+    "dune": "Dune Analytics"
+  },
+  "gas": {
+    "gas": "Gas",
+    "transaction": "Transaction",
+    "total": "Total"
+  },
+  "card": {
+    "chain": "Chain",
+    "days-since-launch": "Days Since Launch",
+    "days": "Days",
+    "time-bonus": "Time Bonus",
+    "size-bonus": "Size Bonus",
+    "shares": "Shares",
+    "subtotal": "Subtotal"
+  },
+  "form-field": {
+    "xen": "XEN",
+    "xen-description": "Number of XEN to burn",
+    "fenix": "FENIX",
+    "fenix-description": "Number of FENIX to stake",
+    "days": "Days",
+    "days-required": "Days required",
+    "days-positive": "Days must be greater than 0",
+    "days-maximum": "Maximum days is {{numberOfDays}}",
+    "days-description": "Number of days",
+    "amount": "Amount",
+    "amount-required": "Amount required",
+    "amount-maximum": "Maximum amount is {{maximumAmount}}",
+    "amount-positive": "Amount must be greater than 0",
+    "amount-description": "Maximum amount",
+    "max": "Max"
+  }
+}

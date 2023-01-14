@@ -1,17 +1,19 @@
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { NextPage } from "next";
+import { useTranslation } from "next-i18next";
 import { useCopyToClipboard } from "usehooks-ts";
 import { truncatedAddress } from "~/lib/helpers";
 import { chainIcons } from "~/components/Constants";
 import { fenixContract } from "~/lib/fenix-contract";
-import { Chain, useToken, useContractRead } from "wagmi";
+import { Chain, useToken } from "wagmi";
 import { Container, CardContainer } from "~/components/containers/";
 import { DuplicateIcon, ExternalLinkIcon } from "@heroicons/react/outline";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
 
 const Dashboard: NextPage = () => {
+  const { t } = useTranslation("common");
   const { envChains } = useEnvironmentChains();
 
   const AddressLinks: NextPage<{ chain: Chain }> = ({ chain }) => {
@@ -91,8 +93,8 @@ const Dashboard: NextPage = () => {
     return (
       <tr>
         <th className="hidden lg:table-cell"></th>
-        <th className="hidden lg:table-cell text-right">{"Share Rate"}</th>
-        <th className="hidden lg:table-cell text-right">{"Address"}</th>
+        <th className="hidden lg:table-cell text-right">{t("share-rate")}</th>
+        <th className="hidden lg:table-cell text-right">{t("address")}</th>
       </tr>
     );
   };
@@ -100,7 +102,7 @@ const Dashboard: NextPage = () => {
   return (
     <Container className="max-w-5xl">
       <CardContainer>
-        <h2 className="card-title">{"Chains"}</h2>
+        <h2 className="card-title">{t("address")}</h2>
 
         <div className="overflow-x-auto">
           <table className="table w-full">

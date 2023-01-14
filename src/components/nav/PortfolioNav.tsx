@@ -1,9 +1,12 @@
+import { clsx } from "clsx";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { clsx } from "clsx";
+import { useTranslation } from "next-i18next";
 
 const PortfolioNav: NextPage = () => {
+  const { t } = useTranslation("common");
+
   const router = useRouter();
   const { pathname } = router;
   return (
@@ -14,7 +17,7 @@ const PortfolioNav: NextPage = () => {
             "tab-active glass": pathname == "/portfolio/active",
           })}
         >
-          Active
+          {t("portfolio.active")}
         </a>
       </Link>
       <Link href="/portfolio/defer">
@@ -23,7 +26,7 @@ const PortfolioNav: NextPage = () => {
             "tab-active glass": pathname == "/portfolio/defer",
           })}
         >
-          Deferred
+          {t("portfolio.deferred")}
         </a>
       </Link>
       <Link href="/portfolio/end">
@@ -32,7 +35,7 @@ const PortfolioNav: NextPage = () => {
             "tab-active glass": pathname == "/portfolio/end",
           })}
         >
-          Ended
+          {t("portfolio.ended")}
         </a>
       </Link>
     </div>

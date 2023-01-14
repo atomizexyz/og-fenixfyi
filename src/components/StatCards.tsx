@@ -213,9 +213,17 @@ const projects = [
   { id: 1, name: "Size", fenix: "$900.00" },
   // More projects...
 ];
-interface BonusShareCardStat {}
+interface BonusShareCardStat {
+  timeBonus: number;
+  sizeBonus: number;
+  subtotal: number;
+  shareRate: number;
+  shares: number;
+}
 
 export const BonusShareCard: NextPage<BonusShareCardStat> = (props) => {
+  const { t } = useTranslation("common");
+
   return (
     <div className="stat">
       <div className="stat-title">{"Calculator"}</div>
@@ -228,26 +236,28 @@ export const BonusShareCard: NextPage<BonusShareCardStat> = (props) => {
                 scope="col"
                 colSpan={2}
                 className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-neutral sm:pl-6 md:pl-0"
-              >
-                Bonus
-              </th>
+              ></th>
               <th
                 scope="col"
                 className="py-3.5 pl-3 pr-4 text-right text-sm font-semibold text-neutral sm:pr-6 md:pr-0"
               >
-                FENIX
+                {t("fenix").toUpperCase()}
               </th>
             </tr>
           </thead>
           <tbody>
-            {projects.map((project) => (
-              <tr key={project.id} className="border-b border-gray-200">
-                <td className="py-4 pl-4 pr-3 text-sm sm:pl-6 md:pl-0" colSpan={2}>
-                  <div className="font-medium text-neutral">{project.name}</div>
-                </td>
-                <td className="py-4 pl-3 pr-4 text-right text-sm text-base-content sm:pr-6 md:pr-0">{project.fenix}</td>
-              </tr>
-            ))}
+            <tr className="border-b border-gray-200">
+              <td className="py-4 pl-4 pr-3 text-sm sm:pl-6 md:pl-0" colSpan={2}>
+                <div className="font-medium text-neutral">{t("card.time-bonus")}</div>
+              </td>
+              <td className="py-4 pl-3 pr-4 text-right text-sm text-base-content sm:pr-6 md:pr-0">{props.timeBonus}</td>
+            </tr>
+            <tr className="border-b border-gray-200">
+              <td className="py-4 pl-4 pr-3 text-sm sm:pl-6 md:pl-0" colSpan={2}>
+                <div className="font-medium text-neutral">{t("card.size-bonus")}</div>
+              </td>
+              <td className="py-4 pl-3 pr-4 text-right text-sm text-base-content sm:pr-6 md:pr-0">{props.timeBonus}</td>
+            </tr>
           </tbody>
           <tfoot>
             <tr>
@@ -256,12 +266,12 @@ export const BonusShareCard: NextPage<BonusShareCardStat> = (props) => {
                 colSpan={2}
                 className="hidden pl-6 pr-3 pt-4 text-right text-sm text-base-content sm:table-cell md:pl-0"
               >
-                Subtotal
+                {t("card.subtotal")}
               </th>
               <th scope="row" className="pl-4 pr-3 pt-4 text-left text-sm text-base-content sm:hidden">
-                Subtotal
+                {t("card.subtotal")}
               </th>
-              <td className="pl-3 pr-4 pt-4 text-right text-sm text-base-content sm:pr-6 md:pr-0">$4,485.00</td>
+              <td className="pl-3 pr-4 pt-4 text-right text-sm text-base-content sm:pr-6 md:pr-0">{props.shares}</td>
             </tr>
             <tr>
               <th
@@ -269,12 +279,14 @@ export const BonusShareCard: NextPage<BonusShareCardStat> = (props) => {
                 colSpan={2}
                 className="hidden pl-6 pr-3 pt-4 text-right text-sm text-base-content sm:table-cell md:pl-0"
               >
-                Share Rate
+                {t("share-rate")}
               </th>
               <th scope="row" className="pl-4 pr-3 pt-4 text-left text-sm text-base-content sm:hidden">
-                Share Rate
+                {t("share-rate")}
               </th>
-              <td className="pl-3 pr-4 pt-4 text-right text-sm text-base-content  sm:pr-6 md:pr-0">1.0%</td>
+              <td className="pl-3 pr-4 pt-4 text-right text-sm text-base-content  sm:pr-6 md:pr-0">
+                {props.shareRate}
+              </td>
             </tr>
             <tr>
               <th
@@ -282,12 +294,12 @@ export const BonusShareCard: NextPage<BonusShareCardStat> = (props) => {
                 colSpan={2}
                 className="hidden pl-6 pr-3 pt-4 text-right text-sm text-neutral sm:table-cell md:pl-0"
               >
-                Shares
+                {t("card.shares")}
               </th>
               <th scope="row" className="pl-4 pr-3 pt-4 text-left text-sm text-neutral sm:hidden">
-                Shares
+                {t("card.shares")}
               </th>
-              <td className="pl-3 pr-4 pt-4 text-right text-sm text-neutral sm:pr-6 md:pr-0">$4,485.00</td>
+              <td className="pl-3 pr-4 pt-4 text-right text-sm text-neutral sm:pr-6 md:pr-0">{props.shares}</td>
             </tr>
           </tfoot>
         </table>

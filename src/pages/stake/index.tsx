@@ -2,6 +2,7 @@ import { clsx } from "clsx";
 import { BigNumber } from "ethers";
 import { DayPicker } from "react-day-picker";
 import { useState, useContext } from "react";
+import { useTranslation } from "next-i18next";
 import { MaxValueField } from "~/components/FormFields";
 import { InformationCircleIcon } from "@heroicons/react/outline";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -13,6 +14,8 @@ import GasEstimate from "~/components/GasEstimate";
 import { addMonths, isSameMonth } from "date-fns";
 
 const Stake = () => {
+  const { t } = useTranslation("common");
+
   const today = new Date();
   const nextMonth = addMonths(new Date(), 1);
   const [month, setMonth] = useState<Date>(nextMonth);
@@ -39,16 +42,16 @@ const Stake = () => {
           <h2 className="card-title text-neutral">Stake</h2>
 
           <MaxValueField
-            title={"FENIX".toUpperCase()}
-            description={"FENIX to stake"}
+            title={t("form-field.fenix").toUpperCase()}
+            description={t("form-field.fenix-description")}
             decimals={0}
             value={1}
             disabled={disabled}
           />
 
           <MaxValueField
-            title={"DAYS".toUpperCase()}
-            description={"Stake term"}
+            title={t("form-field.days").toUpperCase()}
+            description={t("form-field.days-description")}
             decimals={0}
             value={18250}
             disabled={disabled}
@@ -69,8 +72,8 @@ const Stake = () => {
           </div>
 
           <div className="stats stats-vertical glass w-full text-neutral">
-            <BonusShareCard />
-            <NumberStatCard title={"Shares"} value={0} decimals={0} />
+            <BonusShareCard timeBonus={0} sizeBonus={0} subtotal={0} shareRate={0} shares={0} />
+            <NumberStatCard title={t("card.shares")} value={0} decimals={0} />
           </div>
 
           <div className="alert shadow-lg glass">
@@ -79,10 +82,8 @@ const Stake = () => {
                 <InformationCircleIcon className="w-8 h-8" />
               </div>
               <div>
-                <h3 className="font-bold">{"Stake FENIX"}</h3>
-                <div className="text-xs">
-                  {"In order to burn your XEN, you need to give the FENIX contract permission."}
-                </div>
+                <h3 className="font-bold">{t("stake.start")}</h3>
+                <div className="text-xs">{t("stake.start-details")}</div>
               </div>
             </div>
           </div>
@@ -94,7 +95,7 @@ const Stake = () => {
                 loading: processing,
               })}
             >
-              Start Stake
+              {t("stake.start")}
             </button>
           </div>
 

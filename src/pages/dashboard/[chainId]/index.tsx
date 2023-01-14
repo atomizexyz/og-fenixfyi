@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import Container from "~/components/containers/Container";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useRouter } from "next/router";
 import { useToken } from "wagmi";
-import { NumberStatCard, ChainStatCard, DateStatCard, DataCard } from "~/components/StatCards";
+import { ChainStatCard, DateStatCard, DataCard } from "~/components/StatCards";
 import CardContainer from "~/components/containers/CardContainer";
 import { fenixContract } from "~/lib/fenix-contract";
 import { chainIcons } from "~/components/Constants";
@@ -54,7 +54,7 @@ const ChainDashbaord: NextPage = () => {
             <h2 className="card-title">{t("dashboard.general-stats")}</h2>
             <div className="stats stats-vertical bg-transparent text-neutral">
               <ChainStatCard value={chainFromId?.name ?? "Ethereum"} id={chainFromId?.id ?? 1} />
-              <DateStatCard title={t("dashboard.days-since-launch")} dateTs={123} isPast={true} />
+              <DateStatCard title={t("card.days-since-launch")} dateTs={123} isPast={true} />
               {/* {token && (
                 <DataCard
                   title={t("dashboard.token-address")}

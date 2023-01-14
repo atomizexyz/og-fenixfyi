@@ -29,9 +29,11 @@ export const Navbar: NextPage = () => {
   const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
-  const { userMint, userStake, token } = useContext(XENContext);
+  const { token } = useContext(XENContext);
 
   const NavigationItems = (props: any) => {
+    const { t } = useTranslation("common");
+
     return (
       <>
         {navigationItems.map((item, index) => (
@@ -63,27 +65,6 @@ export const Navbar: NextPage = () => {
       </>
     );
   };
-
-  useEffect(() => {
-    if (userMint && !userMint.term.isZero()) {
-      if (userMint.maturityTs.toNumber() > UTC_TIME) {
-        setMintPageOverride(2);
-      } else {
-        setMintPageOverride(3);
-      }
-    } else {
-      setMintPageOverride(1);
-    }
-    if (userStake && !userStake.term.isZero()) {
-      if (userStake.maturityTs.toNumber() > UTC_TIME) {
-        setStakePageOverride(2);
-      } else {
-        setStakePageOverride(3);
-      }
-    } else {
-      setStakePageOverride(1);
-    }
-  }, [userMint, userStake]);
 
   const ChainList: NextPage<{ chains: Chain[] }> = ({ chains }) => {
     return (
