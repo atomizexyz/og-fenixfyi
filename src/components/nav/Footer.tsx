@@ -15,13 +15,9 @@ const Footer = () => {
   return (
     <footer className="footer footer-center text-base-content py-8">
       <div>
-        <div className="grid grid-cols-4 lg:grid-flow-col gap-10 lg:gap-6 text-neutral">
+        <div className="grid grid-cols-5 lg:grid-flow-col gap-10 lg:gap-6 text-neutral">
           {linkItems.map((item, index) => (
-            <div
-              key={index}
-              className="tooltip tooltip-info"
-              data-tip={t(item.t)}
-            >
+            <div key={index} className="tooltip tooltip-info" data-tip={t(item.t)}>
               <Link href={item.href}>
                 <a target="_blank">{item.icon}</a>
               </Link>
@@ -29,12 +25,8 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      <AddressLink
-        name={t("donate")}
-        address={DONATION_ADDRESS}
-        chain={defaultChain}
-      />
-      <div className="grid grid-flow-col gap-4">
+      <AddressLink name={t("donate")} address={DONATION_ADDRESS} chain={defaultChain} />
+      <div className="grid grid-flow-col gap-5">
         {textLinkItems.map((item, index) => (
           <Link href={item.href} key={index}>
             <a target="_blank" className="link link-hover text-neutral">

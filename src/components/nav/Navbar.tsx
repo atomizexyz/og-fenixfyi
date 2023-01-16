@@ -3,7 +3,7 @@ import { ConnectKitButton } from "connectkit";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import Link from "next/link";
 import { MoonIcon, SunIcon, DotsVerticalIcon } from "@heroicons/react/outline";
-import { WalletIcon } from "../Icons";
+import { WalletIcon, FenixIcon, FenixText } from "../Icons";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import { clsx } from "clsx";
@@ -93,8 +93,9 @@ export const Navbar: NextPage = () => {
 
   return (
     <div className="navbar">
-      <div className="navbar-start space-x-2">
-        <a className="text-neutral normal-case text-3xl font-light">FENIX</a>
+      <div className="navbar-start space-x-4">
+        <FenixIcon className="text-neutral" />
+        <FenixText className="text-neutral hidden lg:flex" />
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal glass rounded-box p-2 space-x-4">
