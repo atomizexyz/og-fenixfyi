@@ -10,7 +10,7 @@ const Meta: NextPage = () => {
   const { asPath } = router;
   const path = asPath.split("/").filter((item) => item !== "");
 
-  const title = `FENIX.fyi - ${path.join(" - ")}`;
+  const title = "FENIX.fyi";
   const description = t("meta.description");
   const url = "https://fenix.fyi";
   const image = "https://fenix.fyi/images/og-logo-slogan.png";
