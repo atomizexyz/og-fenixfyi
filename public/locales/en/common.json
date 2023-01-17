@@ -7,17 +7,19 @@
   "share-rate": "Share Rate",
   "address": "Address",
   "fenix": "Fenix",
+  "add-to-wallet": "Add FENIX to Wallet",
   "dashboard": {
     "title": "Dashboard",
     "chains": "Chains",
     "general-stats": "General Stats",
     "chain-id": "Chain ID: {{chainId}}",
-    "select-chain": "Select Chain"
+    "select-chain": "Select Chain",
+    "token-address": "Token/Address",
+    "share-rate": "Share Rate"
   },
-  "mint": {
-    "title": "Mint",
+  "burn": {
+    "title": "Burn",
     "burn": "Burn",
-
     "approve": "Approve",
     "approve-details": "In order to burn your XEN, you need to give the FENIX contract permission."
   },
@@ -63,7 +65,8 @@
     "telegram": "Telegram",
     "github": "GitHub",
     "coinmarketcap": "CoinMarketCap",
-    "dune": "Dune Analytics"
+    "dune": "Dune Analytics",
+    "brand": "Brand Assets"
   },
   "gas": {
     "gas": "Gas",

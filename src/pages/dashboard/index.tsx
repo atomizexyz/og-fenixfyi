@@ -6,7 +6,8 @@ import { useCopyToClipboard } from "usehooks-ts";
 import { truncatedAddress } from "~/lib/helpers";
 import { chainIcons } from "~/components/Constants";
 import { fenixContract } from "~/lib/fenix-contract";
-import { Chain, useToken } from "wagmi";
+import { Chain, useToken, useContractRead } from "wagmi";
+import { shareRatePercent, formatDecimals } from "~/lib/helpers";
 import { Container, CardContainer } from "~/components/containers/";
 import { DuplicateIcon, ExternalLinkIcon } from "@heroicons/react/outline";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -51,6 +52,12 @@ const Dashboard: NextPage = () => {
       chainId: chain?.id,
     });
 
+    const { data: shareRate } = useContractRead({
+      ...fenixContract(chain),
+      functionName: "shareRate",
+      // watch: true,
+    }) as unknown as { data: number };
+
     return (
       <tr>
         <td>
@@ -76,13 +83,13 @@ const Dashboard: NextPage = () => {
             </div>
           </Link>
           <div className="pt-4 lg:hidden flex flex-col space-y-4">
-            <pre className="text-right">1.0%</pre>
+            <pre className="text-right">{formatDecimals(shareRatePercent(shareRate), 4, "%")}</pre>
             {tokenData && <AddressLinks chain={chain} />}
           </div>
         </td>
 
         <td className="hidden lg:table-cell text-right">
-          <pre>1.0%</pre>
+          <pre>{formatDecimals(shareRatePercent(shareRate), 4, "%")}</pre>
         </td>
         <td className="hidden lg:table-cell">{tokenData && <AddressLinks chain={chain} />}</td>
       </tr>

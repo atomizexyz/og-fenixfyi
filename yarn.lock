@@ -1867,10 +1867,10 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
-connectkit@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/connectkit/-/connectkit-0.0.2.tgz#57ab76b768b6db098f09df7e00331dd4719eaf4e"
-  integrity sha512-Gx8PPx/PWV9jh209nymJY/n2KOz1OBjGrTS3iJHNkAF9xXrxy/gvR/+HctuLI7f4kHYpZ4gTKanSs5yeIUMXwQ==
+connectkit@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/connectkit/-/connectkit-1.1.1.tgz#a0544bb41947f072d9b52145d4cf179bd6c2f156"
+  integrity sha512-aQ6DHuKBMQeed0TJqlb8UJHW4K9jim/CCKBBhSwz6xLhR73tMRxP9nIyKVr/RaC+GYt/TyXBUiKBo0G96cJO6Q==
   dependencies:
     buffer "^6.0.3"
     detect-browser "^5.3.0"
@@ -1878,6 +1878,7 @@ connectkit@^0.0.2:
     qrcode "^1.5.0"
     react-transition-state "^1.1.4"
     react-use-measure "^2.1.1"
+    resize-observer-polyfill "^1.5.1"
     styled-components "^5.3.5"
 
 copy-to-clipboard@^3.3.1:
@@ -4234,6 +4235,11 @@ require-main-filename@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-2.0.0.tgz#d0b329ecc7cc0f61649f62215be69af54aa8989b"
   integrity sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==
+
+resize-observer-polyfill@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
+  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
 resolve-from@^4.0.0:
   version "4.0.0"

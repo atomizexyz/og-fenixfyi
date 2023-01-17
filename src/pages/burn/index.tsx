@@ -21,7 +21,7 @@ const Mint = () => {
     <Container className="max-w-2xl">
       <CardContainer>
         <div className="flex flex-col space-y-4">
-          <h2 className="card-title text-neutral">{t("mint.title")}</h2>
+          <h2 className="card-title text-neutral">{t("burn.title")}</h2>
 
           <MaxValueField
             title={t("form-field.xen").toUpperCase()}
@@ -41,8 +41,8 @@ const Mint = () => {
                 <InformationCircleIcon className="w-8 h-8" />
               </div>
               <div>
-                <h3 className="font-bold">{t("mint.approve")}</h3>
-                <div className="text-xs">{t("mint.approve-details")}</div>
+                <h3 className="font-bold">{t("burn.approve")}</h3>
+                <div className="text-xs">{t("burn.approve-details")}</div>
               </div>
             </div>
           </div>
@@ -54,7 +54,7 @@ const Mint = () => {
                 loading: processing,
               })}
             >
-              {t("mint.approve")}
+              {t("burn.approve")}
             </button>
           </div>
 

@@ -67,18 +67,24 @@ interface IFENIXContext {
   setChainOverride: (chain: Chain) => void;
   feeData?: FeeData;
   token?: Token;
+  startTs: number;
+  shareRate: number;
 }
 
 const FENIXContext = createContext<IFENIXContext>({
   setChainOverride: (chain: Chain) => {},
   feeData: undefined,
   token: undefined,
+  startTs: 0,
+  shareRate: 0,
 });
 
 export const FENIXProvider = ({ children }: any) => {
   const [chainOverride, setChainOverride] = useState<Chain | undefined>();
   const [feeData, setFeeData] = useState<FeeData | undefined>();
   const [token, setToken] = useState<Token | undefined>();
+  const [startTs, setStartTs] = useState(0);
+  const [shareRate, setShareRate] = useState(0);
 
   const { address } = useAccount();
   const { chain: networkChain } = useNetwork();
@@ -100,6 +106,25 @@ export const FENIXProvider = ({ children }: any) => {
         },
       });
     },
+  });
+
+  useContractReads({
+    contracts: [
+      {
+        ...fenixContract(chain),
+        functionName: "startTs",
+      },
+      {
+        ...fenixContract(chain),
+        functionName: "shareRate",
+      },
+    ],
+    onSuccess(data) {
+      setStartTs(Number(data[0]));
+      setShareRate(Number(data[1]));
+      console.log(data);
+    },
+    watch: true,
   });
 
   useFeeData({
@@ -126,6 +151,8 @@ export const FENIXProvider = ({ children }: any) => {
         setChainOverride,
         feeData,
         token,
+        startTs,
+        shareRate,
       }}
     >
       {children}

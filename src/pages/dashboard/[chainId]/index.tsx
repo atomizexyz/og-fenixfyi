@@ -3,7 +3,7 @@ import Container from "~/components/containers/Container";
 import { useContext } from "react";
 import { useRouter } from "next/router";
 import { useToken } from "wagmi";
-import { ChainStatCard, DateStatCard, DataCard } from "~/components/StatCards";
+import { ChainStatCard, DateStatCard, NumberStatCard, DataCard } from "~/components/StatCards";
 import CardContainer from "~/components/containers/CardContainer";
 import { fenixContract } from "~/lib/fenix-contract";
 import { chainIcons } from "~/components/Constants";
@@ -13,11 +13,12 @@ import { useTranslation } from "next-i18next";
 import { chainList } from "~/lib/client";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
+import { shareRatePercent } from "~/lib/helpers";
 
 const ChainDashbaord: NextPage = () => {
   const { t } = useTranslation("common");
   const { envChains } = useEnvironmentChains();
-  const { feeData } = useContext(FENIXContext);
+  const { startTs, shareRate } = useContext(FENIXContext);
 
   const router = useRouter();
   const { chainId } = router.query as unknown as { chainId: number };
@@ -27,6 +28,16 @@ const ChainDashbaord: NextPage = () => {
     address: fenixContract(chainFromId).addressOrName,
     chainId: chainFromId?.id,
   });
+
+  const stakeItems = [
+    {
+      title: t("dashboard.share-rate"),
+      value: shareRatePercent(shareRate),
+      decimals: 4,
+      suffix: "%",
+      tooltip: t("dashboard.share-rate-description"),
+    },
+  ];
 
   return (
     <div>
@@ -54,18 +65,18 @@ const ChainDashbaord: NextPage = () => {
             <h2 className="card-title">{t("dashboard.general-stats")}</h2>
             <div className="stats stats-vertical bg-transparent text-neutral">
               <ChainStatCard value={chainFromId?.name ?? "Ethereum"} id={chainFromId?.id ?? 1} />
-              <DateStatCard title={t("card.days-since-launch")} dateTs={123} isPast={true} />
-              {/* {token && (
+              <DateStatCard title={t("card.days-since-launch")} dateTs={startTs} isPast={true} />
+              {token && (
                 <DataCard
                   title={t("dashboard.token-address")}
-                  value={token?.symbol ?? "XEN"}
-                  description={xenContract(chainFromId).addressOrName}
+                  value={token?.symbol ?? "FENIX"}
+                  description={fenixContract(chainFromId).addressOrName}
                 />
               )}
 
-              {generalStats.map((item, index) => (
+              {stakeItems.map((item, index) => (
                 <NumberStatCard key={index} title={item.title} value={item.value} decimals={0} suffix={item.suffix} />
-              ))} */}
+              ))}
             </div>
           </CardContainer>
         </div>

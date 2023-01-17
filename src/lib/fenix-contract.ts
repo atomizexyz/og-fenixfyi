@@ -13,6 +13,13 @@ import { dogechainMainnet } from "~/lib/chains/dogechainMainnet";
 
 export const fenixContract = (contractChain?: Chain) => {
   switch (contractChain?.id) {
+    case chain.foundry.id:
+    case chain.localhost.id:
+      return {
+        addressOrName: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+        contractInterface: FENIX_ABI,
+        chainId: contractChain.id,
+      };
     case dogechainMainnet.id:
     case pulseChain.id:
     case chain.goerli.id:
@@ -28,7 +35,7 @@ export const fenixContract = (contractChain?: Chain) => {
     case chain.mainnet.id:
     default:
       return {
-        addressOrName: "",
+        addressOrName: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
         contractInterface: FENIX_ABI,
         chainId: chain.mainnet.id,
       };

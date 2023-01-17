@@ -4,18 +4,12 @@ export const UTC_TIME = new Date().getTime() / 1000;
 const WITHDRAWAL_WINDOW_DAYS = 7;
 const MAX_PENALTY_PCT = 99;
 const DAYS_IN_YEAR = 365;
-export const WALLET_ADDRESS_REGEX = new RegExp(
-  `^(0x[0-9a-fA-F]{40})(,0x[0-9a-fA-F]{40})*$`
-);
+export const WALLET_ADDRESS_REGEX = new RegExp(`^(0x[0-9a-fA-F]{40})(,0x[0-9a-fA-F]{40})*$`);
 
 export const MAX_PROFILE_WALLETS = 20;
 export const DONATION_ADDRESS = "0x06e50E3802cC7A8990Fd7624dB6216138375a709";
 
-export const formatDecimals = (
-  value: number,
-  decimals: number,
-  suffix?: string
-) => {
+export const formatDecimals = (value: number, decimals: number, suffix?: string) => {
   return (
     value.toLocaleString("en-US", {
       minimumFractionDigits: decimals,
@@ -45,10 +39,7 @@ export const estimatedXEN = (globalRank: number, data?: any) => {
   if (data) {
     const EAA = 0.1 - 0.001 * (data.rank.toNumber() / 1e5);
     const XEN =
-      Math.log2(globalRank - data.rank.toNumber()) *
-      data.term.toNumber() *
-      data.amplifier.toNumber() *
-      (1 + EAA);
+      Math.log2(globalRank - data.rank.toNumber()) * data.term.toNumber() * data.amplifier.toNumber() * (1 + EAA);
 
     return XEN;
   } else {
@@ -71,6 +62,10 @@ export const stakeYield = (data?: StakeData) => {
   } else {
     return 0;
   }
+};
+
+export const shareRatePercent = (shareRate: number) => {
+  return shareRate / 1e18;
 };
 
 export const toGwei = (value: BigNumber) => {
@@ -117,17 +112,10 @@ export const truncatedAddress = (address: string) => {
 
 export const estimatedStakeRewardXEN = (data: any) => {
   const amount = Number(ethers.utils.formatUnits(data.amount ?? 0, 18));
-  if (
-    data.maturityTs.toNumber() != 0 &&
-    UTC_TIME > data.maturityTs.toNumber()
-  ) {
-    const rate =
-      (data.apy.toNumber() * data.term.toNumber() * 1_000_000) / DAYS_IN_YEAR;
+  if (data.maturityTs.toNumber() != 0 && UTC_TIME > data.maturityTs.toNumber()) {
+    const rate = (data.apy.toNumber() * data.term.toNumber() * 1_000_000) / DAYS_IN_YEAR;
     const totalReward = (data.amount.toNumber() * rate) / 100_000_000 / 1e18;
-    const progress = progressDays(
-      data.maturityTs.toNumber(),
-      data.term.toNumber()
-    );
+    const progress = progressDays(data.maturityTs.toNumber(), data.term.toNumber());
 
     return amount + (progress / data.term.toNumber()) * totalReward;
   }

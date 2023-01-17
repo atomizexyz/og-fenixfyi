@@ -5,6 +5,7 @@ import {
   DocumentTextIcon,
   ViewListIcon,
   FireIcon,
+  HomeIcon,
 } from "@heroicons/react/outline";
 import {
   DuneIcon,
@@ -34,11 +35,14 @@ export const chainIcons: Record<number, JSX.Element> = {
   250: <FantomIcon />,
   941: <PulseChainIcon />,
   1284: <MoonbeamIcon />,
+  1337: <HomeIcon className="h-5 w-5" />,
   2000: <DogeChainIcon />,
   9001: <EVMOSIcon />,
   10001: <EthereumPOWIcon />,
   43114: <AvalancheIcon />,
   80001: <PolygonIcon />,
+  31337: <DiamondIcon />,
+  8545: <EthereumIcon />,
 };
 
 export const navigationItems = [
@@ -51,9 +55,9 @@ export const navigationItems = [
   },
   {
     id: 1,
-    t: "Mint",
-    icon: <DiamondIcon />,
-    href: "/mint",
+    t: "Burn",
+    icon: <FireIcon className="h-5 w-5" />,
+    href: "/burn",
     canDisable: true,
   },
   {
@@ -98,6 +102,12 @@ export const linkItems = [
     t: "link.docs",
     icon: <BookOpenIcon className="h-5 w-5" />,
     href: "http://docs.atomize.xyz",
+  },
+  {
+    name: "Brand Assets",
+    t: "link.brand",
+    icon: <BookOpenIcon className="h-5 w-5" />,
+    href: "https://brand.fenix.fyi",
   },
   {
     name: "Twitter",

@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { ConnectKitButton } from "connectkit";
+import { ConnectKitButton, Avatar } from "connectkit";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import Link from "next/link";
 import { MoonIcon, SunIcon, DotsVerticalIcon } from "@heroicons/react/outline";
@@ -9,27 +9,38 @@ import { useRouter } from "next/router";
 import { clsx } from "clsx";
 import { Chain, useAccount, useNetwork, useSwitchNetwork } from "wagmi";
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { isMobile } from "react-device-detect";
 import { StatusBadge } from "../StatusBadge";
 import { navigationItems, linkItems, chainIcons } from "~/components/Constants";
 import { UTC_TIME } from "~/lib/helpers";
-import XENContext from "~/contexts/FENIXContext";
+import FENIXContext from "~/contexts/FENIXContext";
 import { useTranslation } from "next-i18next";
+import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
+import { useToken } from "wagmi";
+import { fenixContract } from "~/lib/fenix-contract";
 
 export const Navbar: NextPage = () => {
   const { t } = useTranslation("common");
 
   const router = useRouter();
   const { chain } = useNetwork();
-  const { chains, switchNetwork } = useSwitchNetwork();
+  const { envChains } = useEnvironmentChains();
+  const { switchNetwork } = useSwitchNetwork();
   const [mintPageOverride, setMintPageOverride] = useState(1);
   const [stakePageOverride, setStakePageOverride] = useState(1);
   const { connector, isConnected } = useAccount();
   const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
-  const { token } = useContext(XENContext);
+  const {} = useContext(FENIXContext);
+  const chainDropdown = useRef<HTMLDivElement>(null);
+  const menuDropdown = useRef<HTMLDivElement>(null);
+
+  const { data: token } = useToken({
+    address: fenixContract(chain).addressOrName,
+    chainId: chain?.id,
+  });
 
   const NavigationItems = (props: any) => {
     const { t } = useTranslation("common");
@@ -104,31 +115,41 @@ export const Navbar: NextPage = () => {
       </div>
       <div className="navbar-end space-x-4">
         <ConnectKitButton.Custom>
-          {({ show, truncatedAddress }) => {
+          {({ show, address, truncatedAddress }) => {
             return (
               <>
                 {isConnected ? (
                   <>
-                    <div className="dropdown">
-                      <label tabIndex={0} className="btn glass btn-square text-neutral">
+                    <div className="dropdown" ref={chainDropdown}>
+                      <div
+                        tabIndex={0}
+                        className="btn glass btn-square text-neutral"
+                        onClick={() => {
+                          chainDropdown?.current?.classList.toggle("dropdown-open");
+                          (document.activeElement as HTMLElement).blur();
+                        }}
+                      >
                         {chainIcons[chain?.id ?? 1]}
-                      </label>
+                      </div>
                       <ul
                         tabIndex={0}
                         className="menu menu-compact dropdown-content mt-3 p-2 shadow glass rounded-box w-64 space-y-2"
                       >
-                        <ChainList chains={chains.filter((chain) => !chain.testnet)} />
+                        <ChainList chains={envChains} />
                       </ul>
                     </div>
 
                     <button onClick={show} className="btn glass text-neutral">
                       <div className="flex space-x-2 items-center">
+                        <div className="hidden lg:inline-flex">
+                          <Avatar address={address} size={32} />
+                        </div>
                         <pre className="text-base font-light">{truncatedAddress}</pre>
                       </div>
                     </button>
                   </>
                 ) : (
-                  <button disabled onClick={show} className="btn glass text-neutral">
+                  <button onClick={show} className="btn glass text-neutral">
                     {t("connect-wallet")}
                   </button>
                 )}
@@ -167,8 +188,8 @@ export const Navbar: NextPage = () => {
                     (connector as InjectedConnector)?.watchAsset?.({
                       address: token.address,
                       decimals: token.decimals,
-                      image: "https://xen.fyi/images/xen.png",
-                      symbol: token.symbol ?? "XEN",
+                      image: "https://fenix.fyi/images/fenix.png",
+                      symbol: token.symbol ?? "FENIX",
                     });
                     (document.activeElement as HTMLElement).blur();
                   }}
