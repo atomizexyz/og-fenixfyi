@@ -13,6 +13,11 @@ const nextConfig = {
         permanent: false,
       },
       {
+        source: "/burn",
+        destination: "/burn/xen",
+        permanent: false,
+      },
+      {
         source: "/portfolio",
         destination: "/portfolio/active",
         permanent: false,

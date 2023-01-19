@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { BigNumber } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { DayPicker } from "react-day-picker";
 import { useState, useContext } from "react";
 import { useTranslation } from "next-i18next";
@@ -21,7 +21,7 @@ const Stake = () => {
   const [month, setMonth] = useState<Date>(nextMonth);
   const [disabled, setDisabled] = useState(false);
   const [processing, setProcessing] = useState(false);
-  const { feeData } = useContext(FENIXContext);
+  const { feeData, fenixBalance } = useContext(FENIXContext);
 
   const [selected, setSelected] = useState<Date>();
 
@@ -45,7 +45,10 @@ const Stake = () => {
             title={t("form-field.fenix").toUpperCase()}
             description={t("form-field.fenix-description")}
             decimals={0}
-            value={1}
+            value={ethers.utils.formatUnits(
+              fenixBalance?.value ?? BigNumber.from(0),
+              fenixBalance?.decimals ?? BigNumber.from(0)
+            )}
             disabled={disabled}
           />
 

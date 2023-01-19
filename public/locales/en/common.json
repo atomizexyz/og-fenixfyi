@@ -19,9 +19,16 @@
   },
   "burn": {
     "title": "Burn",
-    "burn": "Burn",
+    "title-unlimited": "Burn Unlimited",
     "approve": "Approve",
-    "approve-details": "In order to burn your XEN, you need to give the FENIX contract permission."
+    "approve-details": "In order to burn your XEN, you need to give the FENIX contract permission.",
+    "approve-number": "Approve {{tokenAmount}} Burn",
+    "approve-fixed": "Approve Fixed Burn",
+    "approve-unlimited": "Approve Unlimited Burn",
+    "get": "Get XEN",
+    "get-xen-title": "Get some XEN",
+    "get-xen-description": "You need to have some XEN to burn. You can get XEN by minting it for free + GAS fee or by buying XEN on a DEX.",
+    "get-xen": "Get XEN on xen.fyi"
   },
   "stake": {
     "title": "Stake",
@@ -98,5 +105,8 @@
     "amount-positive": "Amount must be greater than 0",
     "amount-description": "Maximum amount",
     "max": "Max"
+  },
+  "toast": {
+    "spend-approved": "Spend approved"
   }
 }

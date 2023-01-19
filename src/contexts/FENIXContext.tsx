@@ -12,6 +12,7 @@ import {
 import { BigNumber } from "ethers";
 import { chainList } from "~/lib/client";
 import { fenixContract } from "~/lib/fenix-contract";
+import { xenContract } from "~/lib/xen-contract";
 
 export interface UserMint {
   user: string;
@@ -66,46 +67,63 @@ export interface Balance {
 interface IFENIXContext {
   setChainOverride: (chain: Chain) => void;
   feeData?: FeeData;
-  token?: Token;
+  xenBalance?: Balance;
+  fenixBalance?: Balance;
   startTs: number;
   shareRate: number;
+  allowance: number;
 }
 
 const FENIXContext = createContext<IFENIXContext>({
   setChainOverride: (chain: Chain) => {},
   feeData: undefined,
-  token: undefined,
+  xenBalance: undefined,
+  fenixBalance: undefined,
   startTs: 0,
   shareRate: 0,
+  allowance: 0,
 });
 
 export const FENIXProvider = ({ children }: any) => {
   const [chainOverride, setChainOverride] = useState<Chain | undefined>();
   const [feeData, setFeeData] = useState<FeeData | undefined>();
-  const [token, setToken] = useState<Token | undefined>();
+  const [xenBalance, setXenBalance] = useState<Balance | undefined>();
+  const [fenixBalance, setFenixBalance] = useState<Balance | undefined>();
   const [startTs, setStartTs] = useState(0);
   const [shareRate, setShareRate] = useState(0);
+  const [allowance, setAllowance] = useState(0);
 
   const { address } = useAccount();
   const { chain: networkChain } = useNetwork();
 
   const chain = chainOverride ?? networkChain ?? chainList[0];
 
-  useToken({
-    address: fenixContract(chain).addressOrName,
-    chainId: chain?.id,
+  useBalance({
+    addressOrName: address,
+    token: fenixContract(chain).addressOrName,
     onSuccess(data) {
-      setToken({
-        address: data.address,
+      setFenixBalance({
         decimals: data.decimals,
-        name: data.name,
+        formatted: data.formatted,
         symbol: data.symbol,
-        totalSupply: {
-          formatted: data.totalSupply.formatted,
-          value: data.totalSupply.value,
-        },
+        value: data.value,
       });
     },
+    // watch: true,
+  });
+
+  useBalance({
+    addressOrName: address,
+    token: xenContract(chain).addressOrName,
+    onSuccess(data) {
+      setXenBalance({
+        decimals: data.decimals,
+        formatted: data.formatted,
+        symbol: data.symbol,
+        value: data.value,
+      });
+    },
+    // watch: true,
   });
 
   useContractReads({
@@ -118,11 +136,16 @@ export const FENIXProvider = ({ children }: any) => {
         ...fenixContract(chain),
         functionName: "shareRate",
       },
+      {
+        ...fenixContract(chain),
+        functionName: "allowance",
+        args: [address, fenixContract(chain).addressOrName],
+      },
     ],
     onSuccess(data) {
       setStartTs(Number(data[0]));
       setShareRate(Number(data[1]));
-      console.log(data);
+      setAllowance(Number(data[2]));
     },
     watch: true,
   });
@@ -150,9 +173,11 @@ export const FENIXProvider = ({ children }: any) => {
       value={{
         setChainOverride,
         feeData,
-        token,
+        xenBalance,
+        fenixBalance,
         startTs,
         shareRate,
+        allowance,
       }}
     >
       {children}

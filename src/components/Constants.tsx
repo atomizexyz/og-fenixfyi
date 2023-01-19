@@ -7,13 +7,9 @@ import {
   FireIcon,
   HomeIcon,
 } from "@heroicons/react/outline";
+import { TwitterIcon, TelegramIcon, GitHubIcon, FigmaIcon } from "~/components/Icons";
+
 import {
-  DuneIcon,
-  TwitterIcon,
-  TelegramIcon,
-  GitHubIcon,
-  DiamondIcon,
-  CoinmarketCapIcon,
   EthereumIcon,
   PulseChainIcon,
   PolygonIcon,
@@ -24,12 +20,15 @@ import {
   MoonbeamIcon,
   FantomIcon,
   DogeChainIcon,
-} from "~/components/Icons";
+  OKChainIcon,
+  FoundryIcon,
+} from "~/components/ChainIcons";
 
 export const chainIcons: Record<number, JSX.Element> = {
   1: <EthereumIcon />,
   5: <EthereumIcon />,
   56: <BinanceSmartChainIcon />,
+  66: <OKChainIcon />,
   97: <BinanceSmartChainIcon />,
   137: <PolygonIcon />,
   250: <FantomIcon />,
@@ -41,8 +40,7 @@ export const chainIcons: Record<number, JSX.Element> = {
   10001: <EthereumPOWIcon />,
   43114: <AvalancheIcon />,
   80001: <PolygonIcon />,
-  31337: <DiamondIcon />,
-  8545: <EthereumIcon />,
+  31337: <FoundryIcon />,
 };
 
 export const navigationItems = [
@@ -106,7 +104,7 @@ export const linkItems = [
   {
     name: "Brand Assets",
     t: "link.brand",
-    icon: <BookOpenIcon className="h-5 w-5" />,
+    icon: <FigmaIcon />,
     href: "https://brand.fenix.fyi",
   },
   {
