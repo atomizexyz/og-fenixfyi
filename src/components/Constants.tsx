@@ -104,19 +104,13 @@ export const linkItems = [
     name: "Twitter",
     t: "link.twitter",
     icon: <TwitterIcon />,
-    href: "https://twitter.com/atomizexyz",
+    href: "https://twitter.com/fenix_protocol",
   },
   {
     name: "Telegram",
     t: "link.telegram",
     icon: <TelegramIcon />,
-    href: "https://t.me/atomizexyz",
-  },
-  {
-    name: "Discord",
-    t: "link.discord",
-    icon: <DiscordIcon />,
-    href: "https://discord.gg/atomizexyz",
+    href: "https://t.me/fenix_protocol",
   },
   {
     name: "GitHub",

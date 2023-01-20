@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Meta from "~/components/Meta";
 import Image from "next/image";
+import Footer from "~/components/nav/Footer";
 
 const Home: NextPage = () => {
   return (
@@ -13,6 +14,7 @@ const Home: NextPage = () => {
             <p className="py-10 text-white text-4xl font-extrabold">
               <span className="text-black">FENIX</span> will rise from the ashes of burned XEN
             </p>
+            <Footer />
           </div>
         </div>
       </div>
