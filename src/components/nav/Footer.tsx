@@ -7,7 +7,7 @@ const Footer = () => {
       <div>
         <div className="grid grid-cols-4 lg:grid-flow-col gap-10 lg:gap-6 text-neutral">
           {linkItems.map((item, index) => (
-            <div key={index} className="tooltip tooltip-info" data-tip={item.name}>
+            <div key={index} className="tooltip tooltip-info text-white" data-tip={item.name}>
               <Link href={item.href}>
                 <a target="_blank">{item.icon}</a>
               </Link>
