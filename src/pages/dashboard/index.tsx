@@ -1,6 +1,7 @@
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { NextPage } from "next";
+import CountUp from "react-countup";
 import { useTranslation } from "next-i18next";
 import { useCopyToClipboard } from "usehooks-ts";
 import { truncatedAddress } from "~/lib/helpers";
@@ -83,13 +84,17 @@ const Dashboard: NextPage = () => {
             </div>
           </Link>
           <div className="pt-4 lg:hidden flex flex-col space-y-4">
-            <pre className="text-right">{formatDecimals(shareRatePercent(shareRate), 4, "%")}</pre>
+            <pre className="text-right">
+              <CountUp end={shareRatePercent(shareRate)} preserveValue={true} separator="," suffix="%" decimals={4} />
+            </pre>
             {tokenData && <AddressLinks chain={chain} />}
           </div>
         </td>
 
         <td className="hidden lg:table-cell text-right">
-          <pre>{formatDecimals(shareRatePercent(shareRate), 4, "%")}</pre>
+          <pre>
+            <CountUp end={shareRatePercent(shareRate)} preserveValue={true} separator="," suffix="%" decimals={4} />
+          </pre>
         </td>
         <td className="hidden lg:table-cell">{tokenData && <AddressLinks chain={chain} />}</td>
       </tr>

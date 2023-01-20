@@ -57,8 +57,7 @@
     "total": "Total",
     "progress": "Progress",
     "actions": "Actions",
-    "defer-stake": "Defer Stake",
-    "end-stake": "End Stake"
+    "defer": "Defer"
   },
   "meta": {
     "description": "FENIX.fyi is an open-source project to help users understand the FENIX protocol and its ecosystem."
@@ -87,7 +86,9 @@
     "time-bonus": "Time Bonus",
     "size-bonus": "Size Bonus",
     "shares": "Shares",
-    "subtotal": "Subtotal"
+    "subtotal": "Subtotal",
+    "liquid": "Liquid",
+    "new": "New"
   },
   "form-field": {
     "xen": "XEN",
@@ -104,7 +105,9 @@
     "amount-maximum": "Maximum amount is {{maximumAmount}}",
     "amount-positive": "Amount must be greater than 0",
     "amount-description": "Maximum amount",
-    "max": "Max"
+    "max": "Max",
+    "go-to-today": "Go to Today",
+    "lock-month": "Lock Month"
   },
   "toast": {
     "spend-approved": "Spend approved"

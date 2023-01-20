@@ -126,26 +126,3 @@ export const linkItems = [
     href: "https://github.com/atomizexyz",
   },
 ];
-
-export const stakes = [
-  {
-    id: 1,
-    deferralTs: null,
-    startTs: new Date(),
-    term: 100,
-    fenix: 10000,
-    bonus: 100,
-    shares: 10,
-    payout: null,
-  },
-  {
-    id: 2,
-    deferralTs: null,
-    startTs: new Date(),
-    term: 100,
-    fenix: 10000,
-    bonus: 100,
-    shares: 10,
-    payout: null,
-  },
-];

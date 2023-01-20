@@ -9,11 +9,10 @@ import { useRouter } from "next/router";
 import { clsx } from "clsx";
 import { Chain, useAccount, useNetwork, useSwitchNetwork } from "wagmi";
 
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useContext, useRef } from "react";
 import { isMobile } from "react-device-detect";
 import { StatusBadge } from "../StatusBadge";
 import { navigationItems, linkItems, chainIcons } from "~/components/Constants";
-import { UTC_TIME } from "~/lib/helpers";
 import FENIXContext from "~/contexts/FENIXContext";
 import { useTranslation } from "next-i18next";
 import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
@@ -109,11 +108,11 @@ export const Navbar: NextPage = () => {
         <FenixText className="text-neutral hidden lg:flex" />
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal glass rounded-box p-2 space-x-4">
+        <ul className="menu menu-horizontal glass rounded-box p-2 space-x-2">
           <NavigationItems />
         </ul>
       </div>
-      <div className="navbar-end space-x-4">
+      <div className="navbar-end space-x-2">
         <ConnectKitButton.Custom>
           {({ show, address, truncatedAddress }) => {
             return (

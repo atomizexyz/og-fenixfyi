@@ -10,7 +10,6 @@ export const StakeHeaderFooter: NextPage<any> = (props) => {
       <th className="bg-transparent hidden lg:table-cell">{t("portfolio.end")}</th>
       <th className="bg-transparent hidden lg:table-cell text-right">{t("portfolio.principal")}</th>
       <th className="bg-transparent hidden lg:table-cell text-right">{t("portfolio.shares")}</th>
-      <th className="bg-transparent hidden lg:table-cell text-right">{t("portfolio.total")}</th>
       <th className="bg-transparent hidden lg:table-cell text-right">{t("portfolio.progress")}</th>
       <th className="bg-transparent hidden lg:table-cell"></th>
     </tr>

@@ -1,5 +1,4 @@
 import CountUp from "react-countup";
-import { ethers } from "ethers";
 import { UTC_TIME, formatFullDate } from "~/lib/helpers";
 import { InformationCircleIcon } from "@heroicons/react/outline";
 import type { NextPage } from "next";
@@ -208,11 +207,6 @@ export const CountdownCard: NextPage<CountdownCardStat> = (props) => {
   );
 };
 
-const projects = [
-  { id: 1, name: "Time", fenix: "$900.00" },
-  { id: 1, name: "Size", fenix: "$900.00" },
-  // More projects...
-];
 interface BonusShareCardStat {
   timeBonus: number;
   sizeBonus: number;
@@ -228,78 +222,76 @@ export const BonusShareCard: NextPage<BonusShareCardStat> = (props) => {
     <div className="stat">
       <div className="stat-title">{"Calculator"}</div>
 
-      <div className="min-w-full">
-        <table className="min-w-full divide-y divide-gray-300">
+      <div className="overflow-x-auto">
+        <table className="table table-zebra table-compact w-full">
           <thead>
             <tr>
-              <th
-                scope="col"
-                colSpan={2}
-                className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-neutral sm:pl-6 md:pl-0"
-              ></th>
-              <th
-                scope="col"
-                className="py-3.5 pl-3 pr-4 text-right text-sm font-semibold text-neutral sm:pr-6 md:pr-0"
-              >
-                {t("fenix").toUpperCase()}
-              </th>
+              <th colSpan={2}></th>
+              <th className="text-right text-neutral">{t("fenix").toUpperCase()}</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-gray-200">
-              <td className="py-4 pl-4 pr-3 text-sm sm:pl-6 md:pl-0" colSpan={2}>
-                <div className="font-medium text-neutral">{t("card.time-bonus")}</div>
+            <tr>
+              <td colSpan={2}>
+                <div className="flex flex-row space-x-1 items-center text-base-content">
+                  <div className="font-medium">{t("card.time-bonus")}</div>
+                  <div className="tooltip tooltip-right" data-tip="Time Bonus Formula">
+                    <InformationCircleIcon className="w-4 h-4" />
+                  </div>
+                </div>
               </td>
-              <td className="py-4 pl-3 pr-4 text-right text-sm text-base-content sm:pr-6 md:pr-0">{props.timeBonus}</td>
+              <td className="text-right text-sm text-neutral">
+                <pre>
+                  <CountUp end={props.timeBonus} preserveValue={true} separator="," decimals={4} />
+                </pre>
+              </td>
             </tr>
-            <tr className="border-b border-gray-200">
-              <td className="py-4 pl-4 pr-3 text-sm sm:pl-6 md:pl-0" colSpan={2}>
-                <div className="font-medium text-neutral">{t("card.size-bonus")}</div>
+            <tr>
+              <td colSpan={2}>
+                <div className="flex flex-row space-x-1 items-center text-base-content">
+                  <div className="font-medium ">{t("card.size-bonus")}</div>
+                  <div className="tooltip tooltip-right" data-tip="Size Bonus Formula">
+                    <InformationCircleIcon className="w-4 h-4" />
+                  </div>
+                </div>
               </td>
-              <td className="py-4 pl-3 pr-4 text-right text-sm text-base-content sm:pr-6 md:pr-0">{props.timeBonus}</td>
+              <td className="text-right text-sm text-neutral">
+                <pre>
+                  <CountUp end={props.sizeBonus} preserveValue={true} separator="," decimals={4} />
+                </pre>
+              </td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
-              <th
-                scope="row"
-                colSpan={2}
-                className="hidden pl-6 pr-3 pt-4 text-right text-sm text-base-content sm:table-cell md:pl-0"
-              >
+              <th scope="row" colSpan={2} className="text-left md:text-right text-sm text-base-content sm:table-cell">
                 {t("card.subtotal")}
               </th>
-              <th scope="row" className="pl-4 pr-3 pt-4 text-left text-sm text-base-content sm:hidden">
-                {t("card.subtotal")}
-              </th>
-              <td className="pl-3 pr-4 pt-4 text-right text-sm text-base-content sm:pr-6 md:pr-0">{props.shares}</td>
-            </tr>
-            <tr>
-              <th
-                scope="row"
-                colSpan={2}
-                className="hidden pl-6 pr-3 pt-4 text-right text-sm text-base-content sm:table-cell md:pl-0"
-              >
-                {t("share-rate")}
-              </th>
-              <th scope="row" className="pl-4 pr-3 pt-4 text-left text-sm text-base-content sm:hidden">
-                {t("share-rate")}
-              </th>
-              <td className="pl-3 pr-4 pt-4 text-right text-sm text-base-content  sm:pr-6 md:pr-0">
-                {props.shareRate}
+              <td className="text-right text-sm text-neutral">
+                <pre>
+                  <CountUp end={props.subtotal} preserveValue={true} separator="," decimals={4} />
+                </pre>
               </td>
             </tr>
             <tr>
-              <th
-                scope="row"
-                colSpan={2}
-                className="hidden pl-6 pr-3 pt-4 text-right text-sm text-neutral sm:table-cell md:pl-0"
-              >
+              <th scope="row" colSpan={2} className="text-left md:text-right text-sm text-base-content sm:table-cell">
+                {t("share-rate")}
+              </th>
+              <td className="text-right text-sm text-neutral">
+                <pre>
+                  <CountUp end={props.shareRate} preserveValue={true} separator="," suffix="%" decimals={4} />
+                </pre>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" colSpan={2} className="text-left md:text-right text-sm text-base-content sm:table-cell">
                 {t("card.shares")}
               </th>
-              <th scope="row" className="pl-4 pr-3 pt-4 text-left text-sm text-neutral sm:hidden">
-                {t("card.shares")}
-              </th>
-              <td className="pl-3 pr-4 pt-4 text-right text-sm text-neutral sm:pr-6 md:pr-0">{props.shares}</td>
+              <td className="text-right text-sm text-neutral">
+                <pre>
+                  <CountUp end={props.shares} preserveValue={true} separator="," decimals={4} />
+                </pre>
+              </td>
             </tr>
           </tfoot>
         </table>

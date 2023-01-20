@@ -1,5 +1,6 @@
 import { daysSince } from "~/components/StatCards";
 import { BigNumber, ethers } from "ethers";
+export const FENIX_MAX_STAKE_LENGTH = 18250;
 export const UTC_TIME = new Date().getTime() / 1000;
 const WITHDRAWAL_WINDOW_DAYS = 7;
 const MAX_PENALTY_PCT = 99;
@@ -147,4 +148,14 @@ export const formatTime = (date: number) => {
   const minute = `0${d.getMinutes()}`.slice(-2);
   const second = `0${d.getSeconds()}`.slice(-2);
   return `${hour}:${minute}:${second}`;
+};
+
+export const currentYear = () => {
+  return new Date().getUTCFullYear();
+};
+export const maxEndStakeYear = () => {
+  // FENIX_MAX_STAKE_LENGTH days to years from now
+  const d = new Date();
+  d.setUTCDate(d.getUTCDate() + FENIX_MAX_STAKE_LENGTH);
+  return d.getUTCFullYear();
 };

@@ -5,7 +5,6 @@ import { BigNumber, ethers } from "ethers";
 import { useEffect, useState, useContext } from "react";
 import { useTranslation } from "next-i18next";
 import { MaxValueField } from "~/components/FormFields";
-import { InformationCircleIcon } from "@heroicons/react/outline";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Container, CardContainer } from "~/components/containers/";
 import FENIXContext from "~/contexts/FENIXContext";
@@ -16,12 +15,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "@hookform/error-message";
 import { useNetwork, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
-import { xenContract } from "~/lib/xen-contract";
-import XENCryptoABI from "~/abi/XENCryptoABI";
 import { fenixContract } from "~/lib/fenix-contract";
 import FENIX_ABI from "~/abi/FENIX_ABI";
+import { NumberStatCard } from "~/components/StatCards";
 
-const Burn = () => {
+const Burn: NextPage = () => {
   const { t } = useTranslation("common");
 
   const { chain } = useNetwork();
@@ -123,16 +121,24 @@ const Burn = () => {
                 setValue={setValue}
               />
 
-              <div className="alert shadow-lg glass">
-                <div>
-                  <div>
-                    <InformationCircleIcon className="w-8 h-8" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold">{t("burn.approve-fixed")}</h3>
-                    <div className="text-xs">{t("burn.approve-details")}</div>
-                  </div>
-                </div>
+              <div className="flex stats glass w-full text-neutral">
+                <NumberStatCard
+                  title={t("card.new")}
+                  value={burnXENAmount / 10_000}
+                  decimals={4}
+                  description={"FENIX"}
+                />
+                <NumberStatCard
+                  title={t("card.liquid")}
+                  value={Number(
+                    ethers.utils.formatUnits(
+                      fenixBalance?.value ?? BigNumber.from(0),
+                      fenixBalance?.decimals ?? BigNumber.from(0)
+                    )
+                  )}
+                  decimals={4}
+                  description={"FENIX"}
+                />
               </div>
 
               <div className="form-control w-full">

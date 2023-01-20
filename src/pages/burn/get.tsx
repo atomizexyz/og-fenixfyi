@@ -1,24 +1,9 @@
-import { clsx } from "clsx";
 import Link from "next/link";
 import { NextPage } from "next";
-import { BigNumber, ethers } from "ethers";
-import { useEffect, useState, useContext } from "react";
 import { useTranslation } from "next-i18next";
-import { MaxValueField } from "~/components/FormFields";
 import { InformationCircleIcon } from "@heroicons/react/outline";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Container, CardContainer } from "~/components/containers/";
-import FENIXContext from "~/contexts/FENIXContext";
-import GasEstimate from "~/components/GasEstimate";
-import toast from "react-hot-toast";
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { ErrorMessage } from "@hookform/error-message";
-import { useNetwork, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
-import { xenContract } from "~/lib/xen-contract";
-import XENCryptoABI from "~/abi/XENCryptoABI";
-import { fenixContract } from "~/lib/fenix-contract";
 
 const GetXen: NextPage = () => {
   const { t } = useTranslation("common");

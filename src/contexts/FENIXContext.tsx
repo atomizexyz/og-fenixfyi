@@ -1,14 +1,5 @@
 import React, { createContext, useState } from "react";
-import {
-  Chain,
-  useToken,
-  useFeeData,
-  useBalance,
-  useAccount,
-  useNetwork,
-  useContractRead,
-  useContractReads,
-} from "wagmi";
+import { Chain, useFeeData, useBalance, useAccount, useNetwork, useContractRead, useContractReads } from "wagmi";
 import { BigNumber } from "ethers";
 import { chainList } from "~/lib/client";
 import { fenixContract } from "~/lib/fenix-contract";
