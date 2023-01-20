@@ -11,9 +11,7 @@ import {
   TwitterIcon,
   TelegramIcon,
   GitHubIcon,
-  DiamondIcon,
-  DiscordIcon,
-  CoinmarketCapIcon,
+  FigmaIcon,
   EthereumIcon,
   PulseChainIcon,
   PolygonIcon,
@@ -95,12 +93,6 @@ export const linkItems = [
     href: "http://github.com/atomizexyz/litepaper",
   },
   {
-    name: "Docs",
-    t: "link.docs",
-    icon: <BookOpenIcon className="h-5 w-5" />,
-    href: "http://docs.atomize.xyz",
-  },
-  {
     name: "Twitter",
     t: "link.twitter",
     icon: <TwitterIcon />,
@@ -111,6 +103,18 @@ export const linkItems = [
     t: "link.telegram",
     icon: <TelegramIcon />,
     href: "https://t.me/fenix_protocol",
+  },
+  {
+    name: "Brand Assets",
+    t: "link.brand",
+    icon: <FigmaIcon />,
+    href: "https://brand.fenix.fyi",
+  },
+  {
+    name: "Docs",
+    t: "link.docs",
+    icon: <BookOpenIcon className="h-5 w-5" />,
+    href: "http://docs.atomize.xyz",
   },
   {
     name: "GitHub",
