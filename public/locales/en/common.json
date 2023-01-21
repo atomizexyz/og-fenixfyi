@@ -15,7 +15,9 @@
     "chain-id": "Chain ID: {{chainId}}",
     "select-chain": "Select Chain",
     "token-address": "Token/Address",
-    "share-rate": "Share Rate"
+    "share-rate": "Share Rate",
+    "pool-supply": "Pool Supply",
+    "pool-supply-description": "Future supply of FENIX"
   },
   "burn": {
     "title": "Burn",
@@ -110,6 +112,8 @@
     "lock-month": "Lock Month"
   },
   "toast": {
-    "spend-approved": "Spend approved"
+    "spend-approved": "Spend approved",
+    "end-stake-successful": "Stake ended successfully",
+    "defer-stake-successful": "Stake deferred successfully"
   }
 }

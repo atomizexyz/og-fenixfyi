@@ -80,7 +80,6 @@ const Approve: NextPage = () => {
   const {} = useWaitForTransaction({
     hash: fixedApproveData?.hash,
     onSuccess(data) {
-      console.log(data);
       toast(t("toast.spend-approved"));
       //   router.push("/burn/xen");
     },

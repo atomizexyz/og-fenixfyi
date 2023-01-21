@@ -8,6 +8,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useNetwork, useContractRead, useAccount } from "wagmi";
 import { fenixContract } from "~/lib/fenix-contract";
 import FENIX_ABI from "~/abi/FENIX_ABI";
+import FENIXContext from "~/contexts/FENIXContext";
+import { useContext } from "react";
 
 const ActivePortfolio: NextPage = () => {
   const { t } = useTranslation("common");
@@ -20,6 +22,8 @@ const ActivePortfolio: NextPage = () => {
     functionName: "stakeCount",
     args: [address],
   }) as unknown as { data: number };
+
+  const { poolSupply } = useContext(FENIXContext);
 
   return (
     <Container className="max-w-5xl">

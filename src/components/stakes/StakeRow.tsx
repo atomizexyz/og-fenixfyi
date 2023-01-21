@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { progressDays } from "~/lib/helpers";
 import CountUp from "react-countup";
 import { clsx } from "clsx";
+import { watch } from "fs";
 
 export const StakeRow: NextPage<any> = (props) => {
   const { t } = useTranslation("common");
@@ -22,9 +23,9 @@ export const StakeRow: NextPage<any> = (props) => {
     contractInterface: FENIX_ABI,
     functionName: "stakeFor",
     args: [props.stakerAddress, 0],
+    watch: true,
   });
 
-  console.log(stake);
   const startTime = Number(stake?.startTs ?? 0);
   const endTime = startTime + stake?.term * 86400;
 
@@ -57,7 +58,7 @@ export const StakeRow: NextPage<any> = (props) => {
         </div>
       </td>
       <td className="bg-transparent text-right">
-        <div className="flex space-x-1">
+        <div className="space-x-1">
           <Link href={`/stake/${stake?.stakeId}/defer`}>
             <button className="btn btn-sm glass text-neutral" disabled={!canDefer}>
               {t("portfolio.defer")}

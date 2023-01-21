@@ -7,7 +7,7 @@ import { useCopyToClipboard } from "usehooks-ts";
 import { truncatedAddress } from "~/lib/helpers";
 import { chainIcons } from "~/components/Constants";
 import { fenixContract } from "~/lib/fenix-contract";
-import { Chain, useToken, useContractRead } from "wagmi";
+import { Chain, useToken, useContractReads } from "wagmi";
 import { shareRatePercent, formatDecimals } from "~/lib/helpers";
 import { Container, CardContainer } from "~/components/containers/";
 import { DuplicateIcon, ExternalLinkIcon } from "@heroicons/react/outline";
@@ -53,11 +53,22 @@ const Dashboard: NextPage = () => {
       chainId: chain?.id,
     });
 
-    const { data: shareRate } = useContractRead({
-      ...fenixContract(chain),
-      functionName: "shareRate",
-      // watch: true,
-    }) as unknown as { data: number };
+    const { data } = useContractReads({
+      contracts: [
+        {
+          ...fenixContract(chain),
+          functionName: "shareRate",
+        },
+        {
+          ...fenixContract(chain),
+          functionName: "poolSupply",
+        },
+      ],
+      watch: true,
+    });
+
+    const shareRate = Number(data?.[0] ?? 0);
+    const poolSupply = Number(data?.[1] ?? 0);
 
     return (
       <tr>
@@ -83,12 +94,18 @@ const Dashboard: NextPage = () => {
               </div>
             </div>
           </Link>
-          <div className="pt-4 lg:hidden flex flex-col space-y-4">
+          {/* <div className="pt-4 lg:hidden flex flex-col space-y-4">
             <pre className="text-right">
-              <CountUp end={shareRatePercent(shareRate)} preserveValue={true} separator="," suffix="%" decimals={4} />
+              <CountUp end={shareRatePercent(1)} preserveValue={true} separator="," suffix="%" decimals={4} />
             </pre>
             {tokenData && <AddressLinks chain={chain} />}
-          </div>
+          </div> */}
+        </td>
+
+        <td>
+          <pre className="text-right">
+            <CountUp end={poolSupply} preserveValue={true} separator="," />
+          </pre>
         </td>
 
         <td className="hidden lg:table-cell text-right">
@@ -105,7 +122,8 @@ const Dashboard: NextPage = () => {
     return (
       <tr>
         <th className="hidden lg:table-cell"></th>
-        <th className="hidden lg:table-cell text-right">{t("share-rate")}</th>
+        <th className="hidden lg:table-cell text-right">{t("dashboard.pool-supply")}</th>
+        <th className="hidden lg:table-cell text-right">{t("dashboard.share-rate")}</th>
         <th className="hidden lg:table-cell text-right">{t("address")}</th>
       </tr>
     );

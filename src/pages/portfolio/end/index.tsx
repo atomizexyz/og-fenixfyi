@@ -8,6 +8,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useNetwork, useContractRead, useAccount } from "wagmi";
 import { fenixContract } from "~/lib/fenix-contract";
 import FENIX_ABI from "~/abi/FENIX_ABI";
+import FENIXContext from "~/contexts/FENIXContext";
+import { useContext } from "react";
 
 const EndPortfolio: NextPage = () => {
   const { t } = useTranslation("common");

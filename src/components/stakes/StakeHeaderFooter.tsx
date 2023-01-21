@@ -6,12 +6,12 @@ export const StakeHeaderFooter: NextPage<any> = (props) => {
 
   return (
     <tr>
-      <th className="bg-transparent hidden lg:table-cell">{t("portfolio.start")}</th>
-      <th className="bg-transparent hidden lg:table-cell">{t("portfolio.end")}</th>
-      <th className="bg-transparent hidden lg:table-cell text-right">{t("portfolio.principal")}</th>
-      <th className="bg-transparent hidden lg:table-cell text-right">{t("portfolio.shares")}</th>
-      <th className="bg-transparent hidden lg:table-cell text-right">{t("portfolio.progress")}</th>
-      <th className="bg-transparent hidden lg:table-cell"></th>
+      <th>{t("portfolio.start")}</th>
+      <th>{t("portfolio.end")}</th>
+      <th className="text-right">{t("portfolio.principal")}</th>
+      <th className="text-right">{t("portfolio.shares")}</th>
+      <th className="text-right">{t("portfolio.progress")}</th>
+      <th className="w-12"></th>
     </tr>
   );
 };

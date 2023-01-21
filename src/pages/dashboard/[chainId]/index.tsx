@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Container from "~/components/containers/Container";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useToken } from "wagmi";
 import { ChainStatCard, DateStatCard, NumberStatCard, DataCard } from "~/components/StatCards";
@@ -18,7 +18,6 @@ import { shareRatePercent } from "~/lib/helpers";
 const ChainDashbaord: NextPage = () => {
   const { t } = useTranslation("common");
   const { envChains } = useEnvironmentChains();
-  const { startTs, shareRate } = useContext(FENIXContext);
 
   const router = useRouter();
   const { chainId } = router.query as unknown as { chainId: number };
@@ -28,16 +27,27 @@ const ChainDashbaord: NextPage = () => {
     address: fenixContract(chainFromId).addressOrName,
     chainId: chainFromId?.id,
   });
+  const { setChainOverride, startTs, shareRate, poolSupply } = useContext(FENIXContext);
 
   const stakeItems = [
+    {
+      title: t("dashboard.pool-supply"),
+      value: poolSupply,
+      decimals: 0,
+    },
     {
       title: t("dashboard.share-rate"),
       value: shareRatePercent(shareRate),
       decimals: 4,
       suffix: "%",
-      tooltip: t("dashboard.share-rate-description"),
     },
   ];
+
+  useEffect(() => {
+    if (chainFromId) {
+      setChainOverride(chainFromId);
+    }
+  }, [chainFromId, setChainOverride]);
 
   return (
     <div>

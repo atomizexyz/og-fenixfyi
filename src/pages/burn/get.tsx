@@ -25,22 +25,30 @@ const GetXen: NextPage = () => {
           </Link>
         </ul>
         <CardContainer>
-          <div className="alert shadow-lg glass">
-            <div>
+          <div className="space-y-4">
+            <div className="alert shadow-lg glass">
               <div>
-                <InformationCircleIcon className="w-8 h-8" />
-              </div>
-              <div>
-                <h3 className="font-bold">{t("burn.get-xen-title")}</h3>
-                <div className="text-xs">{t("burn.get-xen-description")}</div>
+                <div>
+                  <InformationCircleIcon className="w-8 h-8" />
+                </div>
+                <div>
+                  <h3 className="font-bold">{t("burn.get-xen-title")}</h3>
+                  <div className="text-xs">{t("burn.get-xen-description")}</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="form-control w-full">
-            <Link href="https://xen.fyi">
-              <a className="btn glass text-neutral">{t("burn.get-xen")}</a>
-            </Link>
+            <div className="form-control w-full">
+              <Link href="https://xen.fyi">
+                <a className="btn glass text-neutral">{t("burn.get-xen")}</a>
+              </Link>
+            </div>
+
+            <div className="flex justify-center w-full">
+              <Link href="https://xen.network">
+                <a className="link">XEN official website</a>
+              </Link>
+            </div>
           </div>
         </CardContainer>
       </div>

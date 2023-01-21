@@ -58,6 +58,7 @@ export interface Balance {
 interface IFENIXContext {
   setChainOverride: (chain: Chain) => void;
   feeData?: FeeData;
+  poolSupply: number;
   xenBalance?: Balance;
   fenixBalance?: Balance;
   startTs: number;
@@ -68,6 +69,7 @@ interface IFENIXContext {
 const FENIXContext = createContext<IFENIXContext>({
   setChainOverride: (chain: Chain) => {},
   feeData: undefined,
+  poolSupply: 0,
   xenBalance: undefined,
   fenixBalance: undefined,
   startTs: 0,
@@ -78,6 +80,7 @@ const FENIXContext = createContext<IFENIXContext>({
 export const FENIXProvider = ({ children }: any) => {
   const [chainOverride, setChainOverride] = useState<Chain | undefined>();
   const [feeData, setFeeData] = useState<FeeData | undefined>();
+  const [poolSupply, setPoolSupply] = useState(0);
   const [xenBalance, setXenBalance] = useState<Balance | undefined>();
   const [fenixBalance, setFenixBalance] = useState<Balance | undefined>();
   const [startTs, setStartTs] = useState(0);
@@ -100,7 +103,7 @@ export const FENIXProvider = ({ children }: any) => {
         value: data.value,
       });
     },
-    // watch: true,
+    watch: true,
   });
 
   useBalance({
@@ -114,7 +117,7 @@ export const FENIXProvider = ({ children }: any) => {
         value: data.value,
       });
     },
-    // watch: true,
+    watch: true,
   });
 
   useContractReads({
@@ -132,11 +135,16 @@ export const FENIXProvider = ({ children }: any) => {
         functionName: "allowance",
         args: [address, fenixContract(chain).addressOrName],
       },
+      {
+        ...fenixContract(chain),
+        functionName: "poolSupply",
+      },
     ],
     onSuccess(data) {
       setStartTs(Number(data[0]));
       setShareRate(Number(data[1]));
       setAllowance(Number(data[2]));
+      setPoolSupply(Number(data[3]));
     },
     watch: true,
   });
@@ -164,6 +172,7 @@ export const FENIXProvider = ({ children }: any) => {
       value={{
         setChainOverride,
         feeData,
+        poolSupply,
         xenBalance,
         fenixBalance,
         startTs,
