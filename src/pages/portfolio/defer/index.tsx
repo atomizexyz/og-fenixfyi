@@ -36,9 +36,13 @@ const DeferPortfolio: NextPage = () => {
                 <StakeHeaderFooter />
               </thead>
               <tbody>
-                {Array.from(Array(Number(stakeCount)).keys()).map((_stake: any) => (
+                {Array.from(Array(Number(stakeCount ?? 0)).keys()).map((_stake: any) => (
                   <tr key={_stake}>
-                    <StakeRow contractAddressOrName={fenixContract(chain).addressOrName} stakerAddress={address} />
+                    <StakeRow
+                      contractAddressOrName={fenixContract(chain).addressOrName}
+                      stakerAddress={address}
+                      index={_stake}
+                    />
                   </tr>
                 ))}
               </tbody>

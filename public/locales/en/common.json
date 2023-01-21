@@ -61,6 +61,11 @@
     "actions": "Actions",
     "defer": "Defer"
   },
+  "bonus": {
+    "title": "Bonus",
+    "claim": "Claim",
+    "claim-details": "You can claim your bonus by staking your FENIX for a minimum of 30 days."
+  },
   "meta": {
     "description": "FENIX.fyi is an open-source project to help users understand the FENIX protocol and its ecosystem."
   },

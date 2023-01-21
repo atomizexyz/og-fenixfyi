@@ -81,7 +81,10 @@ const Stake = () => {
     addressOrName: fenixContract(chain).addressOrName,
     contractInterface: FENIX_ABI,
     functionName: "startStake",
-    args: [startStakeAmount ?? 0, startStakeDays ?? 0],
+    args: [
+      ethers.utils.parseUnits(Number(startStakeAmount ?? 0).toString(), fenixBalance?.decimals),
+      startStakeDays ?? 0,
+    ],
     enabled: !disabled,
   });
 

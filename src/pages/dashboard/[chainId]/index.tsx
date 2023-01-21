@@ -3,6 +3,7 @@ import Container from "~/components/containers/Container";
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useToken } from "wagmi";
+import { BigNumber, ethers } from "ethers";
 import { ChainStatCard, DateStatCard, NumberStatCard, DataCard } from "~/components/StatCards";
 import CardContainer from "~/components/containers/CardContainer";
 import { fenixContract } from "~/lib/fenix-contract";
@@ -32,7 +33,7 @@ const ChainDashbaord: NextPage = () => {
   const stakeItems = [
     {
       title: t("dashboard.pool-supply"),
-      value: poolSupply,
+      value: Number(ethers.utils.formatUnits(poolSupply ?? 0, 18)),
       decimals: 0,
     },
     {

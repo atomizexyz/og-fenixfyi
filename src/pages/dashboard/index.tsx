@@ -1,6 +1,7 @@
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { NextPage } from "next";
+import { BigNumber, ethers } from "ethers";
 import CountUp from "react-countup";
 import { useTranslation } from "next-i18next";
 import { useCopyToClipboard } from "usehooks-ts";
@@ -8,7 +9,7 @@ import { truncatedAddress } from "~/lib/helpers";
 import { chainIcons } from "~/components/Constants";
 import { fenixContract } from "~/lib/fenix-contract";
 import { Chain, useToken, useContractReads } from "wagmi";
-import { shareRatePercent, formatDecimals } from "~/lib/helpers";
+import { shareRatePercent } from "~/lib/helpers";
 import { Container, CardContainer } from "~/components/containers/";
 import { DuplicateIcon, ExternalLinkIcon } from "@heroicons/react/outline";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -68,7 +69,7 @@ const Dashboard: NextPage = () => {
     });
 
     const shareRate = Number(data?.[0] ?? 0);
-    const poolSupply = Number(data?.[1] ?? 0);
+    const poolSupply = data?.[1];
 
     return (
       <tr>
@@ -104,7 +105,12 @@ const Dashboard: NextPage = () => {
 
         <td>
           <pre className="text-right">
-            <CountUp end={poolSupply} preserveValue={true} separator="," />
+            <CountUp
+              end={Number(ethers.utils.formatUnits(poolSupply ?? 0, 18))}
+              preserveValue={true}
+              separator=","
+              decimals={4}
+            />
           </pre>
         </td>
 

@@ -11,6 +11,7 @@ import { progressDays } from "~/lib/helpers";
 import CountUp from "react-countup";
 import { clsx } from "clsx";
 import { watch } from "fs";
+import { BigNumber, ethers } from "ethers";
 
 export const StakeRow: NextPage<any> = (props) => {
   const { t } = useTranslation("common");
@@ -22,7 +23,7 @@ export const StakeRow: NextPage<any> = (props) => {
     addressOrName: props.contractAddressOrName,
     contractInterface: FENIX_ABI,
     functionName: "stakeFor",
-    args: [props.stakerAddress, 0],
+    args: [props.stakerAddress, props.index],
     watch: true,
   });
 
@@ -44,10 +45,24 @@ export const StakeRow: NextPage<any> = (props) => {
       <td className="bg-transparent text-sm">{formatDate(startTime)}</td>
       <td className="bg-transparent text-sm">{formatDate(endTime)}</td>
       <td className="bg-transparent text-right text-sm">
-        <pre>{formatDecimals(stake?.fenix, 0)}</pre>
+        <pre>
+          <CountUp
+            end={Number(ethers.utils.formatUnits(stake?.fenix ?? 0, 18))}
+            preserveValue={true}
+            separator=","
+            decimals={2}
+          />
+        </pre>
       </td>
       <td className="bg-transparent text-right text-sm">
-        <pre>{formatDecimals(stake?.shares, 0)}</pre>
+        <pre>
+          <CountUp
+            end={Number(ethers.utils.formatUnits(stake?.shares ?? 0, 18))}
+            preserveValue={true}
+            separator=","
+            decimals={2}
+          />
+        </pre>
       </td>
       <td className="bg-transparent text-center">
         <div className="flex flex-col">

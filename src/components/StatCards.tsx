@@ -299,3 +299,24 @@ export const BonusShareCard: NextPage<BonusShareCardStat> = (props) => {
     </div>
   );
 };
+
+interface BonusShareCardStat {
+  title: string;
+  description: string;
+}
+
+export const InfoCard: NextPage<BonusShareCardStat> = (props) => {
+  return (
+    <div className="alert shadow-lg glass">
+      <div>
+        <div>
+          <InformationCircleIcon className="w-8 h-8" />
+        </div>
+        <div>
+          <h3 className="font-bold">{props.title}</h3>
+          <div className="text-xs">{props.description}</div>
+        </div>
+      </div>
+    </div>
+  );
+};

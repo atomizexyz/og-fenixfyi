@@ -72,6 +72,13 @@ export const navigationItems = [
     href: "/portfolio",
     canDisable: false,
   },
+  {
+    id: 4,
+    t: "Bonus",
+    icon: <ViewListIcon className="h-5 w-5" />,
+    href: "/bonus",
+    canDisable: false,
+  },
 ];
 
 export const textLinkItems = [
