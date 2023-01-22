@@ -64,6 +64,7 @@ interface IFENIXContext {
   startTs: number;
   shareRate: number;
   allowance: number;
+  xenTotalSupply: number;
 }
 
 const FENIXContext = createContext<IFENIXContext>({
@@ -75,6 +76,7 @@ const FENIXContext = createContext<IFENIXContext>({
   startTs: 0,
   shareRate: 0,
   allowance: 0,
+  xenTotalSupply: 0,
 });
 
 export const FENIXProvider = ({ children }: any) => {
@@ -86,6 +88,7 @@ export const FENIXProvider = ({ children }: any) => {
   const [startTs, setStartTs] = useState(0);
   const [shareRate, setShareRate] = useState(0);
   const [allowance, setAllowance] = useState(0);
+  const [xenTotalSupply, setXenTotalSupply] = useState(0);
 
   const { address } = useAccount();
   const { chain: networkChain } = useNetwork();
@@ -116,6 +119,15 @@ export const FENIXProvider = ({ children }: any) => {
         symbol: data.symbol,
         value: data.value,
       });
+    },
+    watch: true,
+  });
+
+  useContractRead({
+    ...xenContract(chain),
+    functionName: "totalSupply",
+    onSuccess(data) {
+      setXenTotalSupply(Number(data ?? 0));
     },
     watch: true,
   });
@@ -178,6 +190,7 @@ export const FENIXProvider = ({ children }: any) => {
         startTs,
         shareRate,
         allowance,
+        xenTotalSupply,
       }}
     >
       {children}

@@ -95,7 +95,11 @@
     "shares": "Shares",
     "subtotal": "Subtotal",
     "liquid": "Liquid",
-    "new": "New"
+    "new": "New",
+    "matures-in": "Matures in",
+    "countdown-details": "Day•Hours:Minutes:Seconds",
+    "xen-supply": "XEN Supply",
+    "new-fenix": "New FENIX"
   },
   "form-field": {
     "xen": "XEN",

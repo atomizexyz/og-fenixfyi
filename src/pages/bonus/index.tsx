@@ -6,6 +6,7 @@ import { useTranslation } from "next-i18next";
 import FENIXContext from "~/contexts/FENIXContext";
 import GasEstimate from "~/components/GasEstimate";
 import clsx from "clsx";
+import Countdown from "react-countdown";
 
 import { useRouter } from "next/router";
 import { useNetwork, useContractRead, useContractWrite, useWaitForTransaction, usePrepareContractWrite } from "wagmi";
@@ -15,14 +16,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { fenixContract } from "~/lib/fenix-contract";
 import toast from "react-hot-toast";
-import { InfoCard } from "~/components/StatCards";
+import { InfoCard, NumberStatCard, CountdownCard } from "~/components/StatCards";
 
 const Bonus: NextPage = () => {
   const { t } = useTranslation("common");
   const { chain } = useNetwork();
   const router = useRouter();
 
-  const { feeData } = useContext(FENIXContext);
+  const { feeData, xenTotalSupply } = useContext(FENIXContext);
   const [disabled, setDisabled] = useState(false);
   const [processing, setProcessing] = useState(false);
 
@@ -68,9 +69,17 @@ const Bonus: NextPage = () => {
         <form onSubmit={handleSubmit(handleEndSubmit)}>
           <div className="flex flex-col space-y-4">
             <h2 className="card-title text-neutral">{t("bonus.title")}</h2>
-
+            <Countdown
+              date={Date.now() + 86400 * 1000}
+              renderer={(props) => (
+                <CountdownCard days={props.days} hours={props.hours} minutes={props.minutes} seconds={props.seconds} />
+              )}
+            />
+            <div className="flex stats glass w-full text-neutral">
+              <NumberStatCard title={t("card.xen-supply")} value={xenTotalSupply} decimals={4} />
+              <NumberStatCard title={t("card.new-fenix")} value={xenTotalSupply / 10_000} decimals={4} />
+            </div>
             <InfoCard title={t("bonus.claim")} description={t("bonus.claim-details")} />
-
             <div className="form-control w-full">
               <button
                 type="submit"
@@ -81,7 +90,6 @@ const Bonus: NextPage = () => {
                 {t("bonus.claim")}
               </button>
             </div>
-
             <GasEstimate feeData={feeData} gasLimit={config?.request?.gasLimit} />
           </div>
         </form>
