@@ -6,6 +6,7 @@ import {
   ViewListIcon,
   FireIcon,
   HomeIcon,
+  GiftIcon,
 } from "@heroicons/react/outline";
 import { TwitterIcon, TelegramIcon, GitHubIcon, FigmaIcon } from "~/components/Icons";
 
@@ -75,7 +76,7 @@ export const navigationItems = [
   {
     id: 4,
     t: "Bonus",
-    icon: <ViewListIcon className="h-5 w-5" />,
+    icon: <GiftIcon className="h-5 w-5" />,
     href: "/bonus",
     canDisable: false,
   },

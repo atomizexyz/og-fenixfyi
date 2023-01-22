@@ -4,6 +4,7 @@ import { useTranslation } from "next-i18next";
 import { InformationCircleIcon } from "@heroicons/react/outline";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Container, CardContainer } from "~/components/containers/";
+import { InfoCard } from "~/components/StatCards";
 
 const GetXen: NextPage = () => {
   const { t } = useTranslation("common");
@@ -26,17 +27,7 @@ const GetXen: NextPage = () => {
         </ul>
         <CardContainer>
           <div className="space-y-4">
-            <div className="alert shadow-lg glass">
-              <div>
-                <div>
-                  <InformationCircleIcon className="w-8 h-8" />
-                </div>
-                <div>
-                  <h3 className="font-bold">{t("burn.get-xen-title")}</h3>
-                  <div className="text-xs">{t("burn.get-xen-description")}</div>
-                </div>
-              </div>
-            </div>
+            <InfoCard title={t("burn.get-xen-title")} description={t("burn.get-xen-description")} />
 
             <div className="form-control w-full">
               <Link href="https://xen.fyi">

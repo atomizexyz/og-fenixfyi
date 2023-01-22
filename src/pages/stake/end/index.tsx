@@ -5,6 +5,7 @@ import { useTranslation } from "next-i18next";
 import { Container, CardContainer } from "~/components/containers/";
 import FENIXContext from "~/contexts/FENIXContext";
 import GasEstimate from "~/components/GasEstimate";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { useRouter } from "next/router";
 import { useNetwork, useContractRead, useContractWrite, useWaitForTransaction, usePrepareContractWrite } from "wagmi";
@@ -87,5 +88,13 @@ const End = () => {
     </Container>
   );
 };
+
+export async function getStaticProps({ locale }: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export default End;

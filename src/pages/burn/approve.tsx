@@ -5,7 +5,6 @@ import { BigNumber, ethers } from "ethers";
 import { useEffect, useState, useContext } from "react";
 import { useTranslation } from "next-i18next";
 import { MaxValueField } from "~/components/FormFields";
-import { InformationCircleIcon } from "@heroicons/react/outline";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Container, CardContainer } from "~/components/containers/";
 import FENIXContext from "~/contexts/FENIXContext";
@@ -20,6 +19,7 @@ import { useNetwork, useContractWrite, usePrepareContractWrite, useWaitForTransa
 import { xenContract } from "~/lib/xen-contract";
 import XENCryptoABI from "~/abi/XENCryptoABI";
 import { fenixContract } from "~/lib/fenix-contract";
+import { InfoCard } from "~/components/StatCards";
 
 const Approve: NextPage = () => {
   const { t } = useTranslation("common");
@@ -81,7 +81,7 @@ const Approve: NextPage = () => {
     hash: fixedApproveData?.hash,
     onSuccess(data) {
       toast(t("toast.spend-approved"));
-      //   router.push("/burn/xen");
+      router.push("/burn/xen");
     },
   });
   const onFixedSubmit = () => {
@@ -154,17 +154,7 @@ const Approve: NextPage = () => {
                 setValue={setValue}
               />
 
-              <div className="alert shadow-lg glass">
-                <div>
-                  <div>
-                    <InformationCircleIcon className="w-8 h-8" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold">{t("burn.approve-fixed")}</h3>
-                    <div className="text-xs">{t("burn.approve-details")}</div>
-                  </div>
-                </div>
-              </div>
+              <InfoCard title={t("burn.approve-fixed")} description={t("burn.approve-details")} />
 
               <div className="form-control w-full">
                 <button
@@ -191,17 +181,7 @@ const Approve: NextPage = () => {
             <div className="flex flex-col space-y-4">
               <h2 className="card-title text-neutral">{t("burn.approve-unlimited")}</h2>
 
-              <div className="alert shadow-lg glass">
-                <div>
-                  <div>
-                    <InformationCircleIcon className="w-8 h-8" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold">{t("burn.approve-unlimited")}</h3>
-                    <div className="text-xs">{t("burn.approve-details")}</div>
-                  </div>
-                </div>
-              </div>
+              <InfoCard title={t("burn.approve-unlimited")} description={t("burn.approve-details")} />
 
               <div className="form-control w-full">
                 <button

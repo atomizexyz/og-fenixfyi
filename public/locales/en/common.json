@@ -107,6 +107,10 @@
     "days-positive": "Days must be greater than 0",
     "days-maximum": "Maximum days is {{numberOfDays}}",
     "days-description": "Number of days",
+    "wallet-address": "Wallet Address",
+    "wallet-address-description": "Wallet address beginning with 0x...",
+    "wallet-address-required": "Wallet address required",
+    "wallet-address-invalid": "Wallet address invalid",
     "amount": "Amount",
     "amount-required": "Amount required",
     "amount-maximum": "Maximum amount is {{maximumAmount}}",
@@ -119,6 +123,7 @@
   "toast": {
     "spend-approved": "Spend approved",
     "end-stake-successful": "Stake ended successfully",
-    "defer-stake-successful": "Stake deferred successfully"
+    "defer-stake-successful": "Stake deferred successfully",
+    "stake-successful": "Stake started successfully"
   }
 }

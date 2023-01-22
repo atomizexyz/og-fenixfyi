@@ -5,6 +5,7 @@ import { useTranslation } from "next-i18next";
 import { Container, CardContainer } from "~/components/containers/";
 import FENIXContext from "~/contexts/FENIXContext";
 import GasEstimate from "~/components/GasEstimate";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { WalletAddressField } from "~/components/FormFields";
 import { ErrorMessage } from "@hookform/error-message";
@@ -114,5 +115,13 @@ const Defer = () => {
     </Container>
   );
 };
+
+export async function getStaticProps({ locale }: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export default Defer;

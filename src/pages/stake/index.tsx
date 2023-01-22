@@ -23,10 +23,13 @@ import { ErrorMessage } from "@hookform/error-message";
 import { FENIX_MAX_STAKE_LENGTH } from "~/lib/helpers";
 import { shareRatePercent, currentYear, maxEndStakeYear } from "~/lib/helpers";
 import { useEffect } from "react";
+import { InfoCard } from "~/components/StatCards";
+import { useRouter } from "next/router";
 
 const Stake = () => {
   const { t } = useTranslation("common");
   const { chain } = useNetwork();
+  const router = useRouter();
 
   const today = new Date();
   const tomorrow = addDays(today, 1);
@@ -99,6 +102,7 @@ const Stake = () => {
     hash: stakeData?.hash,
     onSuccess(data) {
       toast(t("toast.stake-successful"));
+      router.push("/portfolio/active");
     },
   });
   const handleStartStakeSubmit = (data: any) => {
@@ -230,17 +234,9 @@ const Stake = () => {
               />
               <NumberStatCard title={t("card.shares")} value={shares()} decimals={4} />
             </div>
-            <div className="alert shadow-lg glass">
-              <div>
-                <div>
-                  <InformationCircleIcon className="w-8 h-8" />
-                </div>
-                <div>
-                  <h3 className="font-bold">{t("stake.start")}</h3>
-                  <div className="text-xs">{t("stake.start-details")}</div>
-                </div>
-              </div>
-            </div>
+
+            <InfoCard title={t("stake.start")} description={t("stake.start-details")} />
+
             <div className="form-control w-full">
               <button
                 type="submit"

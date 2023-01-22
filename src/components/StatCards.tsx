@@ -300,12 +300,12 @@ export const BonusShareCard: NextPage<BonusShareCardStat> = (props) => {
   );
 };
 
-interface BonusShareCardStat {
+interface InfoCardStat {
   title: string;
   description: string;
 }
 
-export const InfoCard: NextPage<BonusShareCardStat> = (props) => {
+export const InfoCard: NextPage<InfoCardStat> = (props) => {
   return (
     <div className="alert shadow-lg glass">
       <div>
