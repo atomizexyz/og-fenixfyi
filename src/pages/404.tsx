@@ -22,7 +22,9 @@ const Custom404: NextPage = () => {
           <div>
             <h1 className="text-8xl font-bold">404</h1>
             <h1 className="text-5xl font-bold">file not found</h1>
-            <p className="py-6 ">Please try again, the page you are trying to reach could not be found.</p>
+            <p className="py-6 ">
+              Sorry, it seems this Fenix is permanently grounded and unable to rise from the ashes.
+            </p>
             <Link href="/" className="btn glass text-neutral">
               Go Home
             </Link>
