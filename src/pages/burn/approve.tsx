@@ -90,6 +90,8 @@ const Approve: NextPage = () => {
 
   /*** CONTRACT APPROVE UNLIMITED ***/
 
+  const { handleSubmit: handleUnlimitedSubmit } = useForm();
+
   const { config: unlimitedConfig, error: unlimitedError } = usePrepareContractWrite({
     addressOrName: xenContract(chain).addressOrName,
     contractInterface: XENCryptoABI,
@@ -177,7 +179,7 @@ const Approve: NextPage = () => {
         <div className="divider">{t("or").toUpperCase()}</div>
         {/* OR */}
         <CardContainer>
-          <form onSubmit={handleSubmit(onUnlimitedSubmit)}>
+          <form onSubmit={handleUnlimitedSubmit(onUnlimitedSubmit)}>
             <div className="flex flex-col space-y-4">
               <h2 className="card-title text-neutral">{t("burn.approve-unlimited")}</h2>
 

@@ -143,7 +143,7 @@ export const FENIXProvider = ({ children }: any) => {
         functionName: "shareRate",
       },
       {
-        ...fenixContract(chain),
+        ...xenContract(chain),
         functionName: "allowance",
         args: [address, fenixContract(chain).addressOrName],
       },
@@ -153,6 +153,7 @@ export const FENIXProvider = ({ children }: any) => {
       },
     ],
     onSuccess(data) {
+      console.log("Allowance:", allowance);
       setStartTs(Number(data[0]));
       setShareRate(Number(data[1]));
       setAllowance(Number(data[2]));

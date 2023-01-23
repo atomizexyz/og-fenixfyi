@@ -74,12 +74,12 @@ export const StakeRow: NextPage<any> = (props) => {
       </td>
       <td className="bg-transparent text-right">
         <div className="space-x-1">
-          <Link href={`/stake/${stake?.stakeId}/defer`}>
+          <Link href={`/stake/${props.stakerAddress}/${props.index}/defer`}>
             <button className="btn btn-sm glass text-neutral" disabled={!canDefer}>
               {t("portfolio.defer")}
             </button>
           </Link>
-          <Link href={`/stake/${stake?.stakeId}/end`}>
+          <Link href={`/stake/${props.stakerAddress}/${props.index}/end`}>
             <a
               className={clsx("btn btn-sm text-neutral", {
                 "btn-error": !canDefer,
