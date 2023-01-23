@@ -18,8 +18,8 @@ const Custom404: NextPage = () => {
             <h1 className="text-8xl font-bold">404</h1>
             <h1 className="text-5xl font-bold">file not found</h1>
             <p className="py-6 ">Please try again, the page you are trying to reach could not be found.</p>
-            <Link href="/">
-              <button className="btn glass text-neutral">Go Home</button>
+            <Link href="/" className="btn glass text-neutral">
+              Go Home
             </Link>
           </div>
         </div>

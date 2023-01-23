@@ -11,32 +11,29 @@ const PortfolioNav: NextPage = () => {
   const { pathname } = router;
   return (
     <div className="tabs">
-      <Link href="/portfolio/active">
-        <a
-          className={clsx("tab tab-lg tab-lifted text-neutral", {
-            "tab-active glass": pathname == "/portfolio/active",
-          })}
-        >
-          {t("portfolio.active")}
-        </a>
+      <Link
+        href="/portfolio/active"
+        className={clsx("tab tab-lg tab-lifted text-neutral", {
+          "tab-active glass": pathname == "/portfolio/active",
+        })}
+      >
+        {t("portfolio.active")}
       </Link>
-      <Link href="/portfolio/defer">
-        <a
-          className={clsx("tab tab-lg tab-lifted text-neutral", {
-            "tab-active glass": pathname == "/portfolio/defer",
-          })}
-        >
-          {t("portfolio.deferred")}
-        </a>
+      <Link
+        href="/portfolio/defer"
+        className={clsx("tab tab-lg tab-lifted text-neutral", {
+          "tab-active glass": pathname == "/portfolio/defer",
+        })}
+      >
+        {t("portfolio.deferred")}
       </Link>
-      <Link href="/portfolio/end">
-        <a
-          className={clsx("tab tab-lg tab-lifted text-neutral", {
-            "tab-active glass": pathname == "/portfolio/end",
-          })}
-        >
-          {t("portfolio.ended")}
-        </a>
+      <Link
+        href="/portfolio/end"
+        className={clsx("tab tab-lg tab-lifted text-neutral", {
+          "tab-active glass": pathname == "/portfolio/end",
+        })}
+      >
+        {t("portfolio.ended")}
       </Link>
     </div>
   );

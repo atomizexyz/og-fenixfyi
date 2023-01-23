@@ -39,10 +39,12 @@ const Dashboard: NextPage = () => {
         >
           <DuplicateIcon className="w-5 h-5" />
         </button>
-        <Link href={`${chain?.blockExplorers?.default.url}/address/${fenixContract(chain).addressOrName}`}>
-          <a target="_blank" className="btn btn-square btn-xs glass text-neutral">
-            <ExternalLinkIcon className="w-5 h-5" />
-          </a>
+        <Link
+          href={`${chain?.blockExplorers?.default.url}/address/${fenixContract(chain).addressOrName}`}
+          target="_blank"
+          className="btn btn-square btn-xs glass text-neutral"
+        >
+          <ExternalLinkIcon className="w-5 h-5" />
         </Link>
       </div>
     );

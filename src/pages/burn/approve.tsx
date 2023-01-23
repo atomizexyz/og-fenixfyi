@@ -125,16 +125,16 @@ const Approve: NextPage = () => {
     <Container className="max-w-2xl">
       <div className="flew flex-row space-y-8 ">
         <ul className="steps w-full">
-          <Link href="/burn/get">
-            <a className="step step-neutral">{t("burn.get")}</a>
+          <Link href="/burn/get" className="step step-neutral">
+            {t("burn.get")}
           </Link>
 
-          <Link href="/burn/approve">
-            <a className="step step-neutral">{t("burn.approve")}</a>
+          <Link href="/burn/approve" className="step step-neutral">
+            {t("burn.approve")}
           </Link>
 
-          <Link href="/burn/xen">
-            <a className="step">{t("burn.title")}</a>
+          <Link href="/burn/xen" className="step">
+            {t("burn.title")}
           </Link>
         </ul>
         <CardContainer>

@@ -13,16 +13,16 @@ const GetXen: NextPage = () => {
     <Container className="max-w-2xl">
       <div className="flew flex-row space-y-8 ">
         <ul className="steps w-full">
-          <Link href="/burn/get">
-            <a className="step step-neutral">{t("burn.get")}</a>
+          <Link href="/burn/get" className="step step-neutral">
+            {t("burn.get")}
           </Link>
 
-          <Link href="/burn/approve">
-            <a className="step">{t("burn.approve")}</a>
+          <Link href="/burn/approve" className="step">
+            {t("burn.approve")}
           </Link>
 
-          <Link href="/burn/xen">
-            <a className="step">{t("burn.title")}</a>
+          <Link href="/burn/xen" className="step">
+            {t("burn.title")}
           </Link>
         </ul>
         <CardContainer>
@@ -30,14 +30,14 @@ const GetXen: NextPage = () => {
             <InfoCard title={t("burn.get-xen-title")} description={t("burn.get-xen-description")} />
 
             <div className="form-control w-full">
-              <Link href="https://xen.fyi">
-                <a className="btn glass text-neutral">{t("burn.get-xen")}</a>
+              <Link href="https://xen.fyi" className="btn glass text-neutral">
+                {t("burn.get-xen")}
               </Link>
             </div>
 
             <div className="flex justify-center w-full">
-              <Link href="https://xen.network">
-                <a className="link">XEN official website</a>
+              <Link href="https://xen.network" className="link">
+                XEN official website
               </Link>
             </div>
           </div>

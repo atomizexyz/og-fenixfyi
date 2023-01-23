@@ -20,6 +20,7 @@ const StakeId: NextPage = () => {
           {address}
 
           {stakeId}
+
           <Link href="/stake/0x0000000000000000000000000000000000000000">
             <div className="form-control w-full">
               <button type="submit" className="btn glass text-neutral" disabled={disabled}>

@@ -15,21 +15,20 @@ export const BottomNav: NextPage = () => {
   return (
     <div
       className={clsx("btm-nav lg:hidden", {
-        "h-24 pb-6":
-          isMobile && ((window.navigator as any).standalone ?? false),
+        "h-24 pb-6": isMobile && ((window.navigator as any).standalone ?? false),
       })}
     >
       {navigationItems.map((item, index) => (
-        <Link key={index} href={item.href}>
-          <a
-            className={clsx("text-neutral", {
-              "disabled active": router.pathname.startsWith(item.href),
-              glass: !router.pathname.startsWith(item.href),
-            })}
-          >
-            {item.icon}
-            <span className="btm-nav-label">{t(item.t)}</span>
-          </a>
+        <Link
+          key={index}
+          href={item.href}
+          className={clsx("text-neutral", {
+            "disabled active": router.pathname.startsWith(item.href),
+            glass: !router.pathname.startsWith(item.href),
+          })}
+        >
+          {item.icon}
+          <span className="btm-nav-label">{t(item.t)}</span>
         </Link>
       ))}
     </div>

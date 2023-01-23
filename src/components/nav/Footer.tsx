@@ -18,8 +18,8 @@ const Footer = () => {
         <div className="grid grid-cols-3 lg:grid-flow-col gap-10 lg:gap-6 text-neutral">
           {linkItems.map((item, index) => (
             <div key={index} className="tooltip tooltip-info" data-tip={t(item.t)}>
-              <Link href={item.href}>
-                <a target="_blank">{item.icon}</a>
+              <Link href={item.href} target="_blank">
+                {item.icon}
               </Link>
             </div>
           ))}
@@ -28,10 +28,8 @@ const Footer = () => {
       <AddressLink name={t("donate")} address={DONATION_ADDRESS} chain={defaultChain} />
       <div className="grid grid-flow-col gap-3">
         {textLinkItems.map((item, index) => (
-          <Link href={item.href} key={index}>
-            <a target="_blank" className="link link-hover text-neutral">
-              {t(item.t)}
-            </a>
+          <Link href={item.href} key={index} target="_blank" className="link link-hover text-neutral">
+            {t(item.t)}
           </Link>
         ))}
       </div>
