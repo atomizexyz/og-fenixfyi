@@ -125,6 +125,7 @@
     "lock-month": "Lock Month"
   },
   "toast": {
+    "success": "Success",
     "spend-approved": "Spend approved",
     "end-stake-successful": "Stake ended successfully",
     "defer-stake-successful": "Stake deferred successfully",

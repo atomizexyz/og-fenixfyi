@@ -8,6 +8,9 @@ module.exports = {
   ],
   darkMode: "class",
   theme: {
+    minHeight: {
+      "1/2": "50%",
+    },
     extend: {
       fontFamily: {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],

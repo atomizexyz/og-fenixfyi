@@ -7,7 +7,7 @@ import FENIXContext from "~/contexts/FENIXContext";
 import GasEstimate from "~/components/GasEstimate";
 import clsx from "clsx";
 import Countdown from "react-countdown";
-
+import { BigNumber, ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useNetwork, useContractRead, useContractWrite, useWaitForTransaction, usePrepareContractWrite } from "wagmi";
 import FENIX_ABI from "~/abi/FENIX_ABI";
@@ -23,7 +23,7 @@ const Bonus: NextPage = () => {
   const { chain } = useNetwork();
   const router = useRouter();
 
-  const { feeData, xenTotalSupply } = useContext(FENIXContext);
+  const { feeData, xenBalance, xenTotalSupply } = useContext(FENIXContext);
   const [disabled, setDisabled] = useState(false);
   const [processing, setProcessing] = useState(false);
 
@@ -76,8 +76,18 @@ const Bonus: NextPage = () => {
               )}
             />
             <div className="flex stats glass w-full text-neutral">
-              <NumberStatCard title={t("card.xen-supply")} value={xenTotalSupply} decimals={4} />
-              <NumberStatCard title={t("card.new-fenix")} value={xenTotalSupply / 10_000} decimals={4} />
+              <NumberStatCard
+                title={t("card.xen-supply")}
+                value={Number(ethers.utils.formatUnits(xenTotalSupply, xenBalance?.decimals ?? BigNumber.from(0)))}
+                decimals={0}
+              />
+              <NumberStatCard
+                title={t("card.new-fenix")}
+                value={Number(
+                  ethers.utils.formatUnits(xenTotalSupply.div(10_000), xenBalance?.decimals ?? BigNumber.from(0))
+                )}
+                decimals={4}
+              />
             </div>
             <InfoCard title={t("bonus.claim")} description={t("bonus.claim-details")} />
             <div className="form-control w-full">
