@@ -1,19 +1,24 @@
-/* eslint-disable @next/next/no-img-element */
 import { Container } from "~/components/containers/";
 import { useTheme } from "next-themes";
 import { NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Link from "next/link";
+import Image from "next/image";
 
 const Custom404: NextPage = () => {
   const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
 
   return (
     <Container className="max-w-4xl">
       <div className="hero min-h-1/2">
         <div className="hero-content flex-col space-x-4 space-y-4 lg:flex-row">
-          <img src={`/images/${resolvedTheme}/404.png`} alt="404" className="max-w-sm rounded-2xl shadow-2xl" />
+          <Image
+            src={`/images/${resolvedTheme}/404.png`}
+            alt="404"
+            width={500}
+            height={500}
+            className="max-w-sm rounded-3xl shadow-2xl"
+          />
           <div>
             <h1 className="text-8xl font-bold">404</h1>
             <h1 className="text-5xl font-bold">file not found</h1>
