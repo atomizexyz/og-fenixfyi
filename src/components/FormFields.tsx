@@ -11,7 +11,7 @@ export const MaxValueField: NextPage<any> = (props) => {
         <span className="label-text-alt text-error">{props.errorMessage}</span>
       </label>
       <input
-        type="text"
+        type="number"
         placeholder="0"
         className="input input-bordered w-full text-neutral"
         disabled={props.disabled}

@@ -25,7 +25,7 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      <AddressLink name={t("donate")} address={DONATION_ADDRESS} chain={defaultChain} />
+      {/* <AddressLink name={t("donate")} address={DONATION_ADDRESS} chain={defaultChain} /> */}
       <div className="grid grid-flow-col gap-3">
         {textLinkItems.map((item, index) => (
           <Link href={item.href} key={index} target="_blank" className="link link-hover text-neutral">
