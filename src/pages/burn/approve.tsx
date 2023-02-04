@@ -173,7 +173,7 @@ const Approve: NextPage = () => {
                 )}
               </div>
 
-              <InfoCard title={t("burn.approve-fixed")} description={t("burn.approve-details")} />
+              <InfoCard title={t("burn.approve-limited")} description={t("burn.approve-details")} />
 
               <div className="form-control w-full">
                 <button

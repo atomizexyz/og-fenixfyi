@@ -877,7 +877,7 @@ const FENIX_ABI = [
   },
   {
     inputs: [],
-    name: "startTs",
+    name: "genesisTs",
     outputs: [
       {
         internalType: "uint40",

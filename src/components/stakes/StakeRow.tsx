@@ -21,7 +21,6 @@ export enum StakeStatus {
 
 export const StakeRow: NextPage<any> = (props) => {
   const { t } = useTranslation("common");
-  const [progress, setProgress] = useState(0);
   const [percent, setPercent] = useState(0);
   const [canDefer, setCanDefer] = useState<boolean>(false);
 
@@ -33,6 +32,7 @@ export const StakeRow: NextPage<any> = (props) => {
     watch: true,
   });
 
+  console.log("start:", stake);
   const startTime = Number(stake?.startTs ?? 0);
   const endTime = startTime + stake?.term * 86400;
 
@@ -55,7 +55,7 @@ export const StakeRow: NextPage<any> = (props) => {
       default:
         return (
           <div className="flex flex-col">
-            <progress className="progress progress-primary" value={progress} max={stake?.term}></progress>
+            <progress className="progress progress-primary" value={percent} max={100}></progress>
             <pre className="text-sm">
               <CountUp end={percent} preserveValue={true} separator="," suffix="%" decimals={2} />
             </pre>
@@ -106,10 +106,18 @@ export const StakeRow: NextPage<any> = (props) => {
 
   useEffect(() => {
     if (endTime) {
-      const progress = progressDays(endTime ?? 0, stake?.term ?? 0);
-      const percentComplete = (progress / stake?.term ?? 0) * 100;
-      setProgress(progress);
+      const elapsedTime = Date.now() / 1000 - startTime;
+      const totalTime = endTime - startTime;
+
+      const percentComplete = (elapsedTime / totalTime) * 100;
+      console.log(startTime);
+      console.log(elapsedTime);
+
+      // const progress = progressDays(endTime ?? 0, stake?.term ?? 0);
+      // const percentComplete = (progress / stake?.term ?? 0) * 100;
+      // setProgress(elapsedTime / totalTime);
       setPercent(percentComplete);
+
       setCanDefer(percentComplete > 100.0);
     }
   }, [endTime, stake]);

@@ -79,13 +79,17 @@ const Bonus: NextPage = () => {
             <div className="flex stats glass w-full text-neutral">
               <NumberStatCard
                 title={t("card.reward-pool-supply")}
-                value={Number(ethers.utils.formatUnits(rewardPoolSupply, fenixBalance?.decimals ?? BigNumber.from(0)))}
+                value={Number(
+                  ethers.utils.formatUnits(rewardPoolSupply ?? "0", fenixBalance?.decimals ?? BigNumber.from(0))
+                )}
                 decimals={0}
                 description={t("token.fenix")}
               />
               <NumberStatCard
                 title={t("card.stake-pool-supply")}
-                value={Number(ethers.utils.formatUnits(stakePoolSupply, fenixBalance?.decimals ?? BigNumber.from(0)))}
+                value={Number(
+                  ethers.utils.formatUnits(stakePoolSupply ?? "0", fenixBalance?.decimals ?? BigNumber.from(0))
+                )}
                 decimals={0}
                 description={t("token.fenix")}
               />

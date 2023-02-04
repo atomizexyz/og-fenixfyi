@@ -34,7 +34,7 @@ const Layout = ({ children }: any) => {
                   <CheckIcon className="w-8 h-8" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-neutral">🎉 {t("success")}</h3>
+                  <h3 className="font-bold text-neutral">🎉 {t("toast.success")}</h3>
                   <div className="text-xs text-neutral">{resolveValue(toast.message, toast)}</div>
                 </div>
               </div>

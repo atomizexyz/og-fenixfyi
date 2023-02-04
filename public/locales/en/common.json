@@ -137,6 +137,7 @@
     "spend-approved": "Spend approved",
     "end-stake-successful": "Stake ended successfully",
     "defer-stake-successful": "Stake deferred successfully",
-    "stake-successful": "Stake started successfully"
+    "stake-successful": "Stake started successfully",
+    "xen-burned": "XEN burned for FENIX successfully"
   }
 }

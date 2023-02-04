@@ -28,12 +28,12 @@ const ChainDashbaord: NextPage = () => {
     address: fenixContract(chainFromId).addressOrName,
     chainId: chainFromId?.id,
   });
-  const { setChainOverride, startTs, shareRate, stakePoolSupply } = useContext(FENIXContext);
+  const { setChainOverride, genesisTs, shareRate, stakePoolSupply } = useContext(FENIXContext);
 
   const stakeItems = [
     {
       title: t("dashboard.pool-supply"),
-      value: Number(ethers.utils.formatUnits(stakePoolSupply ?? 0, 18)),
+      value: Number(ethers.utils.formatUnits(stakePoolSupply ?? "0", 18)),
       decimals: 0,
     },
     {
@@ -74,7 +74,7 @@ const ChainDashbaord: NextPage = () => {
             <h2 className="card-title">{t("dashboard.general-stats")}</h2>
             <div className="stats stats-vertical bg-transparent text-neutral">
               <ChainStatCard value={chainFromId?.name ?? "Ethereum"} id={chainFromId?.id ?? 1} />
-              <DateStatCard title={t("card.days-since-launch")} dateTs={startTs} isPast={true} />
+              <DateStatCard title={t("card.days-since-launch")} dateTs={genesisTs} isPast={true} />
               {token && (
                 <DataCard
                   title={t("dashboard.token-address")}

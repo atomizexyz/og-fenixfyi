@@ -11,6 +11,7 @@ import FENIXContext from "~/contexts/FENIXContext";
 import GasEstimate from "~/components/GasEstimate";
 import toast from "react-hot-toast";
 import * as yup from "yup";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "@hookform/error-message";
@@ -18,9 +19,11 @@ import { useNetwork, useContractWrite, usePrepareContractWrite, useWaitForTransa
 import { fenixContract } from "~/lib/fenix-contract";
 import FENIX_ABI from "~/abi/FENIX_ABI";
 import { NumberStatCard } from "~/components/StatCards";
+import Router from "next/router";
 
 const Burn: NextPage = () => {
   const { t } = useTranslation("common");
+  const router = useRouter();
 
   const { chain } = useNetwork();
 
@@ -76,7 +79,8 @@ const Burn: NextPage = () => {
   const {} = useWaitForTransaction({
     hash: data?.hash,
     onSuccess(data) {
-      toast(t("toast.spend-approved"));
+      toast(t("toast.xen-burned"));
+      router.push("/stake");
     },
   });
   const onBurnSubmit = () => {

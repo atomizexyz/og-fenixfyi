@@ -13,6 +13,7 @@ import { BigNumber } from "ethers";
 import { chainList } from "~/lib/client";
 import { fenixContract } from "~/lib/fenix-contract";
 import { xenContract } from "~/lib/xen-contract";
+import { provider } from "~/lib/client";
 
 export interface UserMint {
   user: string;
@@ -71,7 +72,7 @@ interface IFENIXContext {
   rewardPoolSupply: string;
   xenBalance?: Balance;
   fenixBalance?: Balance;
-  startTs: number;
+  genesisTs: number;
   cooldownUnlockTs: number;
   shareRate: number;
   allowance: string;
@@ -84,7 +85,7 @@ const FENIXContext = createContext<IFENIXContext>({
   rewardPoolSupply: "0",
   xenBalance: undefined,
   fenixBalance: undefined,
-  startTs: 0,
+  genesisTs: 0,
   cooldownUnlockTs: 0,
   shareRate: 0,
   allowance: "0",
@@ -97,7 +98,7 @@ export const FENIXProvider = ({ children }: any) => {
   const [rewardPoolSupply, setRewardPoolSupply] = useState<string>("0");
   const [xenBalance, setXenBalance] = useState<Balance | undefined>();
   const [fenixBalance, setFenixBalance] = useState<Balance | undefined>();
-  const [startTs, setStartTs] = useState(0);
+  const [genesisTs, setGenesisTs] = useState(0);
   const [cooldownUnlockTs, setCooldownUnlockTs] = useState(0);
   const [shareRate, setShareRate] = useState(0);
   const [allowance, setAllowance] = useState<string>("0");
@@ -142,13 +143,14 @@ export const FENIXProvider = ({ children }: any) => {
     onSuccess(data) {
       setAllowance(String(data));
     },
+    watch: true,
   });
 
   useContractReads({
     contracts: [
       {
         ...fenixContract(chain),
-        functionName: "startTs",
+        functionName: "genesisTs",
       },
       {
         ...fenixContract(chain),
@@ -169,7 +171,7 @@ export const FENIXProvider = ({ children }: any) => {
       },
     ],
     onSuccess(data) {
-      setStartTs(Number(data[0]));
+      setGenesisTs(Number(data[0]));
       setShareRate(Number(data[1]));
       setStakePoolSupply(String(data[2]));
       setRewardPoolSupply(String(data[3]));
@@ -205,7 +207,7 @@ export const FENIXProvider = ({ children }: any) => {
         rewardPoolSupply,
         xenBalance,
         fenixBalance,
-        startTs,
+        genesisTs,
         cooldownUnlockTs,
         shareRate,
         allowance,
