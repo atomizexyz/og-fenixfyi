@@ -68,7 +68,7 @@ const Bonus: NextPage = () => {
       <CardContainer>
         <form onSubmit={handleSubmit(handleEndSubmit)}>
           <div className="flex flex-col space-y-4">
-            <h2 className="card-title text-neutral">{t("bonus.title")}</h2>
+            <h2 className="card-title text-neutral">{t("reward.title")}</h2>
 
             <Countdown
               date={new Date(cooldownUnlockTs * 1000)}
@@ -80,17 +80,17 @@ const Bonus: NextPage = () => {
               <NumberStatCard
                 title={t("card.reward-pool-supply")}
                 value={Number(ethers.utils.formatUnits(rewardPoolSupply, fenixBalance?.decimals ?? BigNumber.from(0)))}
-                decimals={4}
+                decimals={0}
                 description={t("token.fenix")}
               />
               <NumberStatCard
                 title={t("card.stake-pool-supply")}
                 value={Number(ethers.utils.formatUnits(stakePoolSupply, fenixBalance?.decimals ?? BigNumber.from(0)))}
-                decimals={4}
+                decimals={0}
                 description={t("token.fenix")}
               />
             </div>
-            <InfoCard title={t("bonus.claim")} description={t("bonus.claim-details")} />
+            <InfoCard title={t("reward.claim")} description={t("reward.claim-details")} />
             <div className="form-control w-full">
               <button
                 type="submit"
@@ -98,7 +98,7 @@ const Bonus: NextPage = () => {
                   loading: processing,
                 })}
               >
-                {t("bonus.claim")}
+                {t("reward.claim")}
               </button>
             </div>
             <GasEstimate feeData={feeData} gasLimit={config?.request?.gasLimit} />

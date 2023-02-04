@@ -13,6 +13,12 @@ import { clsx } from "clsx";
 import { watch } from "fs";
 import { BigNumber, ethers } from "ethers";
 
+export enum StakeStatus {
+  ACTIVE = 0,
+  DEFER = 1,
+  END = 2,
+}
+
 export const StakeRow: NextPage<any> = (props) => {
   const { t } = useTranslation("common");
   const [progress, setProgress] = useState(0);
@@ -29,6 +35,74 @@ export const StakeRow: NextPage<any> = (props) => {
 
   const startTime = Number(stake?.startTs ?? 0);
   const endTime = startTime + stake?.term * 86400;
+
+  const renderProgress = (status: StakeStatus) => {
+    switch (status) {
+      case StakeStatus.END:
+      case StakeStatus.DEFER:
+        return (
+          <div className="flex flex-col">
+            <pre className="text-right text-sm">
+              <CountUp
+                end={Number(ethers.utils.formatUnits(stake?.payout ?? 0, 18))}
+                preserveValue={true}
+                separator=","
+                decimals={2}
+              />
+            </pre>
+          </div>
+        );
+      default:
+        return (
+          <div className="flex flex-col">
+            <progress className="progress progress-primary" value={progress} max={stake?.term}></progress>
+            <pre className="text-sm">
+              <CountUp end={percent} preserveValue={true} separator="," suffix="%" decimals={2} />
+            </pre>
+          </div>
+        );
+    }
+  };
+
+  const renderActions = (status: StakeStatus) => {
+    switch (status) {
+      case StakeStatus.ACTIVE:
+        return (
+          <div className="space-x-1">
+            <Link href={`/stake/${props.stakerAddress}/${props.index}/defer`}>
+              <button className="btn btn-sm glass text-neutral" disabled={!canDefer}>
+                {t("portfolio.defer")}
+              </button>
+            </Link>
+            <Link
+              href={`/stake/${props.stakerAddress}/${props.index}/end`}
+              className={clsx("btn btn-sm text-neutral", {
+                "btn-error": !canDefer,
+                glass: canDefer,
+              })}
+            >
+              {t("portfolio.end")}
+            </Link>
+          </div>
+        );
+      case StakeStatus.DEFER:
+        return (
+          <div className="space-x-1">
+            <Link
+              href={`/stake/${props.stakerAddress}/${props.index}/end`}
+              className={clsx("btn btn-sm text-neutral", {
+                "btn-error": !canDefer,
+                glass: canDefer,
+              })}
+            >
+              {t("portfolio.end")}
+            </Link>
+          </div>
+        );
+      default:
+        return <div></div>;
+    }
+  };
 
   useEffect(() => {
     if (endTime) {
@@ -66,32 +140,8 @@ export const StakeRow: NextPage<any> = (props) => {
           />
         </pre>
       </td>
-      <td className="bg-transparent text-center">
-        <div className="flex flex-col">
-          <progress className="progress progress-primary" value={progress} max={stake?.term}></progress>
-          <pre className="text-sm">
-            <CountUp end={percent} preserveValue={true} separator="," suffix="%" decimals={2} />
-          </pre>
-        </div>
-      </td>
-      <td className="bg-transparent text-right">
-        <div className="space-x-1">
-          <Link href={`/stake/${props.stakerAddress}/${props.index}/defer`}>
-            <button className="btn btn-sm glass text-neutral" disabled={!canDefer}>
-              {t("portfolio.defer")}
-            </button>
-          </Link>
-          <Link
-            href={`/stake/${props.stakerAddress}/${props.index}/end`}
-            className={clsx("btn btn-sm text-neutral", {
-              "btn-error": !canDefer,
-              glass: canDefer,
-            })}
-          >
-            {t("portfolio.end")}
-          </Link>
-        </div>
-      </td>
+      <td className="bg-transparent text-center">{renderProgress(stake?.status ?? StakeStatus.END)}</td>
+      <td className="bg-transparent text-right">{renderActions(stake?.status ?? StakeStatus.END)}</td>
     </>
   );
 };

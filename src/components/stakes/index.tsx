@@ -1,4 +1,4 @@
 import StakeHeaderFooter from "./StakeHeaderFooter";
-import StakeRow from "./StakeRow";
+import { StakeRow, StakeStatus } from "./StakeRow";
 
-export { StakeHeaderFooter, StakeRow };
+export { StakeHeaderFooter, StakeRow, StakeStatus };

@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { Container, CardContainer } from "~/components/containers/";
-import { StakeHeaderFooter, StakeRow } from "~/components/stakes";
+import { StakeHeaderFooter, StakeRow, StakeStatus } from "~/components/stakes";
 import PortfolioNav from "~/components/nav/PortfolioNav";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -33,7 +33,7 @@ const EndPortfolio: NextPage = () => {
           <div className="overflow-x-auto">
             <table className="table table-compact table-zebra w-full">
               <thead>
-                <StakeHeaderFooter />
+                <StakeHeaderFooter status={StakeStatus.END} />
               </thead>
               <tbody>
                 {Array.from(Array(Number(stakeCount ?? 0)).keys()).map((_stake: any) => (
@@ -42,13 +42,13 @@ const EndPortfolio: NextPage = () => {
                       contractAddressOrName={fenixContract(chain).addressOrName}
                       stakerAddress={address}
                       index={_stake}
-                      status={2}
+                      status={StakeStatus.END}
                     />
                   </tr>
                 ))}
               </tbody>
               <tfoot>
-                <StakeHeaderFooter />
+                <StakeHeaderFooter status={StakeStatus.END} />
               </tfoot>
             </table>
           </div>

@@ -1,5 +1,14 @@
 import React, { createContext, useState } from "react";
-import { Chain, useFeeData, useBalance, useAccount, useNetwork, useContractRead, useContractReads } from "wagmi";
+import {
+  Chain,
+  useFeeData,
+  useBalance,
+  useAccount,
+  useNetwork,
+  useContractRead,
+  useContractReads,
+  useBlockNumber,
+} from "wagmi";
 import { BigNumber } from "ethers";
 import { chainList } from "~/lib/client";
 import { fenixContract } from "~/lib/fenix-contract";
@@ -134,8 +143,6 @@ export const FENIXProvider = ({ children }: any) => {
       setAllowance(String(data));
     },
   });
-
-  // setAllowance(Number(allowanceData ?? 0));
 
   useContractReads({
     contracts: [

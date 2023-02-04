@@ -19,7 +19,7 @@ import { useNetwork, useContractWrite, usePrepareContractWrite, useWaitForTransa
 import { xenContract } from "~/lib/xen-contract";
 import XENCryptoABI from "~/abi/XENCryptoABI";
 import { fenixContract } from "~/lib/fenix-contract";
-import { InfoCard, NumberStatCard } from "~/components/StatCards";
+import { InfoCard, NumberStatCard, DataCard } from "~/components/StatCards";
 
 const Approve: NextPage = () => {
   const { t } = useTranslation("common");
@@ -140,7 +140,7 @@ const Approve: NextPage = () => {
         <CardContainer>
           <form onSubmit={handleSubmit(onFixedSubmit)}>
             <div className="flex flex-col space-y-4">
-              <h2 className="card-title text-neutral">{t("burn.approve-fixed")}</h2>
+              <h2 className="card-title text-neutral">{t("burn.approve-limited")}</h2>
 
               <MaxValueField
                 title={t("form-field.xen").toUpperCase()}
@@ -157,12 +157,20 @@ const Approve: NextPage = () => {
               />
 
               <div className="flex stats glass w-full text-neutral">
-                <NumberStatCard
-                  title={t("card.spend-allowance")}
-                  value={Number(ethers.utils.formatUnits(allowance, xenBalance?.decimals ?? BigNumber.from(0)))}
-                  decimals={0}
-                  description={t("token.xen")}
-                />
+                {BigNumber.from(allowance ?? 0).eq(ethers.constants.MaxUint256) ? (
+                  <DataCard
+                    title={t("card.spend-allowance")}
+                    value={t("burn.unlimited")}
+                    description={t("token.xen")}
+                  />
+                ) : (
+                  <NumberStatCard
+                    title={t("card.spend-allowance")}
+                    value={Number(ethers.utils.formatUnits(allowance, xenBalance?.decimals ?? BigNumber.from(0)))}
+                    decimals={0}
+                    description={t("token.xen")}
+                  />
+                )}
               </div>
 
               <InfoCard title={t("burn.approve-fixed")} description={t("burn.approve-details")} />

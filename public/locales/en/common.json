@@ -29,12 +29,13 @@
     "approve": "Approve",
     "approve-details": "In order to burn your XEN, you need to give the FENIX contract permission.",
     "approve-number": "Approve {{tokenAmount}} Burn",
-    "approve-fixed": "Approve Fixed Burn",
+    "approve-limited": "Approve Limited Burn",
     "approve-unlimited": "Approve Unlimited Burn",
     "get": "Get XEN",
     "get-xen-title": "Get some XEN",
     "get-xen-description": "You need to have some XEN to burn. You can get XEN by minting it for free + GAS fee or by buying XEN on a DEX.",
-    "get-xen": "Get XEN on xen.fyi"
+    "get-xen": "Get XEN on xen.fyi",
+    "unlimited": "Unlimited"
   },
   "stake": {
     "title": "Stake",
@@ -63,12 +64,13 @@
     "total": "Total",
     "progress": "Progress",
     "actions": "Actions",
-    "defer": "Defer"
+    "defer": "Defer",
+    "payout": "Payout"
   },
-  "bonus": {
-    "title": "Bonus",
-    "claim": "Claim",
-    "claim-details": "You can claim your bonus by staking your FENIX for a minimum of 30 days."
+  "reward": {
+    "title": "Adoption Reward",
+    "claim": "Claim Reward",
+    "claim-details": "Any user can claim the the reward once the cooldown has expired."
   },
   "meta": {
     "description": "FENIX.fyi is an open-source project to help users understand the FENIX protocol and its ecosystem."
@@ -105,7 +107,7 @@
     "countdown-details": "Day•Hours:Minutes:Seconds",
     "reward-pool-supply": "Reward Pool Supply",
     "stake-pool-supply": "Stake Pool Supply",
-    "spend-allowance": "Maximum Spend Allowance"
+    "spend-allowance": "Maximum Spend Allowance for Burn"
   },
   "form-field": {
     "xen": "XEN",
