@@ -23,7 +23,7 @@ const ActivePortfolio: NextPage = () => {
     args: [address],
   }) as unknown as { data: number };
 
-  const { poolSupply } = useContext(FENIXContext);
+  const { stakePoolSupply } = useContext(FENIXContext);
 
   return (
     <Container className="max-w-5xl">
@@ -44,6 +44,7 @@ const ActivePortfolio: NextPage = () => {
                       contractAddressOrName={fenixContract(chain).addressOrName}
                       stakerAddress={address}
                       index={_stake}
+                      status={0}
                     />
                   </tr>
                 ))}

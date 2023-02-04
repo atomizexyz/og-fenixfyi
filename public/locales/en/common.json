@@ -8,6 +8,10 @@
   "address": "Address",
   "fenix": "Fenix",
   "add-to-wallet": "Add FENIX to Wallet",
+  "token": {
+    "fenix": "FENIX",
+    "xen": "XEN"
+  },
   "dashboard": {
     "title": "Dashboard",
     "chains": "Chains",
@@ -92,14 +96,16 @@
     "days": "Days",
     "time-bonus": "Time Bonus",
     "size-bonus": "Size Bonus",
+    "amplify-bonus": "Amplify Bonus",
     "shares": "Shares",
     "subtotal": "Subtotal",
     "liquid": "Liquid",
     "new": "New",
     "matures-in": "Matures in",
     "countdown-details": "Day•Hours:Minutes:Seconds",
-    "xen-supply": "XEN Supply",
-    "new-fenix": "New FENIX"
+    "reward-pool-supply": "Reward Pool Supply",
+    "stake-pool-supply": "Stake Pool Supply",
+    "spend-allowance": "Maximum Spend Allowance"
   },
   "form-field": {
     "xen": "XEN",

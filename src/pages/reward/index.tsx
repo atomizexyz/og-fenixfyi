@@ -23,7 +23,7 @@ const Bonus: NextPage = () => {
   const { chain } = useNetwork();
   const router = useRouter();
 
-  const { feeData, xenBalance, xenTotalSupply } = useContext(FENIXContext);
+  const { feeData, fenixBalance, cooldownUnlockTs, stakePoolSupply, rewardPoolSupply } = useContext(FENIXContext);
   const [disabled, setDisabled] = useState(false);
   const [processing, setProcessing] = useState(false);
 
@@ -40,7 +40,7 @@ const Bonus: NextPage = () => {
   const { config } = usePrepareContractWrite({
     addressOrName: fenixContract(chain).addressOrName,
     contractInterface: FENIX_ABI,
-    functionName: "bonus",
+    functionName: "flushRewardPool",
     enabled: !disabled,
   });
 
@@ -69,24 +69,25 @@ const Bonus: NextPage = () => {
         <form onSubmit={handleSubmit(handleEndSubmit)}>
           <div className="flex flex-col space-y-4">
             <h2 className="card-title text-neutral">{t("bonus.title")}</h2>
+
             <Countdown
-              date={Date.now() + 86400 * 1000}
+              date={new Date(cooldownUnlockTs * 1000)}
               renderer={(props) => (
                 <CountdownCard days={props.days} hours={props.hours} minutes={props.minutes} seconds={props.seconds} />
               )}
             />
             <div className="flex stats glass w-full text-neutral">
               <NumberStatCard
-                title={t("card.xen-supply")}
-                value={Number(ethers.utils.formatUnits(xenTotalSupply, xenBalance?.decimals ?? BigNumber.from(0)))}
-                decimals={0}
+                title={t("card.reward-pool-supply")}
+                value={Number(ethers.utils.formatUnits(rewardPoolSupply, fenixBalance?.decimals ?? BigNumber.from(0)))}
+                decimals={4}
+                description={t("token.fenix")}
               />
               <NumberStatCard
-                title={t("card.new-fenix")}
-                value={Number(
-                  ethers.utils.formatUnits(xenTotalSupply.div(10_000), xenBalance?.decimals ?? BigNumber.from(0))
-                )}
+                title={t("card.stake-pool-supply")}
+                value={Number(ethers.utils.formatUnits(stakePoolSupply, fenixBalance?.decimals ?? BigNumber.from(0)))}
                 decimals={4}
+                description={t("token.fenix")}
               />
             </div>
             <InfoCard title={t("bonus.claim")} description={t("bonus.claim-details")} />

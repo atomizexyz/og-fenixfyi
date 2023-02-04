@@ -42,6 +42,7 @@ const DeferPortfolio: NextPage = () => {
                       contractAddressOrName={fenixContract(chain).addressOrName}
                       stakerAddress={address}
                       index={_stake}
+                      status={1}
                     />
                   </tr>
                 ))}

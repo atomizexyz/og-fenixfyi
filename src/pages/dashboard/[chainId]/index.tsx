@@ -14,7 +14,7 @@ import { useTranslation } from "next-i18next";
 import { chainList } from "~/lib/client";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
-import { shareRatePercent } from "~/lib/helpers";
+import { calcShareRatePercent } from "~/lib/helpers";
 
 const ChainDashbaord: NextPage = () => {
   const { t } = useTranslation("common");
@@ -28,17 +28,17 @@ const ChainDashbaord: NextPage = () => {
     address: fenixContract(chainFromId).addressOrName,
     chainId: chainFromId?.id,
   });
-  const { setChainOverride, startTs, shareRate, poolSupply } = useContext(FENIXContext);
+  const { setChainOverride, startTs, shareRate, stakePoolSupply } = useContext(FENIXContext);
 
   const stakeItems = [
     {
       title: t("dashboard.pool-supply"),
-      value: Number(ethers.utils.formatUnits(poolSupply ?? 0, 18)),
+      value: Number(ethers.utils.formatUnits(stakePoolSupply ?? 0, 18)),
       decimals: 0,
     },
     {
       title: t("dashboard.share-rate"),
-      value: shareRatePercent(shareRate),
+      value: calcShareRatePercent(shareRate),
       decimals: 4,
       suffix: "%",
     },

@@ -19,7 +19,7 @@ import { useNetwork, useContractWrite, usePrepareContractWrite, useWaitForTransa
 import { xenContract } from "~/lib/xen-contract";
 import XENCryptoABI from "~/abi/XENCryptoABI";
 import { fenixContract } from "~/lib/fenix-contract";
-import { InfoCard } from "~/components/StatCards";
+import { InfoCard, NumberStatCard } from "~/components/StatCards";
 
 const Approve: NextPage = () => {
   const { t } = useTranslation("common");
@@ -155,6 +155,15 @@ const Approve: NextPage = () => {
                 register={register("burnXENAmount")}
                 setValue={setValue}
               />
+
+              <div className="flex stats glass w-full text-neutral">
+                <NumberStatCard
+                  title={t("card.spend-allowance")}
+                  value={Number(ethers.utils.formatUnits(allowance, xenBalance?.decimals ?? BigNumber.from(0)))}
+                  decimals={0}
+                  description={t("token.xen")}
+                />
+              </div>
 
               <InfoCard title={t("burn.approve-fixed")} description={t("burn.approve-details")} />
 

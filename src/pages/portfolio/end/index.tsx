@@ -38,7 +38,12 @@ const EndPortfolio: NextPage = () => {
               <tbody>
                 {Array.from(Array(Number(stakeCount ?? 0)).keys()).map((_stake: any) => (
                   <tr key={_stake}>
-                    <StakeRow contractAddressOrName={fenixContract(chain).addressOrName} stakerAddress={address} />
+                    <StakeRow
+                      contractAddressOrName={fenixContract(chain).addressOrName}
+                      stakerAddress={address}
+                      index={_stake}
+                      status={2}
+                    />
                   </tr>
                 ))}
               </tbody>

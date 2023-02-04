@@ -16,7 +16,7 @@ export const fenixContract = (contractChain?: Chain) => {
     case chain.foundry.id:
     case chain.localhost.id:
       return {
-        addressOrName: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+        addressOrName: "0x9A676e781A523b5d0C0e43731313A708CB607508",
         contractInterface: FENIX_ABI,
         chainId: contractChain.id,
       };

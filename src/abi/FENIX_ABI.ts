@@ -5,6 +5,21 @@ const FENIX_ABI = [
     type: "constructor",
   },
   {
+    inputs: [],
+    name: "AddressZero",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "BalanceZero",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "CooldownActive",
+    type: "error",
+  },
+  {
     inputs: [
       {
         internalType: "UD60x18",
@@ -24,17 +39,6 @@ const FENIX_ABI = [
       },
     ],
     name: "PRBMathUD60x18__LogInputTooSmall",
-    type: "error",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "x",
-        type: "uint256",
-      },
-    ],
-    name: "PRBMathUD60x18__ToUD60x18Overflow",
     type: "error",
   },
   {
@@ -72,6 +76,48 @@ const FENIX_ABI = [
       },
     ],
     name: "PRBMath__MulDivOverflow",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "StakeNotEnded",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "StakeNotStarted",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "enum Status",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "StakeStatusAlreadySet",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "TermGreaterThanMax",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "TermZero",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "caller",
+        type: "address",
+      },
+    ],
+    name: "WrongCaller",
     type: "error",
   },
   {
@@ -163,12 +209,77 @@ const FENIX_ABI = [
   },
   {
     inputs: [],
+    name: "ANNUAL_INFLATION_RATE",
+    outputs: [
+      {
+        internalType: "UD60x18",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "DOMAIN_SEPARATOR",
     outputs: [
       {
         internalType: "bytes32",
         name: "",
         type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "MAX_STAKE_LENGTH_DAYS",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "TIME_BONUS",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "XEN_ADDRESS",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "XEN_RATIO",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -242,19 +353,6 @@ const FENIX_ABI = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "bigBonusUnclaimed",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "uint256",
@@ -296,33 +394,28 @@ const FENIX_ABI = [
       {
         components: [
           {
-            internalType: "uint256",
+            internalType: "enum Status",
+            name: "status",
+            type: "uint8",
+          },
+          {
+            internalType: "uint40",
             name: "startTs",
-            type: "uint256",
+            type: "uint40",
           },
           {
-            internalType: "uint256",
+            internalType: "uint40",
             name: "deferralTs",
-            type: "uint256",
+            type: "uint40",
           },
           {
-            internalType: "uint256",
-            name: "stakeId",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
+            internalType: "uint16",
             name: "term",
-            type: "uint256",
+            type: "uint16",
           },
           {
             internalType: "uint256",
             name: "fenix",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "bonus",
             type: "uint256",
           },
           {
@@ -341,7 +434,7 @@ const FENIX_ABI = [
         type: "tuple",
       },
     ],
-    name: "calculateEarlyPenalty",
+    name: "calculateEarlyPayout",
     outputs: [
       {
         internalType: "uint256",
@@ -357,33 +450,28 @@ const FENIX_ABI = [
       {
         components: [
           {
-            internalType: "uint256",
+            internalType: "enum Status",
+            name: "status",
+            type: "uint8",
+          },
+          {
+            internalType: "uint40",
             name: "startTs",
-            type: "uint256",
+            type: "uint40",
           },
           {
-            internalType: "uint256",
+            internalType: "uint40",
             name: "deferralTs",
-            type: "uint256",
+            type: "uint40",
           },
           {
-            internalType: "uint256",
-            name: "stakeId",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
+            internalType: "uint16",
             name: "term",
-            type: "uint256",
+            type: "uint16",
           },
           {
             internalType: "uint256",
             name: "fenix",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "bonus",
             type: "uint256",
           },
           {
@@ -402,7 +490,7 @@ const FENIX_ABI = [
         type: "tuple",
       },
     ],
-    name: "calculateLatePenalty",
+    name: "calculateLatePayout",
     outputs: [
       {
         internalType: "uint256",
@@ -414,58 +502,8 @@ const FENIX_ABI = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "fenix",
-        type: "uint256",
-      },
-    ],
-    name: "calculateSizeBonus",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "pure",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "fenix",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "term",
-        type: "uint256",
-      },
-    ],
-    name: "calculateTimeBonus",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "pure",
-    type: "function",
-  },
-  {
     inputs: [],
-    name: "claimBigBonus",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "currentStakeId",
+    name: "cooldownUnlockTs",
     outputs: [
       {
         internalType: "uint256",
@@ -516,6 +554,13 @@ const FENIX_ABI = [
       },
     ],
     name: "endStake",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "flushRewardPool",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -628,33 +673,7 @@ const FENIX_ABI = [
   },
   {
     inputs: [],
-    name: "poolSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "poolTotalShares",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "poolTotalStakes",
+    name: "rewardPoolSupply",
     outputs: [
       {
         internalType: "uint256",
@@ -715,33 +734,28 @@ const FENIX_ABI = [
       {
         components: [
           {
-            internalType: "uint256",
+            internalType: "enum Status",
+            name: "status",
+            type: "uint8",
+          },
+          {
+            internalType: "uint40",
             name: "startTs",
-            type: "uint256",
+            type: "uint40",
           },
           {
-            internalType: "uint256",
+            internalType: "uint40",
             name: "deferralTs",
-            type: "uint256",
+            type: "uint40",
           },
           {
-            internalType: "uint256",
-            name: "stakeId",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
+            internalType: "uint16",
             name: "term",
-            type: "uint256",
+            type: "uint16",
           },
           {
             internalType: "uint256",
             name: "fenix",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "bonus",
             type: "uint256",
           },
           {
@@ -764,6 +778,32 @@ const FENIX_ABI = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "stakePoolSupply",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "stakePoolTotalShares",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "address",
@@ -779,33 +819,28 @@ const FENIX_ABI = [
     name: "stakes",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "enum Status",
+        name: "status",
+        type: "uint8",
+      },
+      {
+        internalType: "uint40",
         name: "startTs",
-        type: "uint256",
+        type: "uint40",
       },
       {
-        internalType: "uint256",
+        internalType: "uint40",
         name: "deferralTs",
-        type: "uint256",
+        type: "uint40",
       },
       {
-        internalType: "uint256",
-        name: "stakeId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
+        internalType: "uint16",
         name: "term",
-        type: "uint256",
+        type: "uint16",
       },
       {
         internalType: "uint256",
         name: "fenix",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "bonus",
         type: "uint256",
       },
       {
@@ -845,9 +880,9 @@ const FENIX_ABI = [
     name: "startTs",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "uint40",
         name: "",
-        type: "uint256",
+        type: "uint40",
       },
     ],
     stateMutability: "view",

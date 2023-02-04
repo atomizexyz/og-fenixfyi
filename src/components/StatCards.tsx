@@ -210,6 +210,7 @@ export const CountdownCard: NextPage<CountdownCardStat> = (props) => {
 interface BonusShareCardStat {
   timeBonus: number;
   sizeBonus: number;
+  amplifyBonus: number;
   subtotal: number;
   shareRate: number;
   shares: number;
@@ -234,21 +235,6 @@ export const BonusShareCard: NextPage<BonusShareCardStat> = (props) => {
             <tr>
               <td colSpan={2}>
                 <div className="flex flex-row space-x-1 items-center text-base-content">
-                  <div className="font-medium">{t("card.time-bonus")}</div>
-                  <div className="tooltip tooltip-right" data-tip="Time Bonus Formula">
-                    <InformationCircleIcon className="w-4 h-4" />
-                  </div>
-                </div>
-              </td>
-              <td className="text-right text-sm text-neutral">
-                <pre>
-                  <CountUp end={props.timeBonus} preserveValue={true} separator="," decimals={4} />
-                </pre>
-              </td>
-            </tr>
-            <tr>
-              <td colSpan={2}>
-                <div className="flex flex-row space-x-1 items-center text-base-content">
                   <div className="font-medium ">{t("card.size-bonus")}</div>
                   <div className="tooltip tooltip-right" data-tip="Size Bonus Formula">
                     <InformationCircleIcon className="w-4 h-4" />
@@ -257,7 +243,37 @@ export const BonusShareCard: NextPage<BonusShareCardStat> = (props) => {
               </td>
               <td className="text-right text-sm text-neutral">
                 <pre>
-                  <CountUp end={props.sizeBonus} preserveValue={true} separator="," decimals={4} />
+                  <CountUp end={props.sizeBonus} preserveValue={true} separator="," decimals={6} />
+                </pre>
+              </td>
+            </tr>
+            <tr>
+              <td colSpan={2}>
+                <div className="flex flex-row space-x-1 items-center text-base-content">
+                  <div className="font-medium">{t("card.time-bonus")}</div>
+                  <div className="tooltip tooltip-right" data-tip="Time Bonus Formula">
+                    <InformationCircleIcon className="w-4 h-4" />
+                  </div>
+                </div>
+              </td>
+              <td className="text-right text-sm text-neutral">
+                <pre>
+                  <CountUp end={props.timeBonus} preserveValue={true} separator="," decimals={6} />
+                </pre>
+              </td>
+            </tr>
+            <tr>
+              <td colSpan={2}>
+                <div className="flex flex-row space-x-1 items-center text-base-content">
+                  <div className="font-medium ">{t("card.amplify-bonus")}</div>
+                  <div className="tooltip tooltip-right" data-tip="Size Bonus Formula">
+                    <InformationCircleIcon className="w-4 h-4" />
+                  </div>
+                </div>
+              </td>
+              <td className="text-right text-sm text-neutral">
+                <pre>
+                  <CountUp end={props.amplifyBonus} preserveValue={true} separator="," decimals={6} />
                 </pre>
               </td>
             </tr>
@@ -269,17 +285,18 @@ export const BonusShareCard: NextPage<BonusShareCardStat> = (props) => {
               </th>
               <td className="text-right text-sm text-neutral">
                 <pre>
-                  <CountUp end={props.subtotal} preserveValue={true} separator="," decimals={4} />
+                  <CountUp end={props.subtotal} preserveValue={true} separator="," decimals={6} />
                 </pre>
               </td>
             </tr>
+
             <tr>
               <th scope="row" colSpan={2} className="text-left md:text-right text-sm text-base-content sm:table-cell">
                 {t("share-rate")}
               </th>
               <td className="text-right text-sm text-neutral">
                 <pre>
-                  <CountUp end={props.shareRate} preserveValue={true} separator="," suffix="%" decimals={4} />
+                  <CountUp end={props.shareRate} preserveValue={true} separator="," suffix="%" decimals={5} />
                 </pre>
               </td>
             </tr>
@@ -289,7 +306,7 @@ export const BonusShareCard: NextPage<BonusShareCardStat> = (props) => {
               </th>
               <td className="text-right text-sm text-neutral">
                 <pre>
-                  <CountUp end={props.shares} preserveValue={true} separator="," decimals={4} />
+                  <CountUp end={props.shares} preserveValue={true} separator="," decimals={6} />
                 </pre>
               </td>
             </tr>

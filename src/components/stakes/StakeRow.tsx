@@ -40,6 +40,8 @@ export const StakeRow: NextPage<any> = (props) => {
     }
   }, [endTime, stake]);
 
+  if (stake?.status != props?.status) return null;
+
   return (
     <>
       <td className="bg-transparent text-sm">{formatDate(startTime)}</td>

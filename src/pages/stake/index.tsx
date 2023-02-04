@@ -5,7 +5,6 @@ import { DayPicker } from "react-day-picker";
 import { useState, useContext, useCallback } from "react";
 import { useTranslation } from "next-i18next";
 import { MaxValueField } from "~/components/FormFields";
-import { InformationCircleIcon } from "@heroicons/react/outline";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { NumberStatCard, BonusShareCard } from "~/components/StatCards";
 import "react-day-picker/dist/style.css";
@@ -20,8 +19,15 @@ import FENIX_ABI from "~/abi/FENIX_ABI";
 import { fenixContract } from "~/lib/fenix-contract";
 import toast from "react-hot-toast";
 import { ErrorMessage } from "@hookform/error-message";
-import { FENIX_MAX_STAKE_LENGTH } from "~/lib/helpers";
-import { shareRatePercent, currentYear, maxEndStakeYear } from "~/lib/helpers";
+import {
+  FENIX_MAX_STAKE_LENGTH,
+  calcSizeBonus,
+  calcTimeBonus,
+  calcSubtotalBonus,
+  calcShareRatePercent,
+  currentYear,
+  maxEndStakeYear,
+} from "~/lib/helpers";
 import { useEffect } from "react";
 import { InfoCard } from "~/components/StatCards";
 import { useRouter } from "next/router";
@@ -40,6 +46,11 @@ const Stake = () => {
   const [disabled, setDisabled] = useState(false);
   const [processing, setProcessing] = useState(false);
   const { feeData, fenixBalance, shareRate } = useContext(FENIXContext);
+
+  const [sizeBonus, setSizeBonus] = useState<number>(0);
+  const [timeBonus, setTimeBonus] = useState<number>(0);
+  const [subtotalBonus, setSubtotalBonus] = useState<number>(0);
+  const [shares, setShares] = useState<number>(0);
 
   /*** FORM SETUP ***/
 
@@ -109,34 +120,6 @@ const Stake = () => {
     writeStake?.();
   };
 
-  const { data: sizeBonus } = useContractRead({
-    addressOrName: fenixContract(chain).addressOrName,
-    contractInterface: FENIX_ABI,
-    functionName: "calculateSizeBonus",
-    args: [startStakeAmount ?? 0],
-    enabled: !disabled,
-  }) as unknown as { data: number };
-
-  const { data: timeBonus } = useContractRead({
-    addressOrName: fenixContract(chain).addressOrName,
-    contractInterface: FENIX_ABI,
-    functionName: "calculateTimeBonus",
-    args: [startStakeAmount ?? 0, startStakeDays ?? 0],
-    enabled: !disabled,
-  }) as unknown as { data: number };
-
-  const { data: bonus } = useContractRead({
-    addressOrName: fenixContract(chain).addressOrName,
-    contractInterface: FENIX_ABI,
-    functionName: "calculateBonus",
-    args: [startStakeAmount ?? 0, startStakeDays ?? 0],
-    enabled: !disabled,
-  }) as unknown as { data: number };
-
-  const shares = () => {
-    return (bonus ?? 0) / shareRatePercent(shareRate);
-  };
-
   const footer = (
     <div className="grid grid-flow-col gap-8 items-center">
       <button
@@ -168,10 +151,25 @@ const Stake = () => {
   };
 
   useEffect(() => {
+    setTimeBonus(calcTimeBonus(startStakeDays));
+    setSizeBonus(calcSizeBonus(startStakeAmount));
+    setSubtotalBonus(startStakeAmount * calcSubtotalBonus(sizeBonus, timeBonus));
+    setShares(subtotalBonus / calcShareRatePercent(shareRate));
+
     if (isLockMonth && !isSameMonth(selectedFromDay(), month)) {
       setMonth(selectedFromDay());
     }
-  }, [selectedFromDay, month, isLockMonth]);
+  }, [
+    selectedFromDay,
+    month,
+    isLockMonth,
+    startStakeAmount,
+    startStakeDays,
+    sizeBonus,
+    timeBonus,
+    subtotalBonus,
+    shareRate,
+  ]);
 
   return (
     <Container className="max-w-2xl">
@@ -226,13 +224,14 @@ const Stake = () => {
 
             <div className="stats stats-vertical glass w-full text-neutral">
               <BonusShareCard
-                timeBonus={timeBonus ?? 0}
-                sizeBonus={sizeBonus ?? 0}
-                subtotal={bonus ?? 0}
-                shareRate={shareRatePercent(shareRate)}
-                shares={shares()}
+                sizeBonus={startStakeAmount * sizeBonus}
+                timeBonus={startStakeAmount * timeBonus}
+                amplifyBonus={subtotalBonus - (startStakeAmount * timeBonus + startStakeAmount * sizeBonus)}
+                subtotal={subtotalBonus}
+                shareRate={calcShareRatePercent(shareRate)}
+                shares={shares}
               />
-              <NumberStatCard title={t("card.shares")} value={shares()} decimals={4} />
+              <NumberStatCard title={t("card.shares")} value={Number(shares)} decimals={4} />
             </div>
 
             <InfoCard title={t("stake.start")} description={t("stake.start-details")} />

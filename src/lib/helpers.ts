@@ -1,6 +1,6 @@
 import { daysSince } from "~/components/StatCards";
 import { BigNumber, ethers } from "ethers";
-export const FENIX_MAX_STAKE_LENGTH = 18250;
+export const FENIX_MAX_STAKE_LENGTH = 20075;
 export const UTC_TIME = new Date().getTime() / 1000;
 const WITHDRAWAL_WINDOW_DAYS = 7;
 const MAX_PENALTY_PCT = 99;
@@ -65,7 +65,7 @@ export const stakeYield = (data?: StakeData) => {
   }
 };
 
-export const shareRatePercent = (shareRate: number) => {
+export const calcShareRatePercent = (shareRate: number) => {
   return shareRate / 1e18;
 };
 
@@ -153,9 +153,25 @@ export const formatTime = (date: number) => {
 export const currentYear = () => {
   return new Date().getUTCFullYear();
 };
+
 export const maxEndStakeYear = () => {
-  // FENIX_MAX_STAKE_LENGTH days to years from now
   const d = new Date();
   d.setUTCDate(d.getUTCDate() + FENIX_MAX_STAKE_LENGTH);
   return d.getUTCFullYear();
+};
+
+export const calcSizeBonus = (fenix: number) => {
+  var bonus = 0;
+  if (fenix > 1) {
+    bonus = 1 - 1 / fenix;
+  }
+  return bonus;
+};
+
+export const calcTimeBonus = (term: number) => {
+  return Math.pow(term / FENIX_MAX_STAKE_LENGTH, 0.5);
+};
+
+export const calcSubtotalBonus = (size: number, time: number) => {
+  return Math.exp(size * 0.1 + time * 0.9);
 };

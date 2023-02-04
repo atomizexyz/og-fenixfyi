@@ -26,6 +26,7 @@ const Burn: NextPage = () => {
 
   const [disabled, setDisabled] = useState(true);
   const [processing, setProcessing] = useState(false);
+  const [burnMaximum, setBurnMaximum] = useState<string>("0");
   const { feeData, xenBalance, fenixBalance, allowance } = useContext(FENIXContext);
 
   const schema = yup
@@ -83,8 +84,13 @@ const Burn: NextPage = () => {
   };
 
   useEffect(() => {
+    if (xenBalance?.value.gt(allowance)) {
+      setBurnMaximum(allowance);
+    } else {
+      setBurnMaximum(xenBalance?.value?.toString() ?? "0");
+    }
     setDisabled(false);
-  }, []);
+  }, [allowance, burnMaximum, xenBalance?.value]);
 
   return (
     <Container className="max-w-2xl">
@@ -111,10 +117,7 @@ const Burn: NextPage = () => {
                 title={t("form-field.xen").toUpperCase()}
                 description={t("form-field.xen-description")}
                 decimals={0}
-                value={ethers.utils.formatUnits(
-                  xenBalance?.value ?? BigNumber.from(0),
-                  xenBalance?.decimals ?? BigNumber.from(0)
-                )}
+                value={ethers.utils.formatUnits(burnMaximum, xenBalance?.decimals ?? BigNumber.from(0))}
                 disabled={disabled}
                 errorMessage={<ErrorMessage errors={errors} name="burnXENAmount" />}
                 register={register("burnXENAmount")}
@@ -126,7 +129,7 @@ const Burn: NextPage = () => {
                   title={t("card.new")}
                   value={burnXENAmount / 10_000}
                   decimals={4}
-                  description={"FENIX"}
+                  description={t("token.fenix")}
                 />
                 <NumberStatCard
                   title={t("card.liquid")}
@@ -137,7 +140,7 @@ const Burn: NextPage = () => {
                     )
                   )}
                   decimals={4}
-                  description={"FENIX"}
+                  description={t("token.fenix")}
                 />
               </div>
 

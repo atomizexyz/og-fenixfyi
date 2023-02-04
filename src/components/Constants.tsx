@@ -76,9 +76,9 @@ export const navigationItems = [
   },
   {
     id: 4,
-    t: "Bonus",
+    t: "Reward",
     icon: <GiftIcon className="h-5 w-5" />,
-    href: "/bonus",
+    href: "/reward",
     canDisable: false,
   },
 ];

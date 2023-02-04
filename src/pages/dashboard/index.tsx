@@ -9,7 +9,7 @@ import { truncatedAddress } from "~/lib/helpers";
 import { chainIcons } from "~/components/Constants";
 import { fenixContract } from "~/lib/fenix-contract";
 import { Chain, useToken, useContractReads } from "wagmi";
-import { shareRatePercent } from "~/lib/helpers";
+import { calcShareRatePercent } from "~/lib/helpers";
 import { Container, CardContainer } from "~/components/containers/";
 import { DuplicateIcon, ExternalLinkIcon } from "@heroicons/react/outline";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -99,7 +99,7 @@ const Dashboard: NextPage = () => {
           </Link>
           {/* <div className="pt-4 lg:hidden flex flex-col space-y-4">
             <pre className="text-right">
-              <CountUp end={shareRatePercent(1)} preserveValue={true} separator="," suffix="%" decimals={4} />
+              <CountUp end={calcShareRatePercent(1)} preserveValue={true} separator="," suffix="%" decimals={4} />
             </pre>
             {tokenData && <AddressLinks chain={chain} />}
           </div> */}
@@ -118,7 +118,7 @@ const Dashboard: NextPage = () => {
 
         <td className="hidden lg:table-cell text-right">
           <pre>
-            <CountUp end={shareRatePercent(shareRate)} preserveValue={true} separator="," suffix="%" decimals={4} />
+            <CountUp end={calcShareRatePercent(shareRate)} preserveValue={true} separator="," suffix="%" decimals={4} />
           </pre>
         </td>
         <td className="hidden lg:table-cell">{tokenData && <AddressLinks chain={chain} />}</td>
