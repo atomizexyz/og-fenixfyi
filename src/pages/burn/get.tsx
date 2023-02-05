@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { NextPage } from "next";
 import { useTranslation } from "next-i18next";
-import { InformationCircleIcon } from "@heroicons/react/outline";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Container, CardContainer } from "~/components/containers/";
 import { InfoCard } from "~/components/StatCards";

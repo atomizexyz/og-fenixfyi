@@ -3,7 +3,7 @@ import Container from "~/components/containers/Container";
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useToken } from "wagmi";
-import { BigNumber, ethers } from "ethers";
+import { ethers } from "ethers";
 import { ChainStatCard, DateStatCard, NumberStatCard, DataCard } from "~/components/StatCards";
 import CardContainer from "~/components/containers/CardContainer";
 import { fenixContract } from "~/lib/fenix-contract";

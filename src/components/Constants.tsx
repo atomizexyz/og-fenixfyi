@@ -3,11 +3,9 @@ import {
   ViewGridIcon,
   LockClosedIcon,
   DocumentTextIcon,
-  ViewListIcon,
   FireIcon,
   HomeIcon,
   GiftIcon,
-  BriefcaseIcon,
 } from "@heroicons/react/outline";
 import { TwitterIcon, TelegramIcon, GitHubIcon, FigmaIcon } from "~/components/Icons";
 

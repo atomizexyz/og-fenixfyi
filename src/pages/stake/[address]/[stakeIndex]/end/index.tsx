@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import { useState, useContext } from "react";
-import { BigNumber, ethers } from "ethers";
+import { ethers } from "ethers";
 import { useTranslation } from "next-i18next";
 import { Container, CardContainer } from "~/components/containers/";
 import FENIXContext from "~/contexts/FENIXContext";
@@ -10,9 +10,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useNetwork, useContractRead, useContractWrite, useWaitForTransaction, usePrepareContractWrite } from "wagmi";
 import FENIX_ABI from "~/abi/FENIX_ABI";
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { fenixContract } from "~/lib/fenix-contract";
 import toast from "react-hot-toast";
 import { NumberStatCard, StakeStatusCard, ProgressStatCard, DataCard } from "~/components/StatCards";

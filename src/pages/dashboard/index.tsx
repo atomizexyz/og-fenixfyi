@@ -1,7 +1,7 @@
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { NextPage } from "next";
-import { BigNumber, ethers } from "ethers";
+import { ethers } from "ethers";
 import CountUp from "react-countup";
 import { useTranslation } from "next-i18next";
 import { useCopyToClipboard } from "usehooks-ts";

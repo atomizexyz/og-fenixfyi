@@ -1,8 +1,6 @@
 import { linkItems, textLinkItems } from "~/components/Constants";
 import { chain, useNetwork, Chain } from "wagmi";
 import Link from "next/link";
-import { DONATION_ADDRESS } from "~/lib/helpers";
-import AddressLink from "~/components/AddressLink";
 import { useTranslation } from "next-i18next";
 
 const Footer = () => {

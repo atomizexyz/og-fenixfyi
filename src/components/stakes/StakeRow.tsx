@@ -1,17 +1,13 @@
 import type { NextPage } from "next";
-import { formatDate, formatDecimals } from "~/lib/helpers";
+import { formatDate } from "~/lib/helpers";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { useContractRead } from "wagmi";
-import { fenixContract } from "~/lib/fenix-contract";
 import FENIX_ABI from "~/abi/FENIX_ABI";
-import { addDays } from "date-fns";
 import { useEffect, useState } from "react";
-import { progressDays } from "~/lib/helpers";
 import CountUp from "react-countup";
 import { clsx } from "clsx";
-import { watch } from "fs";
-import { BigNumber, ethers } from "ethers";
+import { ethers } from "ethers";
 
 export enum StakeStatus {
   ACTIVE = 0,

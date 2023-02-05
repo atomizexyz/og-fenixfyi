@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect, useState, useContext } from "react";
+import { useState } from "react";
 import { useTranslation } from "next-i18next";
 import { CardContainer, Container } from "~/components/containers";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { NumberStatCard, StakeStatusCard, ProgressStatCard, DataCard } from "~/components/StatCards";
+import { DataCard } from "~/components/StatCards";
 import { truncatedAddress } from "~/lib/helpers";
-import { useNetwork, useContractRead, useAccount } from "wagmi";
+import { useNetwork, useContractRead } from "wagmi";
 import { fenixContract } from "~/lib/fenix-contract";
 import FENIX_ABI from "~/abi/FENIX_ABI";
 

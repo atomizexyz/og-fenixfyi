@@ -19,7 +19,6 @@ import { useNetwork, useContractWrite, usePrepareContractWrite, useWaitForTransa
 import { fenixContract } from "~/lib/fenix-contract";
 import FENIX_ABI from "~/abi/FENIX_ABI";
 import { NumberStatCard } from "~/components/StatCards";
-import Router from "next/router";
 
 const Burn: NextPage = () => {
   const { t } = useTranslation("common");

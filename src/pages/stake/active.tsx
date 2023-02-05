@@ -23,8 +23,6 @@ const ActivePortfolio: NextPage = () => {
     args: [address],
   }) as unknown as { data: number };
 
-  const { stakePoolSupply } = useContext(FENIXContext);
-
   return (
     <Container className="max-w-5xl">
       <PortfolioNav />

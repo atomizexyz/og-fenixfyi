@@ -1,8 +1,6 @@
 import { createClient, configureChains, chain, Chain } from "wagmi";
 
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
-import { alchemyProvider } from "wagmi/providers/alchemy";
-import { infuraProvider } from "wagmi/providers/infura";
 import { publicProvider } from "wagmi/providers/public";
 
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";

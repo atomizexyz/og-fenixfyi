@@ -7,13 +7,11 @@ import {
   useNetwork,
   useContractRead,
   useContractReads,
-  useBlockNumber,
 } from "wagmi";
 import { BigNumber } from "ethers";
 import { chainList } from "~/lib/client";
 import { fenixContract } from "~/lib/fenix-contract";
 import { xenContract } from "~/lib/xen-contract";
-import { provider } from "~/lib/client";
 
 export interface UserMint {
   user: string;

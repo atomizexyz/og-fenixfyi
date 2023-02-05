@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";

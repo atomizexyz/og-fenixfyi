@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { useNetwork, useContractRead, useContractWrite, useWaitForTransaction, usePrepareContractWrite } from "wagmi";
+import { useNetwork, useContractWrite, useWaitForTransaction, usePrepareContractWrite } from "wagmi";
 import { BigNumber, ethers } from "ethers";
 import { DayPicker } from "react-day-picker";
 import { useState, useContext, useCallback } from "react";
