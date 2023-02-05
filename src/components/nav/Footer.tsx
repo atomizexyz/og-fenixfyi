@@ -1,15 +1,11 @@
+import { NextPage } from "next";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
-import { Chain,chain, useNetwork } from "wagmi";
 
 import { linkItems, textLinkItems } from "~/components/Constants";
 
-const Footer = () => {
+const Footer: NextPage = () => {
   const { t } = useTranslation("common");
-
-  const { chain: currentChain } = useNetwork();
-
-  const defaultChain: Chain = currentChain ?? chain.mainnet;
 
   return (
     <footer className="footer footer-center text-base-content py-8">
@@ -24,7 +20,6 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      {/* <AddressLink name={t("donate")} address={DONATION_ADDRESS} chain={defaultChain} /> */}
       <div className="grid grid-flow-col gap-3">
         {textLinkItems.map((item, index) => (
           <Link href={item.href} key={index} target="_blank" className="link link-hover text-neutral">

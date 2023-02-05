@@ -1,37 +1,32 @@
 import clsx from "clsx";
 import { BigNumber, ethers } from "ethers";
 import { NextPage } from "next";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useContext,useState } from "react";
+import { useContext, useState } from "react";
 import Countdown from "react-countdown";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useContractWrite, useNetwork, usePrepareContractWrite,useWaitForTransaction } from "wagmi";
+import { useContractWrite, useNetwork, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
-import { CardContainer,Container } from "~/components/containers/";
+import { CardContainer, Container } from "~/components/containers/";
 import GasEstimate from "~/components/GasEstimate";
-import { CountdownCard,InfoCard, NumberStatCard } from "~/components/StatCards";
+import { CountdownCard, InfoCard, NumberStatCard } from "~/components/StatCards";
 import FENIXContext from "~/contexts/FENIXContext";
 import { fenixContract } from "~/lib/fenix-contract";
 
 const Bonus: NextPage = () => {
   const { t } = useTranslation("common");
   const { chain } = useNetwork();
-  const router = useRouter();
 
   const { feeData, fenixBalance, cooldownUnlockTs, stakePoolSupply, rewardPoolSupply } = useContext(FENIXContext);
   const [disabled, setDisabled] = useState(false);
   const [processing, setProcessing] = useState(false);
 
   const {
-    register,
     handleSubmit,
-    watch,
-    formState: { errors, isValid },
-    setValue,
+    formState: {},
   } = useForm({
     mode: "onChange",
   });
@@ -45,7 +40,7 @@ const Bonus: NextPage = () => {
 
   const { data, write } = useContractWrite({
     ...config,
-    onSuccess(data) {
+    onSuccess(_data) {
       setProcessing(true);
       setDisabled(true);
     },
@@ -53,12 +48,12 @@ const Bonus: NextPage = () => {
 
   const {} = useWaitForTransaction({
     hash: data?.hash,
-    onSuccess(data) {
+    onSuccess(_data) {
       toast(t("toast.end-stake-successful"));
     },
   });
 
-  const handleEndSubmit = (data: any) => {
+  const handleEndSubmit = (_data: any) => {
     write?.();
   };
 

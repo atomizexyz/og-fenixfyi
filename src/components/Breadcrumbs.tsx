@@ -16,7 +16,6 @@ const Breadcrumbs = () => {
           </Link>
         </li>
         {path.map((item, index) => {
-          const isLast = index === path.length - 1;
           const href = `/${path.slice(0, index + 1).join("/")}`;
 
           return (

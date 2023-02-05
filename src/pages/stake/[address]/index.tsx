@@ -3,8 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useState } from "react";
-import { useContractRead,useNetwork } from "wagmi";
+import { useContractRead, useNetwork } from "wagmi";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
 import { CardContainer, Container } from "~/components/containers";
@@ -16,7 +15,6 @@ const Address: NextPage = () => {
   const router = useRouter();
   const { chain } = useNetwork();
 
-  const [disabled, setDisabled] = useState(false);
   const { t } = useTranslation("common");
   const { address } = router.query as unknown as { address: string };
 

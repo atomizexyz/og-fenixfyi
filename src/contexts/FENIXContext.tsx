@@ -1,14 +1,6 @@
 import { BigNumber } from "ethers";
 import React, { createContext, useState } from "react";
-import {
-  Chain,
-  useAccount,
-  useBalance,
-  useContractRead,
-  useContractReads,
-  useFeeData,
-  useNetwork,
-} from "wagmi";
+import { Chain, useAccount, useBalance, useContractRead, useContractReads, useFeeData, useNetwork } from "wagmi";
 
 import { chainList } from "~/lib/client";
 import { fenixContract } from "~/lib/fenix-contract";
@@ -65,7 +57,7 @@ export interface Balance {
 }
 
 interface IFENIXContext {
-  setChainOverride: (chain: Chain) => void;
+  setChainOverride: (_chain: Chain) => void;
   feeData?: FeeData;
   stakePoolSupply: string;
   rewardPoolSupply: string;
@@ -79,7 +71,7 @@ interface IFENIXContext {
 }
 
 const FENIXContext = createContext<IFENIXContext>({
-  setChainOverride: (chain: Chain) => {},
+  setChainOverride: (_chain: Chain) => {},
   feeData: undefined,
   stakePoolSupply: "0",
   rewardPoolSupply: "0",

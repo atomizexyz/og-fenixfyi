@@ -7,14 +7,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useContext,useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useContractWrite, useNetwork, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
 import * as yup from "yup";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
-import { CardContainer,Container } from "~/components/containers/";
+import { CardContainer, Container } from "~/components/containers/";
 import { MaxValueField } from "~/components/FormFields";
 import GasEstimate from "~/components/GasEstimate";
 import { NumberStatCard } from "~/components/StatCards";
@@ -62,7 +62,7 @@ const Burn: NextPage = () => {
 
   const { burnXENAmount } = watch() as { burnXENAmount: number };
 
-  const { config, error } = usePrepareContractWrite({
+  const { config } = usePrepareContractWrite({
     addressOrName: fenixContract(chain).addressOrName,
     contractInterface: FENIX_ABI,
     functionName: "burnXEN",
@@ -71,14 +71,14 @@ const Burn: NextPage = () => {
   });
   const { data, write } = useContractWrite({
     ...config,
-    onSuccess(data) {
+    onSuccess(_data) {
       setProcessing(true);
       setDisabled(true);
     },
   });
   const {} = useWaitForTransaction({
     hash: data?.hash,
-    onSuccess(data) {
+    onSuccess(_data) {
       toast(t("toast.xen-burned"));
       router.push("/stake");
     },
@@ -93,8 +93,8 @@ const Burn: NextPage = () => {
     } else {
       setBurnMaximum(xenBalance?.value?.toString() ?? "0");
     }
-    setDisabled(false);
-  }, [allowance, burnMaximum, xenBalance?.value]);
+    setDisabled(!isValid);
+  }, [allowance, burnMaximum, isValid, xenBalance?.value]);
 
   return (
     <Container className="max-w-2xl">
@@ -122,7 +122,6 @@ const Burn: NextPage = () => {
                 description={t("form-field.xen-description")}
                 decimals={0}
                 value={ethers.utils.formatUnits(burnMaximum, xenBalance?.decimals ?? BigNumber.from(0))}
-                disabled={disabled}
                 errorMessage={<ErrorMessage errors={errors} name="burnXENAmount" />}
                 register={register("burnXENAmount")}
                 setValue={setValue}

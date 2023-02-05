@@ -3,25 +3,25 @@ import "react-day-picker/dist/style.css";
 import { ErrorMessage } from "@hookform/error-message";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { clsx } from "clsx";
-import { addDays, differenceInDays,isSameMonth } from "date-fns";
+import { addDays, differenceInDays, isSameMonth } from "date-fns";
 import { BigNumber, ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useCallback,useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { useEffect } from "react";
 import { DayPicker } from "react-day-picker";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useContractWrite, useNetwork, usePrepareContractWrite,useWaitForTransaction } from "wagmi";
+import { useContractWrite, useNetwork, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
 import * as yup from "yup";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
-import { CardContainer,Container } from "~/components/containers/";
+import { CardContainer, Container } from "~/components/containers/";
 import { MaxValueField } from "~/components/FormFields";
 import GasEstimate from "~/components/GasEstimate";
 import PortfolioNav from "~/components/nav/PortfolioNav";
-import { BonusShareCard,NumberStatCard } from "~/components/StatCards";
+import { BonusShareCard, NumberStatCard } from "~/components/StatCards";
 import { InfoCard } from "~/components/StatCards";
 import FENIXContext from "~/contexts/FENIXContext";
 import { fenixContract } from "~/lib/fenix-contract";
@@ -46,7 +46,7 @@ const Stake = () => {
 
   const [month, setMonth] = useState<Date>(today);
   const [isLockMonth, setIsLockMonth] = useState<boolean>(true);
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   const [processing, setProcessing] = useState(false);
   const { feeData, fenixBalance, shareRate } = useContext(FENIXContext);
 
@@ -107,19 +107,19 @@ const Stake = () => {
 
   const { data: stakeData, write: writeStake } = useContractWrite({
     ...config,
-    onSuccess(data) {
+    onSuccess(_data) {
       setProcessing(true);
       setDisabled(true);
     },
   });
   const {} = useWaitForTransaction({
     hash: stakeData?.hash,
-    onSuccess(data) {
+    onSuccess(_data) {
       toast(t("toast.stake-successful"));
-      router.push("/portfolio/active");
+      router.push("/stake/active");
     },
   });
-  const handleStartStakeSubmit = (data: any) => {
+  const handleStartStakeSubmit = (_data: any) => {
     writeStake?.();
   };
 
@@ -162,6 +162,8 @@ const Stake = () => {
     if (isLockMonth && !isSameMonth(selectedFromDay(), month)) {
       setMonth(selectedFromDay());
     }
+
+    setDisabled(!isValid);
   }, [
     selectedFromDay,
     month,
@@ -172,6 +174,7 @@ const Stake = () => {
     timeBonus,
     subtotalBonus,
     shareRate,
+    isValid,
   ]);
 
   return (
@@ -189,7 +192,6 @@ const Stake = () => {
                 fenixBalance?.value ?? BigNumber.from(0),
                 fenixBalance?.decimals ?? BigNumber.from(0)
               )}
-              disabled={disabled}
               errorMessage={<ErrorMessage errors={errors} name="startStakeAmount" />}
               register={register("startStakeAmount")}
               setValue={setValue}
@@ -199,7 +201,6 @@ const Stake = () => {
               description={t("form-field.days-description")}
               decimals={0}
               value={FENIX_MAX_STAKE_LENGTH}
-              disabled={disabled}
               errorMessage={<ErrorMessage errors={errors} name="startStakeDays" />}
               register={register("startStakeDays")}
               setValue={setValue}
@@ -249,6 +250,7 @@ const Stake = () => {
                 className={clsx("btn glass text-neutral", {
                   loading: processing,
                 })}
+                disabled={disabled}
               >
                 {t("stake.start")}
               </button>

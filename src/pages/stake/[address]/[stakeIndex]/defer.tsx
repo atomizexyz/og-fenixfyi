@@ -1,30 +1,34 @@
+import { ErrorMessage } from "@hookform/error-message";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { clsx } from "clsx";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useContext,useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useContractRead, useContractWrite, useNetwork, usePrepareContractWrite,useWaitForTransaction } from "wagmi";
+import { useContractRead, useContractWrite, useNetwork, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import * as yup from "yup";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
-import { CardContainer,Container } from "~/components/containers/";
+import { CardContainer, Container } from "~/components/containers/";
+import { WalletAddressField } from "~/components/FormFields";
 import GasEstimate from "~/components/GasEstimate";
-import { DataCard,NumberStatCard, ProgressStatCard, StakeStatusCard } from "~/components/StatCards";
+import { DataCard, NumberStatCard } from "~/components/StatCards";
 import FENIXContext from "~/contexts/FENIXContext";
 import { fenixContract } from "~/lib/fenix-contract";
+import { WALLET_ADDRESS_REGEX } from "~/lib/helpers";
 import { truncatedAddress } from "~/lib/helpers";
 
-const End = () => {
+const Defer = () => {
   const { t } = useTranslation("common");
-  const router = useRouter();
   const { chain } = useNetwork();
-
+  const router = useRouter();
   const { address, stakeIndex } = router.query as unknown as { address: string; stakeIndex: number };
 
   const { feeData, stakePoolSupply, stakePoolTotalShares } = useContext(FENIXContext);
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   const [processing, setProcessing] = useState(false);
 
   const { data: stake } = useContractRead({
@@ -34,28 +38,45 @@ const End = () => {
     watch: true,
   });
 
-  // Write end stake
+  // Write defer stake
+
+  const schema = yup
+    .object()
+    .shape({
+      deferAddress: yup
+        .string()
+        .required(t("form-field.wallet-address-required"))
+        .matches(WALLET_ADDRESS_REGEX, {
+          message: t("form-field.wallet-address-invalid"),
+          excludeEmptyString: true,
+        }),
+    })
+    .required();
+
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isValid },
+    formState: { errors },
     setValue,
   } = useForm({
     mode: "onChange",
+    resolver: yupResolver(schema),
   });
+
+  const { deferAddress } = watch();
 
   const { config } = usePrepareContractWrite({
     addressOrName: fenixContract(chain).addressOrName,
     contractInterface: FENIX_ABI,
-    functionName: "endStake",
-    args: [stakeIndex],
+    functionName: "deferStake",
+    args: [deferAddress, stakeIndex],
     enabled: !disabled,
   });
 
   const { data, write } = useContractWrite({
     ...config,
-    onSuccess(data) {
+    onSuccess(_data) {
       setProcessing(true);
       setDisabled(true);
     },
@@ -63,12 +84,12 @@ const End = () => {
 
   const {} = useWaitForTransaction({
     hash: data?.hash,
-    onSuccess(data) {
-      toast(t("toast.end-stake-successful"));
+    onSuccess(_data) {
+      toast(t("toast.defer-stake-successful"));
     },
   });
 
-  const handleEndSubmit = (data: any) => {
+  const handleDeferSubmit = (_data: any) => {
     write?.();
   };
 
@@ -82,27 +103,26 @@ const End = () => {
   const fenixReward = stakeRatio * Number(stakePoolSupply);
   const rewardRatio = Math.pow(elapsedTime / totalTime, 2);
 
+  useEffect(() => {
+    setDisabled(percentComplete < 100);
+  }, [address, percentComplete, setValue]);
+
   return (
     <Container className="max-w-2xl">
       <CardContainer>
-        <form onSubmit={handleSubmit(handleEndSubmit)}>
+        <form onSubmit={handleSubmit(handleDeferSubmit)}>
           <div className="flex flex-col space-y-4">
-            <h2 className="card-title text-neutral">End</h2>
+            <h2 className="card-title text-neutral">Defer</h2>
             <DataCard title={t("stake.address")} value={truncatedAddress(address)} description={address} />
             <DataCard title={t("stake.index")} value={String(stakeIndex)} />
-            <ProgressStatCard
-              title={t("stake.progress")}
-              percentComplete={percentComplete}
-              value={elapsedTime}
-              max={totalTime}
-              daysRemaining={endTime - elapsedTime}
-              dateTs={endTime}
-            />
-            <StakeStatusCard status={stake?.status} />
             <NumberStatCard title={t("stake.shares")} value={shares} />
-
             <NumberStatCard title={t("stake.reward")} value={fenixReward * rewardRatio} description="FENIX" />
             <NumberStatCard title={t("stake.penalty")} value={fenixReward * (1 - rewardRatio)} description="FENIX" />
+            <WalletAddressField
+              disabled={disabled}
+              errorMessage={<ErrorMessage errors={errors} name="deferAddress" />}
+              register={register("deferAddress")}
+            />
 
             <div className="form-control w-full">
               <button
@@ -110,8 +130,9 @@ const End = () => {
                 className={clsx("btn glass text-neutral", {
                   loading: processing,
                 })}
+                disabled={disabled}
               >
-                {t("stake.end")}
+                {t("stake.defer")}
               </button>
             </div>
 
@@ -138,4 +159,4 @@ export async function getStaticPaths() {
   };
 }
 
-export default End;
+export default Defer;

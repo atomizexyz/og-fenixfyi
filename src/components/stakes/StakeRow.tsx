@@ -10,11 +10,13 @@ import { useContractRead } from "wagmi";
 import FENIX_ABI from "~/abi/FENIX_ABI";
 import { formatDate } from "~/lib/helpers";
 
-export enum StakeStatus {
+/* eslint-disable unused-imports/no-unused-vars */
+export const enum StakeStatus {
   ACTIVE = 0,
   DEFER = 1,
   END = 2,
 }
+/* eslint-enable unused-imports/no-unused-vars */
 
 export const StakeRow: NextPage<any> = (props) => {
   const { t } = useTranslation("common");

@@ -1,14 +1,12 @@
 import type { NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useContext } from "react";
-import { useAccount,useContractRead, useNetwork } from "wagmi";
+import { useAccount, useContractRead, useNetwork } from "wagmi";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
-import { CardContainer,Container } from "~/components/containers/";
+import { CardContainer, Container } from "~/components/containers/";
 import PortfolioNav from "~/components/nav/PortfolioNav";
 import { StakeHeaderFooter, StakeRow, StakeStatus } from "~/components/stakes";
-import FENIXContext from "~/contexts/FENIXContext";
 import { fenixContract } from "~/lib/fenix-contract";
 
 const ActivePortfolio: NextPage = () => {
@@ -22,8 +20,6 @@ const ActivePortfolio: NextPage = () => {
     functionName: "stakeCount",
     args: [address],
   }) as unknown as { data: number };
-
-  const { stakePoolSupply } = useContext(FENIXContext);
 
   return (
     <Container className="max-w-5xl">

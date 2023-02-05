@@ -24,7 +24,7 @@ export const MaxValueField: NextPage<any> = (props) => {
           {`${Number(props.value).toLocaleString("en-US")}`}
           <button
             type="button"
-            onClick={() => props.setValue(props.register.name, props.value)}
+            onClick={() => props.setValue(props.register.name, props.value, { shouldValidate: true })}
             className="btn btn-xs glass text-neutral ml-2"
             disabled={props.disabled}
           >

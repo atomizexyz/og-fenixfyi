@@ -7,17 +7,17 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useContext,useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useContractWrite, useNetwork, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
 import * as yup from "yup";
 
 import XENCryptoABI from "~/abi/XENCryptoABI";
-import { CardContainer,Container } from "~/components/containers/";
+import { CardContainer, Container } from "~/components/containers/";
 import { MaxValueField } from "~/components/FormFields";
 import GasEstimate from "~/components/GasEstimate";
-import { DataCard,InfoCard, NumberStatCard } from "~/components/StatCards";
+import { DataCard, InfoCard, NumberStatCard } from "~/components/StatCards";
 import FENIXContext from "~/contexts/FENIXContext";
 import { fenixContract } from "~/lib/fenix-contract";
 import { xenContract } from "~/lib/xen-contract";
@@ -27,7 +27,7 @@ const Approve: NextPage = () => {
   const { chain } = useNetwork();
   const router = useRouter();
 
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   const [processing, setProcessing] = useState(false);
   const { feeData, xenBalance, allowance } = useContext(FENIXContext);
 
@@ -55,13 +55,13 @@ const Approve: NextPage = () => {
     formState: { errors, isValid },
     setValue,
   } = useForm({
-    mode: "onChange",
+    mode: "all",
     resolver: yupResolver(schema),
   });
 
   const { burnXENAmount } = watch() as { burnXENAmount: number };
 
-  const { config: fixedConfig, error: fixedError } = usePrepareContractWrite({
+  const { config: fixedConfig } = usePrepareContractWrite({
     addressOrName: xenContract(chain).addressOrName,
     contractInterface: XENCryptoABI,
     functionName: "approve",
@@ -73,14 +73,14 @@ const Approve: NextPage = () => {
   });
   const { data: fixedApproveData, write: fixedWrite } = useContractWrite({
     ...fixedConfig,
-    onSuccess(data) {
+    onSuccess(_data) {
       setProcessing(true);
       setDisabled(true);
     },
   });
   const {} = useWaitForTransaction({
     hash: fixedApproveData?.hash,
-    onSuccess(data) {
+    onSuccess(_data) {
       toast(t("toast.spend-approved"));
       router.push("/burn/xen");
     },
@@ -93,7 +93,7 @@ const Approve: NextPage = () => {
 
   const { handleSubmit: handleUnlimitedSubmit } = useForm();
 
-  const { config: unlimitedConfig, error: unlimitedError } = usePrepareContractWrite({
+  const { config: unlimitedConfig } = usePrepareContractWrite({
     addressOrName: xenContract(chain).addressOrName,
     contractInterface: XENCryptoABI,
     functionName: "approve",
@@ -102,14 +102,14 @@ const Approve: NextPage = () => {
   });
   const { data: unlimitedApproveData, write: unlimitedWrite } = useContractWrite({
     ...unlimitedConfig,
-    onSuccess(data) {
+    onSuccess(_data) {
       setProcessing(true);
       setDisabled(true);
     },
   });
   const {} = useWaitForTransaction({
     hash: unlimitedApproveData?.hash,
-    onSuccess(data) {
+    onSuccess(_data) {
       toast(t("toast.spend-approved"));
       router.push("/burn/xen");
     },
@@ -119,8 +119,8 @@ const Approve: NextPage = () => {
   };
 
   useEffect(() => {
-    setDisabled(false);
-  }, []);
+    setDisabled(!isValid);
+  }, [isValid]);
 
   return (
     <Container className="max-w-2xl">
@@ -151,7 +151,6 @@ const Approve: NextPage = () => {
                   xenBalance?.value ?? BigNumber.from(0),
                   xenBalance?.decimals ?? BigNumber.from(0)
                 )}
-                disabled={disabled}
                 errorMessage={<ErrorMessage errors={errors} name="burnXENAmount" />}
                 register={register("burnXENAmount")}
                 setValue={setValue}
@@ -209,7 +208,6 @@ const Approve: NextPage = () => {
                   className={clsx("btn glass text-neutral", {
                     loading: processing,
                   })}
-                  disabled={disabled}
                 >
                   {t("burn.approve-unlimited")}
                 </button>

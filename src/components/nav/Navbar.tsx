@@ -1,24 +1,23 @@
-import { DotsVerticalIcon,MoonIcon, SunIcon } from "@heroicons/react/outline";
+import { DotsVerticalIcon, MoonIcon, SunIcon } from "@heroicons/react/outline";
 import { clsx } from "clsx";
-import { Avatar,ConnectKitButton } from "connectkit";
+import { Avatar, ConnectKitButton } from "connectkit";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { useTheme } from "next-themes";
-import { useContext, useRef,useState } from "react";
+import { useContext, useRef } from "react";
 import { isMobile } from "react-device-detect";
 import { Chain, useAccount, useNetwork, useSwitchNetwork } from "wagmi";
 import { useToken } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 
-import { chainIcons,linkItems, navigationItems } from "~/components/Constants";
+import { chainIcons, linkItems, navigationItems } from "~/components/Constants";
 import FENIXContext from "~/contexts/FENIXContext";
 import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
 import { fenixContract } from "~/lib/fenix-contract";
 
-import { FenixIcon, FenixText,WalletIcon } from "../Icons";
-import { StatusBadge } from "../StatusBadge";
+import { FenixIcon, FenixText, WalletIcon } from "../Icons";
 
 export const Navbar: NextPage = () => {
   const { t } = useTranslation("common");
@@ -27,8 +26,6 @@ export const Navbar: NextPage = () => {
   const { chain } = useNetwork();
   const { envChains } = useEnvironmentChains();
   const { switchNetwork } = useSwitchNetwork();
-  const [mintPageOverride, setMintPageOverride] = useState(1);
-  const [stakePageOverride, setStakePageOverride] = useState(1);
   const { connector, isConnected } = useAccount();
   const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
@@ -42,7 +39,7 @@ export const Navbar: NextPage = () => {
     chainId: chain?.id,
   });
 
-  const NavigationItems = (props: any) => {
+  const NavigationItems = () => {
     const { t } = useTranslation("common");
 
     return (
@@ -61,14 +58,6 @@ export const Navbar: NextPage = () => {
             >
               {item.icon}
               {t(item.t)}
-              <StatusBadge
-                status={{
-                  id: item.id,
-                  mintPageOverride: mintPageOverride,
-                  stakePageOverride: stakePageOverride,
-                  offset: "right-2 lg:-top-2 lg:-right-3",
-                }}
-              />
             </Link>
           </li>
         ))}
@@ -156,7 +145,7 @@ export const Navbar: NextPage = () => {
             );
           }}
         </ConnectKitButton.Custom>
-        <div className="dropdown dropdown-end">
+        <div className="dropdown dropdown-end" ref={menuDropdown}>
           <label tabIndex={0} className="btn glass btn-square text-neutral">
             <DotsVerticalIcon className="h-5 w-5" />
           </label>

@@ -1,8 +1,10 @@
-import { Chain,chain, configureChains, createClient } from "wagmi";
+import { Chain, chain, configureChains, createClient } from "wagmi";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
+import { alchemyProvider } from "wagmi/providers/alchemy";
+import { infuraProvider } from "wagmi/providers/infura";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { publicProvider } from "wagmi/providers/public";
 
@@ -44,8 +46,7 @@ export const chainList = [
 ];
 
 export const { chains, provider, webSocketProvider } = configureChains(chainList, [
-  // alchemyProvider({ apiKey: alchemyId, priority: 0 }),
-  // infuraProvider({ apiKey: infuraId, priority: 0 }),
+  alchemyProvider({ apiKey: alchemyId, priority: 0 }),
   jsonRpcProvider({
     priority: 0,
     rpc: (c: Chain) => {
@@ -55,13 +56,14 @@ export const { chains, provider, webSocketProvider } = configureChains(chainList
       return { http: c.rpcUrls.default };
     },
   }),
+  infuraProvider({ apiKey: infuraId, priority: 1 }),
   publicProvider({ priority: 1 }),
-  // jsonRpcProvider({
-  //   priority: 2,
-  //   rpc: (chain: Chain) => ({
-  //     http: "https://rpc.ankr.com/multichain",
-  //   }),
-  // }),
+  jsonRpcProvider({
+    priority: 2,
+    rpc: (_chain: Chain) => ({
+      http: "https://rpc.ankr.com/multichain",
+    }),
+  }),
 ]);
 
 export const client = createClient({
