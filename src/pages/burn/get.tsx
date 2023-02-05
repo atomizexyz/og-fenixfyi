@@ -1,8 +1,9 @@
-import Link from "next/link";
 import { NextPage } from "next";
+import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Container, CardContainer } from "~/components/containers/";
+
+import { CardContainer,Container } from "~/components/containers/";
 import { InfoCard } from "~/components/StatCards";
 
 const GetXen: NextPage = () => {

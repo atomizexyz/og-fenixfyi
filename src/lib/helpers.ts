@@ -1,5 +1,6 @@
-import { daysSince } from "~/components/StatCards";
 import { BigNumber, ethers } from "ethers";
+
+import { daysSince } from "~/components/StatCards";
 export const FENIX_MAX_STAKE_LENGTH = 20075;
 export const UTC_TIME = new Date().getTime() / 1000;
 const WITHDRAWAL_WINDOW_DAYS = 7;

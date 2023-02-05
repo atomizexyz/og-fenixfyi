@@ -1,19 +1,19 @@
 import { clsx } from "clsx";
-import { useState, useContext } from "react";
 import { ethers } from "ethers";
-import { useTranslation } from "next-i18next";
-import { Container, CardContainer } from "~/components/containers/";
-import FENIXContext from "~/contexts/FENIXContext";
-import GasEstimate from "~/components/GasEstimate";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-
 import { useRouter } from "next/router";
-import { useNetwork, useContractRead, useContractWrite, useWaitForTransaction, usePrepareContractWrite } from "wagmi";
-import FENIX_ABI from "~/abi/FENIX_ABI";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useContext,useState } from "react";
 import { useForm } from "react-hook-form";
-import { fenixContract } from "~/lib/fenix-contract";
 import toast from "react-hot-toast";
-import { NumberStatCard, StakeStatusCard, ProgressStatCard, DataCard } from "~/components/StatCards";
+import { useContractRead, useContractWrite, useNetwork, usePrepareContractWrite,useWaitForTransaction } from "wagmi";
+
+import FENIX_ABI from "~/abi/FENIX_ABI";
+import { CardContainer,Container } from "~/components/containers/";
+import GasEstimate from "~/components/GasEstimate";
+import { DataCard,NumberStatCard, ProgressStatCard, StakeStatusCard } from "~/components/StatCards";
+import FENIXContext from "~/contexts/FENIXContext";
+import { fenixContract } from "~/lib/fenix-contract";
 import { truncatedAddress } from "~/lib/helpers";
 
 const End = () => {

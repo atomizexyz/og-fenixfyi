@@ -1,14 +1,15 @@
+import { BigNumber } from "ethers";
 import React, { createContext, useState } from "react";
 import {
   Chain,
-  useFeeData,
-  useBalance,
   useAccount,
-  useNetwork,
+  useBalance,
   useContractRead,
   useContractReads,
+  useFeeData,
+  useNetwork,
 } from "wagmi";
-import { BigNumber } from "ethers";
+
 import { chainList } from "~/lib/client";
 import { fenixContract } from "~/lib/fenix-contract";
 import { xenContract } from "~/lib/xen-contract";

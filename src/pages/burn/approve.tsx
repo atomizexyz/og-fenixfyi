@@ -1,25 +1,26 @@
-import { clsx } from "clsx";
-import Link from "next/link";
-import { NextPage } from "next";
-import { BigNumber, ethers } from "ethers";
-import { useEffect, useState, useContext } from "react";
-import { useTranslation } from "next-i18next";
-import { MaxValueField } from "~/components/FormFields";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Container, CardContainer } from "~/components/containers/";
-import FENIXContext from "~/contexts/FENIXContext";
-import GasEstimate from "~/components/GasEstimate";
-import toast from "react-hot-toast";
-import * as yup from "yup";
-import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "@hookform/error-message";
-import { useNetwork, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
-import { xenContract } from "~/lib/xen-contract";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { clsx } from "clsx";
+import { BigNumber, ethers } from "ethers";
+import { NextPage } from "next";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useContext,useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useContractWrite, useNetwork, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import * as yup from "yup";
+
 import XENCryptoABI from "~/abi/XENCryptoABI";
+import { CardContainer,Container } from "~/components/containers/";
+import { MaxValueField } from "~/components/FormFields";
+import GasEstimate from "~/components/GasEstimate";
+import { DataCard,InfoCard, NumberStatCard } from "~/components/StatCards";
+import FENIXContext from "~/contexts/FENIXContext";
 import { fenixContract } from "~/lib/fenix-contract";
-import { InfoCard, NumberStatCard, DataCard } from "~/components/StatCards";
+import { xenContract } from "~/lib/xen-contract";
 
 const Approve: NextPage = () => {
   const { t } = useTranslation("common");

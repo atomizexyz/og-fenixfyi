@@ -1,9 +1,10 @@
-import { Container } from "~/components/containers/";
-import { useTheme } from "next-themes";
 import { NextPage } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTheme } from "next-themes";
+
+import { Container } from "~/components/containers/";
 
 const Custom404: NextPage = () => {
   const { resolvedTheme } = useTheme();

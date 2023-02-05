@@ -1,13 +1,14 @@
-import type { NextPage } from "next";
-import { formatDate } from "~/lib/helpers";
-import Link from "next/link";
-import { useTranslation } from "next-i18next";
-import { useContractRead } from "wagmi";
-import FENIX_ABI from "~/abi/FENIX_ABI";
-import { useEffect, useState } from "react";
-import CountUp from "react-countup";
 import { clsx } from "clsx";
 import { ethers } from "ethers";
+import type { NextPage } from "next";
+import Link from "next/link";
+import { useTranslation } from "next-i18next";
+import { useEffect, useState } from "react";
+import CountUp from "react-countup";
+import { useContractRead } from "wagmi";
+
+import FENIX_ABI from "~/abi/FENIX_ABI";
+import { formatDate } from "~/lib/helpers";
 
 export enum StakeStatus {
   ACTIVE = 0,

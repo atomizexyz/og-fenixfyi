@@ -1,37 +1,39 @@
-import { clsx } from "clsx";
-import { useNetwork, useContractWrite, useWaitForTransaction, usePrepareContractWrite } from "wagmi";
-import { BigNumber, ethers } from "ethers";
-import { DayPicker } from "react-day-picker";
-import { useState, useContext, useCallback } from "react";
-import { useTranslation } from "next-i18next";
-import { MaxValueField } from "~/components/FormFields";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { NumberStatCard, BonusShareCard } from "~/components/StatCards";
 import "react-day-picker/dist/style.css";
-import { Container, CardContainer } from "~/components/containers/";
-import FENIXContext from "~/contexts/FENIXContext";
-import GasEstimate from "~/components/GasEstimate";
-import { isSameMonth, addDays, differenceInDays } from "date-fns";
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import FENIX_ABI from "~/abi/FENIX_ABI";
-import { fenixContract } from "~/lib/fenix-contract";
-import toast from "react-hot-toast";
+
 import { ErrorMessage } from "@hookform/error-message";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { clsx } from "clsx";
+import { addDays, differenceInDays,isSameMonth } from "date-fns";
+import { BigNumber, ethers } from "ethers";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useCallback,useContext, useState } from "react";
+import { useEffect } from "react";
+import { DayPicker } from "react-day-picker";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useContractWrite, useNetwork, usePrepareContractWrite,useWaitForTransaction } from "wagmi";
+import * as yup from "yup";
+
+import FENIX_ABI from "~/abi/FENIX_ABI";
+import { CardContainer,Container } from "~/components/containers/";
+import { MaxValueField } from "~/components/FormFields";
+import GasEstimate from "~/components/GasEstimate";
+import PortfolioNav from "~/components/nav/PortfolioNav";
+import { BonusShareCard,NumberStatCard } from "~/components/StatCards";
+import { InfoCard } from "~/components/StatCards";
+import FENIXContext from "~/contexts/FENIXContext";
+import { fenixContract } from "~/lib/fenix-contract";
 import {
-  FENIX_MAX_STAKE_LENGTH,
-  calcSizeBonus,
-  calcTimeBonus,
-  calcSubtotalBonus,
   calcShareRatePercent,
+  calcSizeBonus,
+  calcSubtotalBonus,
+  calcTimeBonus,
   currentYear,
+  FENIX_MAX_STAKE_LENGTH,
   maxEndStakeYear,
 } from "~/lib/helpers";
-import { useEffect } from "react";
-import { InfoCard } from "~/components/StatCards";
-import { useRouter } from "next/router";
-import PortfolioNav from "~/components/nav/PortfolioNav";
 
 const Stake = () => {
   const { t } = useTranslation("common");

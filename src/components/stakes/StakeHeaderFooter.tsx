@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useTranslation } from "next-i18next";
+
 import { StakeStatus } from "./StakeRow";
 
 export const StakeHeaderFooter: NextPage<any> = (props) => {

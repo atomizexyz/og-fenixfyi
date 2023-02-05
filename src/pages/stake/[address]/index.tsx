@@ -1,15 +1,16 @@
-import Link from "next/link";
 import { NextPage } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { useTranslation } from "next-i18next";
-import { CardContainer, Container } from "~/components/containers";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { DataCard } from "~/components/StatCards";
-import { truncatedAddress } from "~/lib/helpers";
-import { useNetwork, useContractRead } from "wagmi";
-import { fenixContract } from "~/lib/fenix-contract";
+import { useState } from "react";
+import { useContractRead,useNetwork } from "wagmi";
+
 import FENIX_ABI from "~/abi/FENIX_ABI";
+import { CardContainer, Container } from "~/components/containers";
+import { DataCard } from "~/components/StatCards";
+import { fenixContract } from "~/lib/fenix-contract";
+import { truncatedAddress } from "~/lib/helpers";
 
 const Address: NextPage = () => {
   const router = useRouter();

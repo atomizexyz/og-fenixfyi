@@ -1,19 +1,20 @@
-import Link from "next/link";
-import toast from "react-hot-toast";
-import { NextPage } from "next";
-import { ethers } from "ethers";
-import CountUp from "react-countup";
-import { useTranslation } from "next-i18next";
-import { useCopyToClipboard } from "usehooks-ts";
-import { truncatedAddress } from "~/lib/helpers";
-import { chainIcons } from "~/components/Constants";
-import { fenixContract } from "~/lib/fenix-contract";
-import { Chain, useToken, useContractReads } from "wagmi";
-import { calcShareRatePercent } from "~/lib/helpers";
-import { Container, CardContainer } from "~/components/containers/";
 import { DuplicateIcon, ExternalLinkIcon } from "@heroicons/react/outline";
+import { ethers } from "ethers";
+import { NextPage } from "next";
+import Link from "next/link";
+import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import CountUp from "react-countup";
+import toast from "react-hot-toast";
+import { useCopyToClipboard } from "usehooks-ts";
+import { Chain, useContractReads,useToken } from "wagmi";
+
+import { chainIcons } from "~/components/Constants";
+import { CardContainer,Container } from "~/components/containers/";
 import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
+import { fenixContract } from "~/lib/fenix-contract";
+import { truncatedAddress } from "~/lib/helpers";
+import { calcShareRatePercent } from "~/lib/helpers";
 
 const Dashboard: NextPage = () => {
   const { t } = useTranslation("common");

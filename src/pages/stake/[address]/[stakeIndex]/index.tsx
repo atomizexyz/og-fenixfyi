@@ -1,10 +1,11 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import { CardContainer, Container } from "~/components/containers";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { StakeStatusCard, DataCard } from "~/components/StatCards";
 import { useContractRead, useNetwork } from "wagmi";
+
+import { CardContainer, Container } from "~/components/containers";
+import { DataCard,StakeStatusCard } from "~/components/StatCards";
 import { fenixContract } from "~/lib/fenix-contract";
 import { truncatedAddress } from "~/lib/helpers";
 

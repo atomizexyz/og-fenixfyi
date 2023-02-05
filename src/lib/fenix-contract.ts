@@ -1,15 +1,16 @@
 import { Chain, chain } from "wagmi";
+
 import FENIX_ABI from "~/abi/FENIX_ABI";
-import { pulseChain } from "~/lib/chains/pulseChainTestnet";
-import { bscTestnet } from "~/lib/chains/bscTestnet";
-import { bscMainnet } from "~/lib/chains/bscMainnet";
-import { polygonMainnet } from "~/lib/chains/polygonMainnet";
 import { avaxMainnet } from "~/lib/chains/avaxMainnet";
+import { bscMainnet } from "~/lib/chains/bscMainnet";
+import { bscTestnet } from "~/lib/chains/bscTestnet";
+import { dogechainMainnet } from "~/lib/chains/dogechainMainnet";
 import { ethwMainnet } from "~/lib/chains/ethwMainnet";
-import { moonbeamMainnet } from "~/lib/chains/moonbeamMainnet";
 import { evmosMainnet } from "~/lib/chains/evmosMainnet";
 import { fantomMainnet } from "~/lib/chains/fantomMainnet";
-import { dogechainMainnet } from "~/lib/chains/dogechainMainnet";
+import { moonbeamMainnet } from "~/lib/chains/moonbeamMainnet";
+import { polygonMainnet } from "~/lib/chains/polygonMainnet";
+import { pulseChain } from "~/lib/chains/pulseChainTestnet";
 
 export const fenixContract = (contractChain?: Chain) => {
   switch (contractChain?.id) {

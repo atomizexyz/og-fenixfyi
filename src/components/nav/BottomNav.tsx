@@ -1,11 +1,12 @@
+import { clsx } from "clsx";
+import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { clsx } from "clsx";
-import React from "react";
-import { navigationItems } from "~/components/Constants";
-import type { NextPage } from "next";
 import { useTranslation } from "next-i18next";
+import React from "react";
 import { isMobile } from "react-device-detect";
+
+import { navigationItems } from "~/components/Constants";
 
 export const BottomNav: NextPage = () => {
   const { t } = useTranslation("common");

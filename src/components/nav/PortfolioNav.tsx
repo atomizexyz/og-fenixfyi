@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { NextPage } from "next";
-import { useRouter } from "next/router";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
 const PortfolioNav: NextPage = () => {

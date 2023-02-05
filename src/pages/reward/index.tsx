@@ -1,20 +1,21 @@
-import { NextPage } from "next";
-import { useState, useContext } from "react";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Container, CardContainer } from "~/components/containers/";
-import { useTranslation } from "next-i18next";
-import FENIXContext from "~/contexts/FENIXContext";
-import GasEstimate from "~/components/GasEstimate";
 import clsx from "clsx";
-import Countdown from "react-countdown";
 import { BigNumber, ethers } from "ethers";
+import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useNetwork, useContractWrite, useWaitForTransaction, usePrepareContractWrite } from "wagmi";
-import FENIX_ABI from "~/abi/FENIX_ABI";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useContext,useState } from "react";
+import Countdown from "react-countdown";
 import { useForm } from "react-hook-form";
-import { fenixContract } from "~/lib/fenix-contract";
 import toast from "react-hot-toast";
-import { InfoCard, NumberStatCard, CountdownCard } from "~/components/StatCards";
+import { useContractWrite, useNetwork, usePrepareContractWrite,useWaitForTransaction } from "wagmi";
+
+import FENIX_ABI from "~/abi/FENIX_ABI";
+import { CardContainer,Container } from "~/components/containers/";
+import GasEstimate from "~/components/GasEstimate";
+import { CountdownCard,InfoCard, NumberStatCard } from "~/components/StatCards";
+import FENIXContext from "~/contexts/FENIXContext";
+import { fenixContract } from "~/lib/fenix-contract";
 
 const Bonus: NextPage = () => {
   const { t } = useTranslation("common");

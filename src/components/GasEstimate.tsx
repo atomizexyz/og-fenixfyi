@@ -1,8 +1,9 @@
-import { NextPage } from "next";
-import { toGwei, formatDecimals } from "~/lib/helpers";
 import { BigNumber } from "ethers";
-import { FeeData } from "~/contexts/FENIXContext";
+import { NextPage } from "next";
 import { useTranslation } from "next-i18next";
+
+import { FeeData } from "~/contexts/FENIXContext";
+import { formatDecimals,toGwei } from "~/lib/helpers";
 
 interface GasEstimateProps {
   feeData?: FeeData;

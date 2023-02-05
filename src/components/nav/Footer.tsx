@@ -1,7 +1,8 @@
-import { linkItems, textLinkItems } from "~/components/Constants";
-import { chain, useNetwork, Chain } from "wagmi";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
+import { Chain,chain, useNetwork } from "wagmi";
+
+import { linkItems, textLinkItems } from "~/components/Constants";
 
 const Footer = () => {
   const { t } = useTranslation("common");

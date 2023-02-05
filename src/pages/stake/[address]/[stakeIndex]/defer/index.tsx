@@ -1,24 +1,24 @@
-import { clsx } from "clsx";
-import { useState, useContext, useEffect } from "react";
-import { ethers } from "ethers";
-import { useTranslation } from "next-i18next";
-import { Container, CardContainer } from "~/components/containers/";
-import FENIXContext from "~/contexts/FENIXContext";
-import GasEstimate from "~/components/GasEstimate";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-
-import { WalletAddressField } from "~/components/FormFields";
 import { ErrorMessage } from "@hookform/error-message";
-import { useRouter } from "next/router";
-import { WALLET_ADDRESS_REGEX } from "~/lib/helpers";
-import { useNetwork, useContractRead, useContractWrite, useWaitForTransaction, usePrepareContractWrite } from "wagmi";
-import FENIX_ABI from "~/abi/FENIX_ABI";
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { fenixContract } from "~/lib/fenix-contract";
+import { clsx } from "clsx";
+import { ethers } from "ethers";
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useContext, useEffect,useState } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { NumberStatCard, DataCard } from "~/components/StatCards";
+import { useContractRead, useContractWrite, useNetwork, usePrepareContractWrite,useWaitForTransaction } from "wagmi";
+import * as yup from "yup";
+
+import FENIX_ABI from "~/abi/FENIX_ABI";
+import { CardContainer,Container } from "~/components/containers/";
+import { WalletAddressField } from "~/components/FormFields";
+import GasEstimate from "~/components/GasEstimate";
+import { DataCard,NumberStatCard } from "~/components/StatCards";
+import FENIXContext from "~/contexts/FENIXContext";
+import { fenixContract } from "~/lib/fenix-contract";
+import { WALLET_ADDRESS_REGEX } from "~/lib/helpers";
 import { truncatedAddress } from "~/lib/helpers";
 
 const Defer = () => {
