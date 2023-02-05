@@ -152,9 +152,9 @@ const Stake = () => {
   };
 
   useEffect(() => {
-    setTimeBonus(calcTimeBonus(startStakeDays));
-    setSizeBonus(calcSizeBonus(startStakeAmount));
-    setSubtotalBonus(startStakeAmount * calcSubtotalBonus(sizeBonus, timeBonus));
+    setTimeBonus(calcTimeBonus(startStakeDays) * 100);
+    setSizeBonus(calcSizeBonus(startStakeAmount) * 100);
+    setSubtotalBonus(startStakeAmount * calcSubtotalBonus(sizeBonus / 100, timeBonus / 100));
     setShares(subtotalBonus / calcShareRatePercent(shareRate));
 
     if (isLockMonth && !isSameMonth(selectedFromDay(), month)) {
@@ -226,9 +226,12 @@ const Stake = () => {
 
             <div className="stats stats-vertical glass w-full text-neutral">
               <BonusShareCard
-                sizeBonus={startStakeAmount * sizeBonus}
-                timeBonus={startStakeAmount * timeBonus}
-                amplifyBonus={subtotalBonus - (startStakeAmount * timeBonus + startStakeAmount * sizeBonus)}
+                sizeBonus={sizeBonus}
+                sizeBonusWeighted={sizeBonus * 0.1}
+                timeBonus={timeBonus}
+                timeBonusWeighted={timeBonus * 0.9}
+                amplifyBonus={sizeBonus * 0.1 + timeBonus * 0.9}
+                base={startStakeAmount}
                 subtotal={subtotalBonus}
                 shareRate={calcShareRatePercent(shareRate)}
                 shares={shares}

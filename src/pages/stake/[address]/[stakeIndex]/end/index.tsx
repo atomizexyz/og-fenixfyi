@@ -15,7 +15,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { fenixContract } from "~/lib/fenix-contract";
 import toast from "react-hot-toast";
-import { NumberStatCard, StakeStatusCard, ProgressStatCard } from "~/components/StatCards";
+import { NumberStatCard, StakeStatusCard, ProgressStatCard, DataCard } from "~/components/StatCards";
+import { truncatedAddress } from "~/lib/helpers";
 
 const End = () => {
   const { t } = useTranslation("common");

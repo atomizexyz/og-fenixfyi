@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
-import { useState, useContext } from "react";
-import { BigNumber, ethers } from "ethers";
+import { useState, useContext, useEffect } from "react";
+import { ethers } from "ethers";
 import { useTranslation } from "next-i18next";
 import { Container, CardContainer } from "~/components/containers/";
 import FENIXContext from "~/contexts/FENIXContext";
@@ -18,7 +18,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { fenixContract } from "~/lib/fenix-contract";
 import toast from "react-hot-toast";
-import { NumberStatCard, StakeStatusCard, ProgressStatCard, DataCard } from "~/components/StatCards";
+import { NumberStatCard, DataCard } from "~/components/StatCards";
 import { truncatedAddress } from "~/lib/helpers";
 
 const Defer = () => {
@@ -28,7 +28,7 @@ const Defer = () => {
   const { address, stakeIndex } = router.query as unknown as { address: string; stakeIndex: number };
 
   const { feeData, stakePoolSupply, stakePoolTotalShares } = useContext(FENIXContext);
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   const [processing, setProcessing] = useState(false);
 
   const { data: stake } = useContractRead({
@@ -103,6 +103,14 @@ const Defer = () => {
   const fenixReward = stakeRatio * Number(stakePoolSupply);
   const rewardRatio = Math.pow(elapsedTime / totalTime, 2);
 
+  useEffect(() => {
+    //
+    console.log(percentComplete);
+    if (percentComplete >= 100) {
+      setDisabled(false);
+    }
+  }, [address, percentComplete, setValue]);
+
   return (
     <Container className="max-w-2xl">
       <CardContainer>
@@ -111,6 +119,9 @@ const Defer = () => {
             <h2 className="card-title text-neutral">Defer</h2>
             <DataCard title={t("stake.address")} value={truncatedAddress(address)} description={address} />
             <DataCard title={t("stake.index")} value={String(stakeIndex)} />
+            <NumberStatCard title={t("stake.shares")} value={shares} />
+            <NumberStatCard title={t("stake.reward")} value={fenixReward * rewardRatio} description="FENIX" />
+            <NumberStatCard title={t("stake.penalty")} value={fenixReward * (1 - rewardRatio)} description="FENIX" />
             <WalletAddressField
               disabled={disabled}
               errorMessage={<ErrorMessage errors={errors} name="deferAddress" />}
@@ -123,6 +134,7 @@ const Defer = () => {
                 className={clsx("btn glass text-neutral", {
                   loading: processing,
                 })}
+                disabled={disabled}
               >
                 {t("stake.defer")}
               </button>

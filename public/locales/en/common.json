@@ -67,7 +67,10 @@
     "penalty": "Penalty",
     "index": "Index",
     "address": "Address",
-    "stakes": "Stakes"
+    "stakes": "Stakes",
+    "bonus": "Bonus",
+    "weight": "Weight",
+    "percent": "Percent"
   },
   "reward": {
     "title": "Adoption Reward",
@@ -109,7 +112,8 @@
     "countdown-details": "Day•Hours:Minutes:Seconds",
     "reward-pool-supply": "Reward Pool Supply",
     "stake-pool-supply": "Stake Pool Supply",
-    "spend-allowance": "Maximum Spend Allowance for Burn"
+    "spend-allowance": "Maximum Spend Allowance for Burn",
+    "base": "Base"
   },
   "form-field": {
     "xen": "XEN",
