@@ -76,6 +76,7 @@ interface IFENIXContext {
   cooldownUnlockTs: number;
   shareRate: number;
   allowance: string;
+  stakePoolTotalShares: string;
 }
 
 const FENIXContext = createContext<IFENIXContext>({
@@ -89,6 +90,7 @@ const FENIXContext = createContext<IFENIXContext>({
   cooldownUnlockTs: 0,
   shareRate: 0,
   allowance: "0",
+  stakePoolTotalShares: "0",
 });
 
 export const FENIXProvider = ({ children }: any) => {
@@ -102,6 +104,7 @@ export const FENIXProvider = ({ children }: any) => {
   const [cooldownUnlockTs, setCooldownUnlockTs] = useState(0);
   const [shareRate, setShareRate] = useState(0);
   const [allowance, setAllowance] = useState<string>("0");
+  const [stakePoolTotalShares, setStakePoolTotalShares] = useState<string>("0");
 
   const { address } = useAccount();
   const { chain: networkChain } = useNetwork();
@@ -164,10 +167,13 @@ export const FENIXProvider = ({ children }: any) => {
         ...fenixContract(chain),
         functionName: "rewardPoolSupply",
       },
-
       {
         ...fenixContract(chain),
         functionName: "cooldownUnlockTs",
+      },
+      {
+        ...fenixContract(chain),
+        functionName: "stakePoolTotalShares",
       },
     ],
     onSuccess(data) {
@@ -176,6 +182,7 @@ export const FENIXProvider = ({ children }: any) => {
       setStakePoolSupply(String(data[2]));
       setRewardPoolSupply(String(data[3]));
       setCooldownUnlockTs(Number(data[4]));
+      setStakePoolTotalShares(String(data[5]));
     },
     watch: true,
   });
@@ -211,6 +218,7 @@ export const FENIXProvider = ({ children }: any) => {
         cooldownUnlockTs,
         shareRate,
         allowance,
+        stakePoolTotalShares,
       }}
     >
       {children}

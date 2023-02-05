@@ -32,7 +32,6 @@ export const StakeRow: NextPage<any> = (props) => {
     watch: true,
   });
 
-  console.log("start:", stake);
   const startTime = Number(stake?.startTs ?? 0);
   const endTime = startTime + stake?.term * 86400;
 
@@ -71,7 +70,7 @@ export const StakeRow: NextPage<any> = (props) => {
           <div className="space-x-1">
             <Link href={`/stake/${props.stakerAddress}/${props.index}/defer`}>
               <button className="btn btn-sm glass text-neutral" disabled={!canDefer}>
-                {t("portfolio.defer")}
+                {t("stake.defer")}
               </button>
             </Link>
             <Link
@@ -81,7 +80,7 @@ export const StakeRow: NextPage<any> = (props) => {
                 glass: canDefer,
               })}
             >
-              {t("portfolio.end")}
+              {t("stake.end")}
             </Link>
           </div>
         );
@@ -95,7 +94,7 @@ export const StakeRow: NextPage<any> = (props) => {
                 glass: canDefer,
               })}
             >
-              {t("portfolio.end")}
+              {t("stake.end")}
             </Link>
           </div>
         );
@@ -108,19 +107,12 @@ export const StakeRow: NextPage<any> = (props) => {
     if (endTime) {
       const elapsedTime = Date.now() / 1000 - startTime;
       const totalTime = endTime - startTime;
-
       const percentComplete = (elapsedTime / totalTime) * 100;
-      console.log(startTime);
-      console.log(elapsedTime);
 
-      // const progress = progressDays(endTime ?? 0, stake?.term ?? 0);
-      // const percentComplete = (progress / stake?.term ?? 0) * 100;
-      // setProgress(elapsedTime / totalTime);
       setPercent(percentComplete);
-
       setCanDefer(percentComplete > 100.0);
     }
-  }, [endTime, stake]);
+  }, [endTime, stake, startTime]);
 
   if (stake?.status != props?.status) return null;
 

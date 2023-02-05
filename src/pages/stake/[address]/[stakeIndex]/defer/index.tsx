@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import { useState, useContext } from "react";
-import { BigNumber } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { useTranslation } from "next-i18next";
 import { Container, CardContainer } from "~/components/containers/";
 import FENIXContext from "~/contexts/FENIXContext";
@@ -9,9 +9,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { WalletAddressField } from "~/components/FormFields";
 import { ErrorMessage } from "@hookform/error-message";
-
 import { useRouter } from "next/router";
-
 import { WALLET_ADDRESS_REGEX } from "~/lib/helpers";
 import { useNetwork, useContractRead, useContractWrite, useWaitForTransaction, usePrepareContractWrite } from "wagmi";
 import FENIX_ABI from "~/abi/FENIX_ABI";
@@ -20,16 +18,27 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { fenixContract } from "~/lib/fenix-contract";
 import toast from "react-hot-toast";
+import { NumberStatCard, StakeStatusCard, ProgressStatCard, DataCard } from "~/components/StatCards";
+import { truncatedAddress } from "~/lib/helpers";
 
 const Defer = () => {
   const { t } = useTranslation("common");
   const { chain } = useNetwork();
   const router = useRouter();
-  const { stakeId } = router.query as unknown as { stakeId: number };
+  const { address, stakeIndex } = router.query as unknown as { address: string; stakeIndex: number };
 
-  const { feeData } = useContext(FENIXContext);
+  const { feeData, stakePoolSupply, stakePoolTotalShares } = useContext(FENIXContext);
   const [disabled, setDisabled] = useState(false);
   const [processing, setProcessing] = useState(false);
+
+  const { data: stake } = useContractRead({
+    ...fenixContract(chain),
+    functionName: "stakeFor",
+    args: [address, stakeIndex],
+    watch: true,
+  });
+
+  // Write defer stake
 
   const schema = yup
     .object()
@@ -61,7 +70,7 @@ const Defer = () => {
     addressOrName: fenixContract(chain).addressOrName,
     contractInterface: FENIX_ABI,
     functionName: "deferStake",
-    args: [deferAddress, stakeId],
+    args: [deferAddress, stakeIndex],
     enabled: !disabled,
   });
 
@@ -84,13 +93,24 @@ const Defer = () => {
     write?.();
   };
 
+  const startTime = Number(stake?.startTs ?? 0);
+  const endTime = startTime + stake?.term * 86400;
+  const elapsedTime = Date.now() / 1000 - startTime;
+  const totalTime = endTime - startTime;
+  const percentComplete = (elapsedTime / totalTime) * 100;
+  const shares = Number(ethers.utils.formatUnits(stake?.shares ?? 0, 18));
+  const stakeRatio = shares / Number(stakePoolTotalShares);
+  const fenixReward = stakeRatio * Number(stakePoolSupply);
+  const rewardRatio = Math.pow(elapsedTime / totalTime, 2);
+
   return (
     <Container className="max-w-2xl">
       <CardContainer>
         <form onSubmit={handleSubmit(handleDeferSubmit)}>
           <div className="flex flex-col space-y-4">
             <h2 className="card-title text-neutral">Defer</h2>
-
+            <DataCard title={t("stake.address")} value={truncatedAddress(address)} description={address} />
+            <DataCard title={t("stake.index")} value={String(stakeIndex)} />
             <WalletAddressField
               disabled={disabled}
               errorMessage={<ErrorMessage errors={errors} name="deferAddress" />}

@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import { useState, useContext } from "react";
-import { BigNumber } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { useTranslation } from "next-i18next";
 import { Container, CardContainer } from "~/components/containers/";
 import FENIXContext from "~/contexts/FENIXContext";
@@ -15,17 +15,27 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { fenixContract } from "~/lib/fenix-contract";
 import toast from "react-hot-toast";
+import { NumberStatCard, StakeStatusCard, ProgressStatCard } from "~/components/StatCards";
 
 const End = () => {
   const { t } = useTranslation("common");
-  const { chain } = useNetwork();
   const router = useRouter();
-  const { stakeId } = router.query as unknown as { stakeId: number };
+  const { chain } = useNetwork();
 
-  const { feeData } = useContext(FENIXContext);
+  const { address, stakeIndex } = router.query as unknown as { address: string; stakeIndex: number };
+
+  const { feeData, stakePoolSupply, stakePoolTotalShares } = useContext(FENIXContext);
   const [disabled, setDisabled] = useState(false);
   const [processing, setProcessing] = useState(false);
 
+  const { data: stake } = useContractRead({
+    ...fenixContract(chain),
+    functionName: "stakeFor",
+    args: [address, stakeIndex],
+    watch: true,
+  });
+
+  // Write end stake
   const {
     register,
     handleSubmit,
@@ -40,7 +50,7 @@ const End = () => {
     addressOrName: fenixContract(chain).addressOrName,
     contractInterface: FENIX_ABI,
     functionName: "endStake",
-    args: [stakeId],
+    args: [stakeIndex],
     enabled: !disabled,
   });
 
@@ -63,12 +73,37 @@ const End = () => {
     write?.();
   };
 
+  const startTime = Number(stake?.startTs ?? 0);
+  const endTime = startTime + stake?.term * 86400;
+  const elapsedTime = Date.now() / 1000 - startTime;
+  const totalTime = endTime - startTime;
+  const percentComplete = (elapsedTime / totalTime) * 100;
+  const shares = Number(ethers.utils.formatUnits(stake?.shares ?? 0, 18));
+  const stakeRatio = shares / Number(stakePoolTotalShares);
+  const fenixReward = stakeRatio * Number(stakePoolSupply);
+  const rewardRatio = Math.pow(elapsedTime / totalTime, 2);
+
   return (
     <Container className="max-w-2xl">
       <CardContainer>
         <form onSubmit={handleSubmit(handleEndSubmit)}>
           <div className="flex flex-col space-y-4">
             <h2 className="card-title text-neutral">End</h2>
+            <DataCard title={t("stake.address")} value={truncatedAddress(address)} description={address} />
+            <DataCard title={t("stake.index")} value={String(stakeIndex)} />
+            <ProgressStatCard
+              title={t("stake.progress")}
+              percentComplete={percentComplete}
+              value={elapsedTime}
+              max={totalTime}
+              daysRemaining={endTime - elapsedTime}
+              dateTs={endTime}
+            />
+            <StakeStatusCard status={stake?.status} />
+            <NumberStatCard title={t("stake.shares")} value={shares} />
+
+            <NumberStatCard title={t("stake.reward")} value={fenixReward * rewardRatio} description="FENIX" />
+            <NumberStatCard title={t("stake.penalty")} value={fenixReward * (1 - rewardRatio)} description="FENIX" />
 
             <div className="form-control w-full">
               <button

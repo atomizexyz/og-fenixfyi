@@ -28,7 +28,7 @@ const EndPortfolio: NextPage = () => {
       <PortfolioNav />
       <CardContainer>
         <div className="space-y-4 w-full">
-          <h2 className="card-title">{t("portfolio.ended-stakes")}</h2>
+          <h2 className="card-title">{t("stake.ended-stakes")}</h2>
 
           <div className="overflow-x-auto">
             <table className="table table-compact table-zebra w-full">

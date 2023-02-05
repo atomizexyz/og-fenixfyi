@@ -11,7 +11,7 @@ import FENIX_ABI from "~/abi/FENIX_ABI";
 import FENIXContext from "~/contexts/FENIXContext";
 import { useContext } from "react";
 
-const DeferPortfolio: NextPage = () => {
+const ActivePortfolio: NextPage = () => {
   const { t } = useTranslation("common");
   const { chain } = useNetwork();
   const { address } = useAccount();
@@ -23,17 +23,19 @@ const DeferPortfolio: NextPage = () => {
     args: [address],
   }) as unknown as { data: number };
 
+  const { stakePoolSupply } = useContext(FENIXContext);
+
   return (
     <Container className="max-w-5xl">
       <PortfolioNav />
       <CardContainer>
         <div className="space-y-4 w-full">
-          <h2 className="card-title">{t("portfolio.deferred-stakes")}</h2>
+          <h2 className="card-title">{t("stake.active-stakes")}</h2>
 
           <div className="overflow-x-auto">
             <table className="table table-compact table-zebra w-full">
               <thead>
-                <StakeHeaderFooter status={StakeStatus.DEFER} />
+                <StakeHeaderFooter status={StakeStatus.ACTIVE} />
               </thead>
               <tbody>
                 {Array.from(Array(Number(stakeCount ?? 0)).keys()).map((_stake: any) => (
@@ -42,13 +44,13 @@ const DeferPortfolio: NextPage = () => {
                       contractAddressOrName={fenixContract(chain).addressOrName}
                       stakerAddress={address}
                       index={_stake}
-                      status={StakeStatus.DEFER}
+                      status={StakeStatus.ACTIVE}
                     />
                   </tr>
                 ))}
               </tbody>
               <tfoot>
-                <StakeHeaderFooter status={StakeStatus.DEFER} />
+                <StakeHeaderFooter status={StakeStatus.ACTIVE} />
               </tfoot>
             </table>
           </div>
@@ -66,4 +68,4 @@ export async function getStaticProps({ locale }: any) {
   };
 }
 
-export default DeferPortfolio;
+export default ActivePortfolio;

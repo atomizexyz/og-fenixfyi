@@ -31,6 +31,7 @@ import {
 import { useEffect } from "react";
 import { InfoCard } from "~/components/StatCards";
 import { useRouter } from "next/router";
+import PortfolioNav from "~/components/nav/PortfolioNav";
 
 const Stake = () => {
   const { t } = useTranslation("common");
@@ -173,7 +174,8 @@ const Stake = () => {
 
   return (
     <Container className="max-w-2xl">
-      <CardContainer>
+      <PortfolioNav />
+      <CardContainer className="rounded-none rounded-r-2xl rounded-bl-2xl">
         <form onSubmit={handleSubmit(handleStartStakeSubmit)}>
           <div className="flex flex-col space-y-4">
             <h2 className="card-title text-neutral">Stake</h2>

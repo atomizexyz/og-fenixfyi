@@ -69,13 +69,6 @@ export const navigationItems = [
   },
   {
     id: 3,
-    t: "Portfolio",
-    icon: <BriefcaseIcon className="h-5 w-5" />,
-    href: "/portfolio",
-    canDisable: false,
-  },
-  {
-    id: 4,
     t: "Reward",
     icon: <GiftIcon className="h-5 w-5" />,
     href: "/reward",

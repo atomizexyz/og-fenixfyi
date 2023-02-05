@@ -3,7 +3,7 @@ import { UTC_TIME, formatFullDate } from "~/lib/helpers";
 import { InformationCircleIcon } from "@heroicons/react/outline";
 import type { NextPage } from "next";
 import { useTranslation } from "next-i18next";
-import { t } from "i18next";
+import { StakeStatus } from "~/components/stakes";
 
 interface ProgressStat {
   title: string;
@@ -334,6 +334,33 @@ export const InfoCard: NextPage<InfoCardStat> = (props) => {
           <div className="text-xs">{props.description}</div>
         </div>
       </div>
+    </div>
+  );
+};
+
+interface StakeStatusStat {
+  status: StakeStatus;
+}
+
+export const StakeStatusCard: NextPage<StakeStatusStat> = (props) => {
+  const { t } = useTranslation("common");
+
+  const stakeStatusRow = (status: StakeStatus) => {
+    switch (status) {
+      case StakeStatus.ACTIVE:
+        return <code className="stat-value text-lg md:text-2xl text-right">{t("stake.active")}</code>;
+      case StakeStatus.END:
+        return <code className="stat-value text-lg md:text-2xl text-right">{t("stake.ended")}</code>;
+      case StakeStatus.DEFER:
+        return <code className="stat-value text-lg md:text-2xl text-right">{t("stake.deferred")}</code>;
+    }
+  };
+
+  return (
+    <div className="stat">
+      <div className="stat-title">{t("stake.status")}</div>
+      {stakeStatusRow(props.status)}
+      <div className="stat-desc text-right"></div>
     </div>
   );
 };

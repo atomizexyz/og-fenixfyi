@@ -1,39 +1,35 @@
 import Link from "next/link";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useEffect, useState, useContext } from "react";
 import { useTranslation } from "next-i18next";
 import { CardContainer, Container } from "~/components/containers";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { StakeStatusCard, DataCard } from "~/components/StatCards";
+import { useContractRead, useNetwork } from "wagmi";
+import { fenixContract } from "~/lib/fenix-contract";
+import { truncatedAddress } from "~/lib/helpers";
 
 const StakeId: NextPage = () => {
   const router = useRouter();
+  const { chain } = useNetwork();
 
-  const [disabled, setDisabled] = useState(false);
   const { t } = useTranslation("common");
-  const { address, stakeId } = router.query;
+  const { address, stakeIndex } = router.query as unknown as { address: string; stakeIndex: number };
+
+  const { data: stake } = useContractRead({
+    ...fenixContract(chain),
+    functionName: "stakeFor",
+    args: [address, stakeIndex],
+  });
 
   return (
     <Container className="max-w-2xl">
       <CardContainer>
         <div className="flex flex-col space-y-4">
-          {address}
-
-          {stakeId}
-
-          <Link href="/stake/0x0000000000000000000000000000000000000000">
-            <div className="form-control w-full">
-              <button type="submit" className="btn glass text-neutral" disabled={disabled}>
-                {t("stake.defer")}
-              </button>
-            </div>
-          </Link>
-
-          <div className="form-control w-full">
-            <button type="submit" className="btn glass text-neutral" disabled={disabled}>
-              {t("stake.end")}
-            </button>
-          </div>
+          <h2 className="card-title">{t("stake.title")}</h2>
+          <DataCard title={t("stake.address")} value={truncatedAddress(address)} description={address} />
+          <DataCard title={t("stake.index")} value={String(stakeIndex)} />
+          <StakeStatusCard status={stake?.status} />
         </div>
       </CardContainer>
     </Container>

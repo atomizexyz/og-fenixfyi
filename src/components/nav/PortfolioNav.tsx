@@ -12,28 +12,36 @@ const PortfolioNav: NextPage = () => {
   return (
     <div className="tabs">
       <Link
-        href="/portfolio/active"
+        href="/stake"
         className={clsx("tab tab-lg tab-lifted text-neutral", {
-          "tab-active glass": pathname == "/portfolio/active",
+          "tab-active glass": pathname == "/stake",
         })}
       >
-        {t("portfolio.active")}
+        {t("stake.new")}
       </Link>
       <Link
-        href="/portfolio/defer"
+        href="/stake/active"
         className={clsx("tab tab-lg tab-lifted text-neutral", {
-          "tab-active glass": pathname == "/portfolio/defer",
+          "tab-active glass": pathname == "/stake/active",
         })}
       >
-        {t("portfolio.deferred")}
+        {t("stake.active")}
       </Link>
       <Link
-        href="/portfolio/end"
+        href="/stake/defer"
         className={clsx("tab tab-lg tab-lifted text-neutral", {
-          "tab-active glass": pathname == "/portfolio/end",
+          "tab-active glass": pathname == "/stake/defer",
         })}
       >
-        {t("portfolio.ended")}
+        {t("stake.deferred")}
+      </Link>
+      <Link
+        href="/stake/end"
+        className={clsx("tab tab-lg tab-lifted text-neutral", {
+          "tab-active glass": pathname == "/stake/end",
+        })}
+      >
+        {t("stake.ended")}
       </Link>
     </div>
   );

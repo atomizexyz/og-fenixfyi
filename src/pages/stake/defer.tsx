@@ -11,7 +11,7 @@ import FENIX_ABI from "~/abi/FENIX_ABI";
 import FENIXContext from "~/contexts/FENIXContext";
 import { useContext } from "react";
 
-const ActivePortfolio: NextPage = () => {
+const DeferPortfolio: NextPage = () => {
   const { t } = useTranslation("common");
   const { chain } = useNetwork();
   const { address } = useAccount();
@@ -23,19 +23,17 @@ const ActivePortfolio: NextPage = () => {
     args: [address],
   }) as unknown as { data: number };
 
-  const { stakePoolSupply } = useContext(FENIXContext);
-
   return (
     <Container className="max-w-5xl">
       <PortfolioNav />
-      <CardContainer className="rounded-none rounded-r-2xl rounded-bl-2xl">
+      <CardContainer>
         <div className="space-y-4 w-full">
-          <h2 className="card-title">{t("portfolio.active-stakes")}</h2>
+          <h2 className="card-title">{t("stake.deferred-stakes")}</h2>
 
           <div className="overflow-x-auto">
             <table className="table table-compact table-zebra w-full">
               <thead>
-                <StakeHeaderFooter status={StakeStatus.ACTIVE} />
+                <StakeHeaderFooter status={StakeStatus.DEFER} />
               </thead>
               <tbody>
                 {Array.from(Array(Number(stakeCount ?? 0)).keys()).map((_stake: any) => (
@@ -44,13 +42,13 @@ const ActivePortfolio: NextPage = () => {
                       contractAddressOrName={fenixContract(chain).addressOrName}
                       stakerAddress={address}
                       index={_stake}
-                      status={StakeStatus.ACTIVE}
+                      status={StakeStatus.DEFER}
                     />
                   </tr>
                 ))}
               </tbody>
               <tfoot>
-                <StakeHeaderFooter status={StakeStatus.ACTIVE} />
+                <StakeHeaderFooter status={StakeStatus.DEFER} />
               </tfoot>
             </table>
           </div>
@@ -68,4 +66,4 @@ export async function getStaticProps({ locale }: any) {
   };
 }
 
-export default ActivePortfolio;
+export default DeferPortfolio;

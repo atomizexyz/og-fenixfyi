@@ -50,7 +50,7 @@ export const Navbar: NextPage = () => {
           <li key={index}>
             <Link
               href={item.href}
-              className={clsx("btn-sm", {
+              className={clsx("btn", {
                 "btn-disabled text-neutral-content": router.pathname.startsWith(item.href),
                 "glass text-neutral": !router.pathname.startsWith(item.href),
               })}
@@ -121,7 +121,7 @@ export const Navbar: NextPage = () => {
                     <div className="dropdown" ref={chainDropdown}>
                       <div
                         tabIndex={0}
-                        className="btn lg:btn-sm glass btn-square text-neutral"
+                        className="btn glass btn-square text-neutral"
                         onClick={() => {
                           chainDropdown?.current?.classList.toggle("dropdown-open");
                           (document.activeElement as HTMLElement).blur();
@@ -137,7 +137,7 @@ export const Navbar: NextPage = () => {
                       </ul>
                     </div>
 
-                    <button onClick={show} className="btn lg:btn-sm glass text-neutral">
+                    <button onClick={show} className="btn glass text-neutral">
                       <div className="flex space-x-2 items-center">
                         <div className="hidden lg:inline-flex">
                           <Avatar address={address} size={16} />
@@ -147,7 +147,7 @@ export const Navbar: NextPage = () => {
                     </button>
                   </>
                 ) : (
-                  <button onClick={show} className="btn lg:btn-sm glass text-neutral">
+                  <button onClick={show} className="btn glass text-neutral">
                     {t("connect-wallet")}
                   </button>
                 )}
@@ -156,7 +156,7 @@ export const Navbar: NextPage = () => {
           }}
         </ConnectKitButton.Custom>
         <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn lg:btn-sm glass btn-square text-neutral">
+          <label tabIndex={0} className="btn glass btn-square text-neutral">
             <DotsVerticalIcon className="h-5 w-5" />
           </label>
           <ul
