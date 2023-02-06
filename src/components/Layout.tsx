@@ -1,7 +1,7 @@
 import { CheckIcon } from "@heroicons/react/outline";
 import { useTranslation } from "next-i18next";
-import { useEffect,useState } from "react";
-import { resolveValue,Toaster } from "react-hot-toast";
+// import { useEffect, useState } from "react";
+import { resolveValue, Toaster } from "react-hot-toast";
 
 import Meta from "~/components/Meta";
 import { BottomNav } from "~/components/nav/BottomNav";
@@ -12,15 +12,15 @@ import Footer from "./nav/Footer";
 
 const Layout = ({ children }: any) => {
   const { t } = useTranslation("common");
-  const [mounted, setMounted] = useState(false);
+  // const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   setMounted(true);
+  // }, []);
 
-  if (!mounted) {
-    return null;
-  }
+  // if (!mounted) {
+  //   return null;
+  // }
 
   return (
     <FENIXProvider>
