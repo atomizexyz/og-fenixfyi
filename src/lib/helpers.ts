@@ -174,3 +174,14 @@ export const calcTimeBonus = (term: number) => {
 export const calcSubtotalBonus = (size: number, time: number) => {
   return Math.exp(size * 0.1 + time * 0.9);
 };
+
+// Create title case function
+export const titleCase = (str: string) => {
+  return str
+    .toLowerCase()
+    .split(" ")
+    .map(function (word) {
+      return word.replace(word[0], word[0].toUpperCase());
+    })
+    .join(" ");
+};

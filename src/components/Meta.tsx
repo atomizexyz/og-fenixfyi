@@ -3,6 +3,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
+import { titleCase } from "~/lib/helpers";
+
 const Meta: NextPage = () => {
   const { t } = useTranslation("common");
 
@@ -11,7 +13,7 @@ const Meta: NextPage = () => {
   const path = asPath.split("/").filter((item) => item !== "");
 
   const title = `FENIX.fyi - ${path.join(" - ")}`;
-  const description = t("meta.description");
+  const description = titleCase(t("meta.description"));
   const url = "https://fenix.fyi";
   const image = "https://fenix.fyi/images/og-logo-slogan.png";
 
