@@ -3,11 +3,32 @@ import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-import { CardContainer,Container } from "~/components/containers/";
+import { CardContainer, Container } from "~/components/containers/";
 import { InfoCard } from "~/components/StatCards";
 
 const GetXen: NextPage = () => {
   const { t } = useTranslation("common");
+  const chainNetwork = process.env.NEXT_PUBLIC_CHAIN_NETWORK as string;
+
+  const xenFyi = () => {
+    switch (chainNetwork) {
+      case "mainnet":
+        return "https://xen.fyi";
+      case "testnet":
+        return "https://testnet.xen.fyi";
+      default:
+        return "https://localhost:3000";
+    }
+  };
+
+  const xenNetwork = () => {
+    switch (chainNetwork) {
+      case "mainnet":
+        return "https://xen.network";
+      default:
+        return "https://testnet.xen.network";
+    }
+  };
 
   return (
     <Container className="max-w-2xl">
@@ -30,13 +51,13 @@ const GetXen: NextPage = () => {
             <InfoCard title={t("burn.get-xen-title")} description={t("burn.get-xen-description")} />
 
             <div className="form-control w-full">
-              <Link href="https://xen.fyi" className="btn glass text-neutral">
+              <Link href={xenFyi()} className="btn glass text-neutral">
                 {t("burn.get-xen")}
               </Link>
             </div>
 
             <div className="flex justify-center w-full">
-              <Link href="https://xen.network" className="link">
+              <Link href={xenNetwork()} className="link">
                 XEN official website
               </Link>
             </div>
