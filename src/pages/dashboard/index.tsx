@@ -7,10 +7,10 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import CountUp from "react-countup";
 import toast from "react-hot-toast";
 import { useCopyToClipboard } from "usehooks-ts";
-import { Chain, useContractReads,useToken } from "wagmi";
+import { Chain, useContractReads, useToken } from "wagmi";
 
 import { chainIcons } from "~/components/Constants";
-import { CardContainer,Container } from "~/components/containers/";
+import { CardContainer, Container } from "~/components/containers/";
 import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
 import { fenixContract } from "~/lib/fenix-contract";
 import { truncatedAddress } from "~/lib/helpers";
@@ -109,7 +109,7 @@ const Dashboard: NextPage = () => {
         <td>
           <pre className="text-right">
             <CountUp
-              end={Number(ethers.utils.formatUnits(poolSupply ?? 0, 18))}
+              end={Number(ethers.utils.formatUnits(poolSupply ?? 0))}
               preserveValue={true}
               separator=","
               decimals={4}

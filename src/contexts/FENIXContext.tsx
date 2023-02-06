@@ -59,8 +59,8 @@ export interface Balance {
 interface IFENIXContext {
   setChainOverride: (_chain: Chain) => void;
   feeData?: FeeData;
-  stakePoolSupply: string;
-  rewardPoolSupply: string;
+  stakePoolSupply: BigNumber;
+  rewardPoolSupply: BigNumber;
   xenBalance?: Balance;
   fenixBalance?: Balance;
   genesisTs: number;
@@ -73,8 +73,8 @@ interface IFENIXContext {
 const FENIXContext = createContext<IFENIXContext>({
   setChainOverride: (_chain: Chain) => {},
   feeData: undefined,
-  stakePoolSupply: "0",
-  rewardPoolSupply: "0",
+  stakePoolSupply: BigNumber.from(0),
+  rewardPoolSupply: BigNumber.from(0),
   xenBalance: undefined,
   fenixBalance: undefined,
   genesisTs: 0,
@@ -87,8 +87,8 @@ const FENIXContext = createContext<IFENIXContext>({
 export const FENIXProvider = ({ children }: any) => {
   const [chainOverride, setChainOverride] = useState<Chain | undefined>();
   const [feeData, setFeeData] = useState<FeeData | undefined>();
-  const [stakePoolSupply, setStakePoolSupply] = useState<string>("0");
-  const [rewardPoolSupply, setRewardPoolSupply] = useState<string>("0");
+  const [stakePoolSupply, setStakePoolSupply] = useState<BigNumber>(BigNumber.from(0));
+  const [rewardPoolSupply, setRewardPoolSupply] = useState<BigNumber>(BigNumber.from(0));
   const [xenBalance, setXenBalance] = useState<Balance | undefined>();
   const [fenixBalance, setFenixBalance] = useState<Balance | undefined>();
   const [genesisTs, setGenesisTs] = useState(0);
@@ -170,8 +170,8 @@ export const FENIXProvider = ({ children }: any) => {
     onSuccess(data) {
       setGenesisTs(Number(data[0]));
       setShareRate(Number(data[1]));
-      setStakePoolSupply(String(data[2]));
-      setRewardPoolSupply(String(data[3]));
+      setStakePoolSupply(BigNumber.from(data[2] ?? 0));
+      setRewardPoolSupply(BigNumber.from(data[3] ?? 0));
       setCooldownUnlockTs(Number(data[4]));
       setStakePoolTotalShares(String(data[5]));
     },

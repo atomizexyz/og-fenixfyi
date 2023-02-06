@@ -42,7 +42,7 @@ export const StakeRow: NextPage<any> = (props) => {
           <div className="flex flex-col">
             <pre className="text-right text-sm">
               <CountUp
-                end={Number(ethers.utils.formatUnits(stake?.payout ?? 0, 18))}
+                end={Number(ethers.utils.formatUnits(stake?.payout ?? 0))}
                 preserveValue={true}
                 separator=","
                 decimals={2}
@@ -122,7 +122,7 @@ export const StakeRow: NextPage<any> = (props) => {
       <td className="bg-transparent text-right text-sm">
         <pre>
           <CountUp
-            end={Number(ethers.utils.formatUnits(stake?.fenix ?? 0, 18))}
+            end={Number(ethers.utils.formatUnits(stake?.fenix ?? 0))}
             preserveValue={true}
             separator=","
             decimals={2}
@@ -132,7 +132,7 @@ export const StakeRow: NextPage<any> = (props) => {
       <td className="bg-transparent text-right text-sm">
         <pre>
           <CountUp
-            end={Number(ethers.utils.formatUnits(stake?.shares ?? 0, 18))}
+            end={Number(ethers.utils.formatUnits(stake?.shares ?? 0))}
             preserveValue={true}
             separator=","
             decimals={2}

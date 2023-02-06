@@ -188,10 +188,7 @@ const Stake = () => {
               title={t("form-field.fenix").toUpperCase()}
               description={t("form-field.fenix-description")}
               decimals={4}
-              value={ethers.utils.formatUnits(
-                fenixBalance?.value ?? BigNumber.from(0),
-                fenixBalance?.decimals ?? BigNumber.from(0)
-              )}
+              value={ethers.utils.formatUnits(fenixBalance?.value ?? BigNumber.from(0))}
               errorMessage={<ErrorMessage errors={errors} name="startStakeAmount" />}
               register={register("startStakeAmount")}
               setValue={setValue}

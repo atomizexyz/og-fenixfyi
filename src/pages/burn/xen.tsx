@@ -136,12 +136,7 @@ const Burn: NextPage = () => {
                 />
                 <NumberStatCard
                   title={t("card.liquid")}
-                  value={Number(
-                    ethers.utils.formatUnits(
-                      fenixBalance?.value ?? BigNumber.from(0),
-                      fenixBalance?.decimals ?? BigNumber.from(0)
-                    )
-                  )}
+                  value={Number(ethers.utils.formatUnits(fenixBalance?.value ?? BigNumber.from(0)))}
                   decimals={4}
                   description={t("token.fenix")}
                 />

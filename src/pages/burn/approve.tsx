@@ -147,10 +147,7 @@ const Approve: NextPage = () => {
                 title={t("form-field.xen").toUpperCase()}
                 description={t("form-field.xen-description")}
                 decimals={0}
-                value={ethers.utils.formatUnits(
-                  xenBalance?.value ?? BigNumber.from(0),
-                  xenBalance?.decimals ?? BigNumber.from(0)
-                )}
+                value={ethers.utils.formatUnits(xenBalance?.value ?? BigNumber.from(0))}
                 errorMessage={<ErrorMessage errors={errors} name="burnXENAmount" />}
                 register={register("burnXENAmount")}
                 setValue={setValue}

@@ -98,9 +98,9 @@ const Defer = () => {
   const elapsedTime = Date.now() / 1000 - startTime;
   const totalTime = endTime - startTime;
   const percentComplete = (elapsedTime / totalTime) * 100;
-  const shares = Number(ethers.utils.formatUnits(stake?.shares ?? 0, 18));
+  const shares = Number(ethers.utils.formatUnits(stake?.shares ?? 0));
   const stakeRatio = shares / Number(stakePoolTotalShares);
-  const fenixReward = stakeRatio * Number(stakePoolSupply);
+  const fenixReward = stakeRatio * stakePoolSupply.toNumber();
   const rewardRatio = Math.pow(elapsedTime / totalTime, 2);
 
   useEffect(() => {

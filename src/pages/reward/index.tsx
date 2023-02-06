@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { BigNumber, ethers } from "ethers";
+import { ethers } from "ethers";
 import { NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -20,7 +20,7 @@ const Bonus: NextPage = () => {
   const { t } = useTranslation("common");
   const { chain } = useNetwork();
 
-  const { feeData, fenixBalance, cooldownUnlockTs, stakePoolSupply, rewardPoolSupply } = useContext(FENIXContext);
+  const { feeData, cooldownUnlockTs, stakePoolSupply, rewardPoolSupply } = useContext(FENIXContext);
   const [disabled, setDisabled] = useState(false);
   const [processing, setProcessing] = useState(false);
 
@@ -73,17 +73,13 @@ const Bonus: NextPage = () => {
             <div className="flex stats glass w-full text-neutral">
               <NumberStatCard
                 title={t("card.reward-pool-supply")}
-                value={Number(
-                  ethers.utils.formatUnits(rewardPoolSupply ?? "0", fenixBalance?.decimals ?? BigNumber.from(0))
-                )}
+                value={Number(ethers.utils.formatUnits(rewardPoolSupply))}
                 decimals={0}
                 description={t("token.fenix")}
               />
               <NumberStatCard
                 title={t("card.stake-pool-supply")}
-                value={Number(
-                  ethers.utils.formatUnits(stakePoolSupply ?? "0", fenixBalance?.decimals ?? BigNumber.from(0))
-                )}
+                value={Number(ethers.utils.formatUnits(stakePoolSupply))}
                 decimals={0}
                 description={t("token.fenix")}
               />

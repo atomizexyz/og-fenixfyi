@@ -10,7 +10,7 @@ import { useToken } from "wagmi";
 import { chainIcons } from "~/components/Constants";
 import CardContainer from "~/components/containers/CardContainer";
 import Container from "~/components/containers/Container";
-import { ChainStatCard, DataCard,DateStatCard, NumberStatCard } from "~/components/StatCards";
+import { ChainStatCard, DataCard, DateStatCard, NumberStatCard } from "~/components/StatCards";
 import FENIXContext from "~/contexts/FENIXContext";
 import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
 import { chainList } from "~/lib/client";
@@ -34,7 +34,7 @@ const ChainDashbaord: NextPage = () => {
   const stakeItems = [
     {
       title: t("dashboard.pool-supply"),
-      value: Number(ethers.utils.formatUnits(stakePoolSupply ?? "0", 18)),
+      value: Number(ethers.utils.formatUnits(stakePoolSupply)),
       decimals: 0,
     },
     {

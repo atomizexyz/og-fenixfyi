@@ -1,5 +1,6 @@
 import { BigNumber, ethers } from "ethers";
 
+export const FENIX_DECIMALS = 18;
 export const FENIX_MAX_STAKE_LENGTH = 20075;
 export const UTC_TIME = new Date().getTime() / 1000;
 const WITHDRAWAL_WINDOW_DAYS = 7;
@@ -110,7 +111,7 @@ export const truncatedAddress = (address: string) => {
 };
 
 export const estimatedStakeRewardXEN = (data: any) => {
-  const amount = Number(ethers.utils.formatUnits(data.amount ?? 0, 18));
+  const amount = Number(ethers.utils.formatUnits(data.amount ?? 0));
   if (data.maturityTs.toNumber() != 0 && UTC_TIME > data.maturityTs.toNumber()) {
     const rate = (data.apy.toNumber() * data.term.toNumber() * 1_000_000) / DAYS_IN_YEAR;
     const totalReward = (data.amount.toNumber() * rate) / 100_000_000 / 1e18;
