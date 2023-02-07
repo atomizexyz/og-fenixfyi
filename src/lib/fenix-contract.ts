@@ -21,16 +21,16 @@ export const fenixContract = (contractChain?: Chain) => {
         contractInterface: FENIX_ABI,
         chainId: contractChain.id,
       };
-    case dogechainMainnet.id:
+    case chain.goerli.id:
+    case chain.polygonMumbai.id:
+    case bscTestnet.id:
     case pulseChain.id:
       return {
         addressOrName: "0xC3e8abfA04B0EC442c2A4D65699a40F7FcEd8055",
         contractInterface: FENIX_ABI,
         chainId: contractChain.id,
       };
-    case chain.goerli.id:
-    case chain.polygonMumbai.id:
-    case bscTestnet.id:
+    case dogechainMainnet.id:
     case fantomMainnet.id:
     case avaxMainnet.id:
     case ethwMainnet.id:
@@ -41,7 +41,7 @@ export const fenixContract = (contractChain?: Chain) => {
     case chain.mainnet.id:
     default:
       return {
-        addressOrName: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+        addressOrName: "0xC3e8abfA04B0EC442c2A4D65699a40F7FcEd8055",
         contractInterface: FENIX_ABI,
         chainId: chain.mainnet.id,
       };
