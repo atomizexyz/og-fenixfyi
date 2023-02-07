@@ -29,7 +29,7 @@ const Burn: NextPage = () => {
 
   const [disabled, setDisabled] = useState(true);
   const [processing, setProcessing] = useState(false);
-  const [burnMaximum, setBurnMaximum] = useState<string>("0");
+  const [burnMaximum, setBurnMaximum] = useState<BigNumber>(BigNumber.from(0));
   const { feeData, xenBalance, fenixBalance, allowance } = useContext(FENIXContext);
 
   const schema = yup
@@ -91,7 +91,7 @@ const Burn: NextPage = () => {
     if (xenBalance?.value.gt(allowance)) {
       setBurnMaximum(allowance);
     } else {
-      setBurnMaximum(xenBalance?.value?.toString() ?? "0");
+      setBurnMaximum(xenBalance?.value ?? BigNumber.from(0));
     }
     setDisabled(!isValid);
   }, [allowance, burnMaximum, isValid, xenBalance?.value]);
@@ -121,7 +121,7 @@ const Burn: NextPage = () => {
                 title={t("form-field.xen").toUpperCase()}
                 description={t("form-field.xen-description")}
                 decimals={0}
-                value={ethers.utils.formatUnits(burnMaximum, xenBalance?.decimals ?? BigNumber.from(0))}
+                value={ethers.utils.formatUnits(burnMaximum)}
                 errorMessage={<ErrorMessage errors={errors} name="burnXENAmount" />}
                 register={register("burnXENAmount")}
                 setValue={setValue}

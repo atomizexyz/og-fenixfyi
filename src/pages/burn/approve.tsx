@@ -154,7 +154,7 @@ const Approve: NextPage = () => {
               />
 
               <div className="flex stats glass w-full text-neutral">
-                {BigNumber.from(allowance ?? 0).eq(ethers.constants.MaxUint256) ? (
+                {allowance.eq(ethers.constants.MaxUint256) ? (
                   <DataCard
                     title={t("card.spend-allowance")}
                     value={t("burn.unlimited")}
@@ -163,7 +163,7 @@ const Approve: NextPage = () => {
                 ) : (
                   <NumberStatCard
                     title={t("card.spend-allowance")}
-                    value={Number(ethers.utils.formatUnits(allowance, xenBalance?.decimals ?? BigNumber.from(0)))}
+                    value={Number(ethers.utils.formatUnits(allowance))}
                     decimals={0}
                     description={t("token.xen")}
                   />

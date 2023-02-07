@@ -66,7 +66,7 @@ interface IFENIXContext {
   genesisTs: number;
   cooldownUnlockTs: number;
   shareRate: number;
-  allowance: string;
+  allowance: BigNumber;
   stakePoolTotalShares: string;
 }
 
@@ -80,7 +80,7 @@ const FENIXContext = createContext<IFENIXContext>({
   genesisTs: 0,
   cooldownUnlockTs: 0,
   shareRate: 0,
-  allowance: "0",
+  allowance: BigNumber.from(0),
   stakePoolTotalShares: "0",
 });
 
@@ -94,7 +94,7 @@ export const FENIXProvider = ({ children }: any) => {
   const [genesisTs, setGenesisTs] = useState(0);
   const [cooldownUnlockTs, setCooldownUnlockTs] = useState(0);
   const [shareRate, setShareRate] = useState(0);
-  const [allowance, setAllowance] = useState<string>("0");
+  const [allowance, setAllowance] = useState<BigNumber>(BigNumber.from(0));
   const [stakePoolTotalShares, setStakePoolTotalShares] = useState<string>("0");
 
   const { address } = useAccount();
@@ -135,7 +135,7 @@ export const FENIXProvider = ({ children }: any) => {
     functionName: "allowance",
     args: [address, fenixContract(chain).addressOrName],
     onSuccess(data) {
-      setAllowance(String(data));
+      setAllowance(BigNumber.from(data ?? 0));
     },
     // watch: true,
   });

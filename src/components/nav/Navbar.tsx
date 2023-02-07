@@ -22,7 +22,6 @@ import { FenixIcon, FenixText, WalletIcon } from "../Icons";
 export const Navbar: NextPage = () => {
   const { t } = useTranslation("common");
 
-  const router = useRouter();
   const { chain } = useNetwork();
   const { envChains } = useEnvironmentChains();
   const { switchNetwork } = useSwitchNetwork();
@@ -40,14 +39,26 @@ export const Navbar: NextPage = () => {
   });
 
   const NavigationItems = () => {
+    const router = useRouter();
     const { t } = useTranslation("common");
+
+    const { xenBalance, allowance } = useContext(FENIXContext);
 
     return (
       <>
         {navigationItems.map((item, index) => (
           <li key={index}>
             <Link
-              href={item.href}
+              href={(() => {
+                switch (index) {
+                  case 1:
+                    if (xenBalance?.value.eq(0)) return "/burn/get";
+                    if (allowance.gt(0)) return "/burn/xen";
+                    return "/burn/approve";
+                  default:
+                    return item.href;
+                }
+              })()}
               className={clsx("btn", {
                 "btn-disabled text-neutral-content": router.pathname.startsWith(item.href),
                 "glass text-neutral": !router.pathname.startsWith(item.href),
