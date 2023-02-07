@@ -10,7 +10,7 @@ import { publicProvider } from "wagmi/providers/public";
 
 import {
   avaxMainnet,
-  bscTestnet,
+  bscMainnet,
   dogechainMainnet,
   ethwMainnet,
   evmosMainnet,
@@ -26,6 +26,7 @@ const infuraId = process.env.NEXT_PUBLIC_INFURA_ID;
 
 export const chainList = [
   chain.mainnet,
+  bscMainnet,
   polygonMainnet,
   avaxMainnet,
   ethwMainnet,
@@ -33,7 +34,6 @@ export const chainList = [
   evmosMainnet,
   fantomMainnet,
   dogechainMainnet,
-  bscTestnet,
   okxMainnet,
   chain.goerli,
   polygonTestnet,
