@@ -113,7 +113,7 @@ export const FENIXProvider = ({ children }: any) => {
         value: data.value,
       });
     },
-    watch: true,
+    // watch: true,
   });
 
   useBalance({
@@ -127,7 +127,7 @@ export const FENIXProvider = ({ children }: any) => {
         value: data.value,
       });
     },
-    watch: true,
+    // watch: true,
   });
 
   useContractRead({
@@ -137,7 +137,7 @@ export const FENIXProvider = ({ children }: any) => {
     onSuccess(data) {
       setAllowance(String(data));
     },
-    watch: true,
+    // watch: true,
   });
 
   useContractReads({
@@ -175,7 +175,7 @@ export const FENIXProvider = ({ children }: any) => {
       setCooldownUnlockTs(Number(data[4]));
       setStakePoolTotalShares(String(data[5]));
     },
-    watch: true,
+    // watch: true,
   });
 
   useFeeData({
