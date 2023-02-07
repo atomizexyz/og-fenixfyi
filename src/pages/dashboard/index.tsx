@@ -65,7 +65,7 @@ const Dashboard: NextPage = () => {
         },
         {
           ...fenixContract(chain),
-          functionName: "poolSupply",
+          functionName: "stakePoolSupply",
         },
       ],
       watch: true,

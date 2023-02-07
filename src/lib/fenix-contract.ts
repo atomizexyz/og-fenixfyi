@@ -22,14 +22,19 @@ export const fenixContract = (contractChain?: Chain) => {
         chainId: contractChain.id,
       };
     case chain.goerli.id:
-    case chain.polygonMumbai.id:
-    case bscTestnet.id:
-    case pulseChain.id:
       return {
-        addressOrName: "0xC3e8abfA04B0EC442c2A4D65699a40F7FcEd8055",
+        addressOrName: "0x2f513FC3e2DE3Bcd9bd9936f479ada5139517CeC",
         contractInterface: FENIX_ABI,
         chainId: contractChain.id,
       };
+    case chain.polygonMumbai.id:
+      return {
+        addressOrName: "0x932b3C9F0C8db726Da67f5159af76f3d80d70fc9",
+        contractInterface: FENIX_ABI,
+        chainId: contractChain.id,
+      };
+    case bscTestnet.id:
+    case pulseChain.id:
     case dogechainMainnet.id:
     case fantomMainnet.id:
     case avaxMainnet.id:
@@ -41,7 +46,7 @@ export const fenixContract = (contractChain?: Chain) => {
     case chain.mainnet.id:
     default:
       return {
-        addressOrName: "0xC3e8abfA04B0EC442c2A4D65699a40F7FcEd8055",
+        addressOrName: "0x2f513FC3e2DE3Bcd9bd9936f479ada5139517CeC",
         contractInterface: FENIX_ABI,
         chainId: chain.mainnet.id,
       };

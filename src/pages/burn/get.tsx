@@ -26,7 +26,7 @@ const GetXen: NextPage = () => {
       case "mainnet":
         return "https://xen.network";
       default:
-        return "https://testnet.xen.network";
+        return "https://testnet5.xen.network";
     }
   };
 
