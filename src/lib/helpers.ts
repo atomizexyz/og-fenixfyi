@@ -175,7 +175,6 @@ export const calcSubtotalBonus = (size: number, time: number) => {
   return Math.exp(size * 0.1 + time * 0.9);
 };
 
-// Create title case function
 export const titleCase = (str: string) => {
   return str
     .toLowerCase()

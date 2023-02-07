@@ -23,6 +23,11 @@ export const fenixContract = (contractChain?: Chain) => {
       };
     case dogechainMainnet.id:
     case pulseChain.id:
+      return {
+        addressOrName: "0xC3e8abfA04B0EC442c2A4D65699a40F7FcEd8055",
+        contractInterface: FENIX_ABI,
+        chainId: contractChain.id,
+      };
     case chain.goerli.id:
     case chain.polygonMumbai.id:
     case bscTestnet.id:
