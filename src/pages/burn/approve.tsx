@@ -98,7 +98,6 @@ const Approve: NextPage = () => {
     contractInterface: XENCryptoABI,
     functionName: "approve",
     args: [fenixContract(chain).addressOrName, ethers.constants.MaxUint256],
-    enabled: !disabled,
   });
   const { data: unlimitedApproveData, write: unlimitedWrite } = useContractWrite({
     ...unlimitedConfig,
@@ -170,7 +169,7 @@ const Approve: NextPage = () => {
                 )}
               </div>
 
-              <InfoCard title={t("burn.approve-limited")} description={t("burn.approve-details")} />
+              <InfoCard title={t("burn.approve-limited")} description={t("burn.approve-limited-details")} />
 
               <div className="form-control w-full">
                 <button
@@ -197,7 +196,7 @@ const Approve: NextPage = () => {
             <div className="flex flex-col space-y-4">
               <h2 className="card-title text-neutral">{t("burn.approve-unlimited")}</h2>
 
-              <InfoCard title={t("burn.approve-unlimited")} description={t("burn.approve-details")} />
+              <InfoCard title={t("burn.approve-unlimited")} description={t("burn.approve-unlimited-details")} />
 
               <div className="form-control w-full">
                 <button
