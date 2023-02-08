@@ -70,7 +70,7 @@ const Bonus: NextPage = () => {
                 <CountdownCard days={props.days} hours={props.hours} minutes={props.minutes} seconds={props.seconds} />
               )}
             />
-            <div className="flex stats glass w-full text-neutral">
+            <div className="flex flex-col stats glass w-full text-neutral">
               <NumberStatCard
                 title={t("card.reward-pool-supply")}
                 value={Number(ethers.utils.formatUnits(rewardPoolSupply))}
