@@ -44,7 +44,7 @@ export const chainList = [
 export const { chains, provider, webSocketProvider } = configureChains(chainList, [
   alchemyProvider({ apiKey: alchemyId, priority: 0 }),
   jsonRpcProvider({
-    priority: 0,
+    priority: 1,
     rpc: (c: Chain) => {
       if (c.id === chain.mainnet.id) {
         return null;
@@ -52,10 +52,10 @@ export const { chains, provider, webSocketProvider } = configureChains(chainList
       return { http: c.rpcUrls.default };
     },
   }),
-  infuraProvider({ apiKey: infuraId, priority: 1 }),
-  publicProvider({ priority: 1 }),
+  infuraProvider({ apiKey: infuraId, priority: 2 }),
+  publicProvider({ priority: 3 }),
   jsonRpcProvider({
-    priority: 2,
+    priority: 4,
     rpc: (_chain: Chain) => ({
       http: "https://rpc.ankr.com/multichain",
     }),
