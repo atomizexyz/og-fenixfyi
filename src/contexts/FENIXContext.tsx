@@ -67,7 +67,7 @@ interface IFENIXContext {
   cooldownUnlockTs: number;
   shareRate: number;
   allowance: BigNumber;
-  stakePoolTotalShares: string;
+  stakePoolTotalShares: BigNumber;
 }
 
 const FENIXContext = createContext<IFENIXContext>({
@@ -81,7 +81,7 @@ const FENIXContext = createContext<IFENIXContext>({
   cooldownUnlockTs: 0,
   shareRate: 0,
   allowance: BigNumber.from(0),
-  stakePoolTotalShares: "0",
+  stakePoolTotalShares: BigNumber.from(0),
 });
 
 export const FENIXProvider = ({ children }: any) => {
@@ -95,7 +95,7 @@ export const FENIXProvider = ({ children }: any) => {
   const [cooldownUnlockTs, setCooldownUnlockTs] = useState(0);
   const [shareRate, setShareRate] = useState(0);
   const [allowance, setAllowance] = useState<BigNumber>(BigNumber.from(0));
-  const [stakePoolTotalShares, setStakePoolTotalShares] = useState<string>("0");
+  const [stakePoolTotalShares, setStakePoolTotalShares] = useState<BigNumber>(BigNumber.from(0));
 
   const { address } = useAccount();
   const { chain: networkChain } = useNetwork();
@@ -173,7 +173,7 @@ export const FENIXProvider = ({ children }: any) => {
       setStakePoolSupply(BigNumber.from(data[2] ?? 0));
       setRewardPoolSupply(BigNumber.from(data[3] ?? 0));
       setCooldownUnlockTs(Number(data[4]));
-      setStakePoolTotalShares(String(data[5]));
+      setStakePoolTotalShares(BigNumber.from(data[5] ?? 0));
     },
     // watch: true,
   });

@@ -83,8 +83,8 @@ const End = () => {
   const totalTime = endTime - startTime;
   const percentComplete = (elapsedTime / totalTime) * 100;
   const shares = Number(ethers.utils.formatUnits(stake?.shares ?? 0));
-  const stakeRatio = shares / Number(stakePoolTotalShares);
-  const fenixReward = stakeRatio * stakePoolSupply.toNumber();
+  const stakeRatio = shares / Number(ethers.utils.formatUnits(stakePoolSupply));
+  const fenixReward = stakeRatio * Number(ethers.utils.formatUnits(stakePoolSupply));
   const rewardRatio = Math.pow(elapsedTime / totalTime, 2);
 
   useEffect(() => {
