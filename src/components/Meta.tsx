@@ -1,19 +1,15 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useTranslation } from "next-i18next";
-
-import { titleCase } from "~/lib/helpers";
 
 const Meta: NextPage = () => {
-  const { t } = useTranslation("common");
-
   const router = useRouter();
   const { asPath } = router;
   const path = asPath.split("/").filter((item) => item !== "");
 
   const title = `FENIX.fyi - ${path.join(" - ")}`;
-  const description = titleCase(t("meta.description"));
+  const description =
+    "FENIX.fyi is the official an open-source project to help users understand the FENIX protocol and its ecosystem.";
   const url = "https://fenix.fyi";
   const image = "https://fenix.fyi/images/og-logo-slogan.png";
 
@@ -26,7 +22,7 @@ const Meta: NextPage = () => {
       <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       <meta charSet="utf-8" />
       <meta name="description" content={description} />
-      <meta name="author" content="Joe Blau joe@atomize.xyz" />
+      <meta name="author" content="https://atomize.xyz" />
       <meta
         name="keywords"
         content="fenix.fyi, fenix, xen crypto, xencrypto, xen, crypto, token, ethereum, avalanche, polygon, binance, moonbeam, evmos, fantom, dogechain"
