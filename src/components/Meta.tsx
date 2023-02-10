@@ -1,3 +1,4 @@
+import { titleCase } from "lib/helpers";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -7,7 +8,7 @@ const Meta: NextPage = () => {
   const { asPath } = router;
   const path = asPath.split("/").filter((item) => item !== "");
 
-  const title = `FENIX.fyi - ${path.join(" - ")}`;
+  const title = `FENIX.fyi - ${titleCase(path.join(" - "))}`;
   const description =
     "FENIX.fyi is the official an open-source project to help users understand the FENIX protocol and its ecosystem.";
   const url = "https://fenix.fyi";
