@@ -1,7 +1,7 @@
 import { BigNumber, ethers } from "ethers";
 
 export const FENIX_DECIMALS = 18;
-export const FENIX_MAX_STAKE_LENGTH = 20075;
+export const FENIX_MAX_STAKE_LENGTH = 7665;
 export const UTC_TIME = new Date().getTime() / 1000;
 const WITHDRAWAL_WINDOW_DAYS = 7;
 const MAX_PENALTY_PCT = 99;
