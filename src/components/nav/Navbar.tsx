@@ -187,7 +187,7 @@ export const Navbar: NextPage = () => {
                     (connector as InjectedConnector)?.watchAsset?.({
                       address: token.address,
                       decimals: token.decimals,
-                      image: "https://fenix.fyi/images/fenix.png",
+                      image: "https://ipfs.io/ipfs/QmVcNfm2AvoZwcH5iKD5sQy8hBLjWvtpnG8R8gc7jhBje4",
                       symbol: token.symbol ?? "FENIX",
                     });
                     (document.activeElement as HTMLElement).blur();
