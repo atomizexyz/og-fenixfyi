@@ -1,16 +1,17 @@
 import { Chain, chain } from "wagmi";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
-import { avaxMainnet } from "~/lib/chains/avaxMainnet";
-import { bscMainnet } from "~/lib/chains/bscMainnet";
-import { bscTestnet } from "~/lib/chains/bscTestnet";
-import { dogechainMainnet } from "~/lib/chains/dogechainMainnet";
-import { ethwMainnet } from "~/lib/chains/ethwMainnet";
-import { evmosMainnet } from "~/lib/chains/evmosMainnet";
-import { fantomMainnet } from "~/lib/chains/fantomMainnet";
-import { moonbeamMainnet } from "~/lib/chains/moonbeamMainnet";
-import { polygonMainnet } from "~/lib/chains/polygonMainnet";
-import { pulseChain } from "~/lib/chains/pulseChainTestnet";
+import {
+  avaxMainnet,
+  bscMainnet,
+  dogechainMainnet,
+  ethwMainnet,
+  evmosMainnet,
+  fantomMainnet,
+  moonbeamMainnet,
+  polygonMainnet,
+  x1Testnet,
+} from "~/lib/chains";
 
 export const fenixContract = (contractChain?: Chain) => {
   switch (contractChain?.id) {
@@ -33,8 +34,12 @@ export const fenixContract = (contractChain?: Chain) => {
         contractInterface: FENIX_ABI,
         chainId: contractChain.id,
       };
-    case bscTestnet.id:
-    case pulseChain.id:
+    case x1Testnet.id:
+      return {
+        addressOrName: "0xf4a0dfD69Cb0AD1dA2056b31b911C7dd51129cBe",
+        contractInterface: FENIX_ABI,
+        chainId: contractChain.id,
+      };
     case dogechainMainnet.id:
     case fantomMainnet.id:
     case avaxMainnet.id:

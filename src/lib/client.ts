@@ -17,6 +17,7 @@ import {
   okxMainnet,
   polygonMainnet,
   polygonTestnet,
+  x1Testnet,
 } from "~/lib/chains";
 
 const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID;
@@ -37,6 +38,7 @@ export const chainList = [
   polygonTestnet,
   chain.foundry,
   chain.localhost,
+  x1Testnet,
 ];
 
 export const { chains, provider, webSocketProvider } = configureChains(chainList, [

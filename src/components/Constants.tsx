@@ -21,8 +21,9 @@ import {
   OKChainIcon,
   PolygonIcon,
   PulseChainIcon,
+  X1Icon,
 } from "~/components/ChainIcons";
-import { FigmaIcon,GitHubIcon, TelegramIcon, TwitterIcon } from "~/components/Icons";
+import { FigmaIcon, GitHubIcon, TelegramIcon, TwitterIcon } from "~/components/Icons";
 
 export const chainIcons: Record<number, JSX.Element> = {
   1: <EthereumIcon />,
@@ -41,6 +42,7 @@ export const chainIcons: Record<number, JSX.Element> = {
   43114: <AvalancheIcon />,
   80001: <PolygonIcon />,
   31337: <FoundryIcon />,
+  202212: <X1Icon />,
 };
 
 export const navigationItems = [
