@@ -51,7 +51,7 @@ export const fenixContract = (contractChain?: Chain) => {
     case chain.mainnet.id:
     default:
       return {
-        addressOrName: "0x03E5BF7A1A861F23c9E1aAccAB02f172F6FDd8A9",
+        addressOrName: "",
         contractInterface: FENIX_ABI,
         chainId: chain.mainnet.id,
       };

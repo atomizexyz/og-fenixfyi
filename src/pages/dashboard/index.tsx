@@ -1,9 +1,10 @@
 import { DuplicateIcon, ExternalLinkIcon } from "@heroicons/react/outline";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { NextPage } from "next";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import toast from "react-hot-toast";
 import { useCopyToClipboard } from "usehooks-ts";
@@ -11,10 +12,10 @@ import { Chain, useContractReads, useToken } from "wagmi";
 
 import { chainIcons } from "~/components/Constants";
 import { CardContainer, Container } from "~/components/containers/";
+import { Token } from "~/contexts/FENIXContext";
 import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
 import { fenixContract } from "~/lib/fenix-contract";
 import { truncatedAddress } from "~/lib/helpers";
-import { calcShareRatePercent } from "~/lib/helpers";
 
 const Dashboard: NextPage = () => {
   const { t } = useTranslation("common");
@@ -52,12 +53,16 @@ const Dashboard: NextPage = () => {
   };
 
   const ChainRow: NextPage<{ chain: Chain }> = ({ chain }) => {
+    const [token, setToken] = useState<Token | null>(null);
+    const [shareRate, setShareRate] = useState<BigNumber>(BigNumber.from(0));
+    const [poolSupply, setPoolSupply] = useState<BigNumber>(BigNumber.from(0));
+
     const { data: tokenData } = useToken({
       address: fenixContract(chain).addressOrName,
       chainId: chain?.id,
     });
 
-    const { data } = useContractReads({
+    useContractReads({
       contracts: [
         {
           ...fenixContract(chain),
@@ -68,11 +73,18 @@ const Dashboard: NextPage = () => {
           functionName: "stakePoolSupply",
         },
       ],
+      onSuccess(data) {
+        setShareRate(BigNumber.from(data?.[0] ?? 0));
+        setPoolSupply(BigNumber.from(data?.[1] ?? 0));
+      },
       watch: true,
     });
 
-    const shareRate = Number(data?.[0] ?? 0);
-    const poolSupply = data?.[1];
+    useEffect(() => {
+      if (tokenData) {
+        setToken(tokenData);
+      }
+    }, [tokenData]);
 
     return (
       <tr>
@@ -84,7 +96,7 @@ const Dashboard: NextPage = () => {
                   {chainIcons[chain?.id ?? 1]}
                   {chain.name}
                 </div>
-                {tokenData ? (
+                {token ? (
                   <>
                     <div className="absolute top-0 right-0 -mr-2 -mt-2 w-4 h-4 rounded-full badge-success animate-ping"></div>
                     <div className="absolute top-0 right-0 -mr-2 -mt-2 w-4 h-4 rounded-full badge-success"></div>
@@ -100,7 +112,7 @@ const Dashboard: NextPage = () => {
           </Link>
           {/* <div className="pt-4 lg:hidden flex flex-col space-y-4">
             <pre className="text-right">
-              <CountUp end={calcShareRatePercent(1)} preserveValue={true} separator="," suffix="%" decimals={4} />
+              <CountUp end={Number(ethers.utils.formatUnits(shareRate))} preserveValue={true} separator="," suffix="%" decimals={4} />
             </pre>
             {tokenData && <AddressLinks chain={chain} />}
           </div> */}
@@ -109,7 +121,7 @@ const Dashboard: NextPage = () => {
         <td>
           <pre className="text-right">
             <CountUp
-              end={Number(ethers.utils.formatUnits(poolSupply ?? 0))}
+              end={Number(ethers.utils.formatUnits(poolSupply))}
               preserveValue={true}
               separator=","
               decimals={4}
@@ -119,10 +131,16 @@ const Dashboard: NextPage = () => {
 
         <td className="hidden lg:table-cell text-right">
           <pre>
-            <CountUp end={calcShareRatePercent(shareRate)} preserveValue={true} separator="," suffix="%" decimals={4} />
+            <CountUp
+              end={Number(ethers.utils.formatUnits(shareRate))}
+              preserveValue={true}
+              separator=","
+              suffix="%"
+              decimals={4}
+            />
           </pre>
         </td>
-        <td className="hidden lg:table-cell">{tokenData && <AddressLinks chain={chain} />}</td>
+        <td className="hidden lg:table-cell">{token && <AddressLinks chain={chain} />}</td>
       </tr>
     );
   };

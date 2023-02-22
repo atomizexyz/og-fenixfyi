@@ -65,7 +65,7 @@ interface IFENIXContext {
   fenixBalance?: Balance;
   genesisTs: number;
   cooldownUnlockTs: number;
-  shareRate: number;
+  shareRate: BigNumber;
   allowance: BigNumber;
   stakePoolTotalShares: BigNumber;
 }
@@ -79,7 +79,7 @@ const FENIXContext = createContext<IFENIXContext>({
   fenixBalance: undefined,
   genesisTs: 0,
   cooldownUnlockTs: 0,
-  shareRate: 0,
+  shareRate: BigNumber.from(0),
   allowance: BigNumber.from(0),
   stakePoolTotalShares: BigNumber.from(0),
 });
@@ -93,7 +93,7 @@ export const FENIXProvider = ({ children }: any) => {
   const [fenixBalance, setFenixBalance] = useState<Balance | undefined>();
   const [genesisTs, setGenesisTs] = useState(0);
   const [cooldownUnlockTs, setCooldownUnlockTs] = useState(0);
-  const [shareRate, setShareRate] = useState(0);
+  const [shareRate, setShareRate] = useState<BigNumber>(BigNumber.from(0));
   const [allowance, setAllowance] = useState<BigNumber>(BigNumber.from(0));
   const [stakePoolTotalShares, setStakePoolTotalShares] = useState<BigNumber>(BigNumber.from(0));
 
@@ -169,7 +169,7 @@ export const FENIXProvider = ({ children }: any) => {
     ],
     onSuccess(data) {
       setGenesisTs(Number(data[0]));
-      setShareRate(Number(data[1]));
+      setShareRate(BigNumber.from(data[1] ?? 0));
       setStakePoolSupply(BigNumber.from(data[2] ?? 0));
       setRewardPoolSupply(BigNumber.from(data[3] ?? 0));
       setCooldownUnlockTs(Number(data[4]));

@@ -15,7 +15,6 @@ import FENIXContext from "~/contexts/FENIXContext";
 import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
 import { chainList } from "~/lib/client";
 import { fenixContract } from "~/lib/fenix-contract";
-import { calcShareRatePercent } from "~/lib/helpers";
 
 const ChainDashbaord: NextPage = () => {
   const { t } = useTranslation("common");
@@ -39,7 +38,7 @@ const ChainDashbaord: NextPage = () => {
     },
     {
       title: t("dashboard.share-rate"),
-      value: calcShareRatePercent(shareRate),
+      value: Number(ethers.utils.formatUnits(shareRate)),
       decimals: 4,
       suffix: "%",
     },

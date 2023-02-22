@@ -64,10 +64,6 @@ export const stakeYield = (data?: StakeData) => {
   }
 };
 
-export const calcShareRatePercent = (shareRate: number) => {
-  return shareRate / 1e18;
-};
-
 export const toGwei = (value: BigNumber) => {
   return ethers.utils.formatUnits(value, "gwei");
 };

@@ -27,7 +27,7 @@ const Defer = () => {
   const router = useRouter();
   const { address, stakeIndex } = router.query as unknown as { address: string; stakeIndex: number };
 
-  const { feeData, stakePoolSupply, stakePoolTotalShares } = useContext(FENIXContext);
+  const { feeData, stakePoolSupply } = useContext(FENIXContext);
   const [disabled, setDisabled] = useState(true);
   const [processing, setProcessing] = useState(false);
 
