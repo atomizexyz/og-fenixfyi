@@ -108,16 +108,16 @@ export async function getStaticProps({ locale }: any) {
 }
 
 export const getStaticPaths = async ({ locales }: any) => {
-  // const allPaths = chainList.flatMap((chain) =>
-  //   locales.map((locale: string) => ({
-  //     params: { chainId: chain.id.toString() },
-  //     locale,
-  //   }))
-  // );
+  const allPaths = chainList.flatMap((chain) =>
+    locales.map((locale: string) => ({
+      params: { chainId: chain.id.toString() },
+      locale,
+    }))
+  );
 
   return {
-    paths: [],
-    fallback: "blocking",
+    paths: allPaths,
+    fallback: false,
   };
 };
 
