@@ -16,7 +16,7 @@ import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
 import { chainList } from "~/lib/client";
 import { fenixContract } from "~/lib/fenix-contract";
 
-const ChainDashbaord: NextPage = () => {
+const ChainDashboard: NextPage = () => {
   const { t } = useTranslation("common");
   const { envChains } = useEnvironmentChains();
 
@@ -117,4 +117,4 @@ export const getStaticPaths = async ({ locales }: any) => {
   };
 };
 
-export default ChainDashbaord;
+export default ChainDashboard;

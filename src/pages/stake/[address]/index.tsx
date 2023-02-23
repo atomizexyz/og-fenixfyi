@@ -51,10 +51,11 @@ export async function getStaticProps({ locale }: any) {
   };
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
   return {
     paths: [],
     fallback: "blocking",
   };
-}
+};
+
 export default Address;

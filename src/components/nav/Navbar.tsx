@@ -18,6 +18,8 @@ import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
 import { FenixIcon, FenixText, WalletIcon } from "../Icons";
 
 export const Navbar: NextPage = () => {
+  const router = useRouter();
+
   const { t } = useTranslation("common");
 
   const { chain } = useNetwork();
@@ -27,15 +29,11 @@ export const Navbar: NextPage = () => {
   const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
-  const { token } = useContext(FENIXContext);
+  const { token, xenBalance, allowance } = useContext(FENIXContext);
   const chainDropdown = useRef<HTMLDivElement>(null);
   const menuDropdown = useRef<HTMLDivElement>(null);
 
-  const NavigationItems = () => {
-    const router = useRouter();
-    const { t } = useTranslation("common");
-    const { xenBalance, allowance } = useContext(FENIXContext);
-
+  const NavigationItems: NextPage = () => {
     return (
       <>
         {navigationItems.map((item, index) => (

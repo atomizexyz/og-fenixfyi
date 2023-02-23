@@ -5,7 +5,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useContractRead, useNetwork } from "wagmi";
 
 import { CardContainer, Container } from "~/components/containers";
-import { DataCard,StakeStatusCard } from "~/components/StatCards";
+import { DataCard, StakeStatusCard } from "~/components/StatCards";
 import { fenixContract } from "~/lib/fenix-contract";
 import { truncatedAddress } from "~/lib/helpers";
 
@@ -44,10 +44,11 @@ export async function getStaticProps({ locale }: any) {
   };
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
   return {
     paths: [],
     fallback: "blocking",
   };
-}
+};
+
 export default StakeId;
