@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useEffect, useState } from "react";
 import { useContractRead, useNetwork } from "wagmi";
 
 import { CardContainer, Container } from "~/components/containers";
@@ -12,15 +13,22 @@ import { truncatedAddress } from "~/lib/helpers";
 const StakeId: NextPage = () => {
   const router = useRouter();
   const { chain } = useNetwork();
+  const [stake, setStake] = useState<any>(null);
 
   const { t } = useTranslation("common");
   const { address, stakeIndex } = router.query as unknown as { address: string; stakeIndex: number };
 
-  const { data: stake } = useContractRead({
+  const { data } = useContractRead({
     ...fenixContract(chain),
     functionName: "stakeFor",
     args: [address, stakeIndex],
   });
+
+  useEffect(() => {
+    if (data) {
+      setStake(data);
+    }
+  }, [data]);
 
   return (
     <Container className="max-w-2xl">
@@ -36,19 +44,12 @@ const StakeId: NextPage = () => {
   );
 };
 
-export async function getStaticProps({ locale }: any) {
+export async function getServerSideProps({ locale }: any) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
     },
   };
 }
-
-export const getStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
-};
 
 export default StakeId;

@@ -28,10 +28,12 @@ const Defer = () => {
   const { address, stakeIndex } = router.query as unknown as { address: string; stakeIndex: number };
 
   const { feeData, stakePoolSupply } = useContext(FENIXContext);
+  const [stake, setStake] = useState<any>(null);
+
   const [disabled, setDisabled] = useState(true);
   const [processing, setProcessing] = useState(false);
 
-  const { data: stake } = useContractRead({
+  const { data: stakeData } = useContractRead({
     ...fenixContract(chain),
     functionName: "stakeFor",
     args: [address, stakeIndex],
@@ -105,6 +107,9 @@ const Defer = () => {
 
   useEffect(() => {
     setDisabled(percentComplete < 100);
+    if (stakeData) {
+      setStake(stakeData);
+    }
   }, [address, percentComplete, setValue]);
 
   return (
@@ -144,19 +149,12 @@ const Defer = () => {
   );
 };
 
-export async function getStaticProps({ locale }: any) {
+export async function getServerSideProps({ locale }: any) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
     },
   };
 }
-
-export const getStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
-};
 
 export default Defer;
