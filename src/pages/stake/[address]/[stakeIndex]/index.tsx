@@ -44,19 +44,12 @@ const StakeId: NextPage = () => {
   );
 };
 
-export async function getStaticProps({ locale }: any) {
+export async function getServerSideProps({ locale }: any) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
   };
 }
-
-export const getStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
-};
 
 export default StakeId;

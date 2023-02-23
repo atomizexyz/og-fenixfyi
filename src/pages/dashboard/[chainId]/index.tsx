@@ -13,7 +13,6 @@ import Container from "~/components/containers/Container";
 import { ChainStatCard, DataCard, DateStatCard, NumberStatCard } from "~/components/StatCards";
 import FENIXContext from "~/contexts/FENIXContext";
 import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
-import { chainList } from "~/lib/client";
 import { fenixContract } from "~/lib/fenix-contract";
 
 const ChainDashboard: NextPage = () => {
@@ -94,27 +93,12 @@ const ChainDashboard: NextPage = () => {
   );
 };
 
-export async function getStaticProps({ locale }: any) {
+export async function getServerSideProps({ locale }: any) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"])),
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
   };
 }
-
-export const getStaticPaths = async ({ locales }: any) => {
-  // generate locales paths for all chains and all locales
-  const allPaths = chainList.flatMap((chain) =>
-    locales.map((locale: string) => ({
-      params: { chainId: chain.id.toString() },
-      locale,
-    }))
-  );
-
-  return {
-    paths: allPaths,
-    fallback: false,
-  };
-};
 
 export default ChainDashboard;
