@@ -4,13 +4,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useToken } from "wagmi";
 
 import { chainIcons } from "~/components/Constants";
 import CardContainer from "~/components/containers/CardContainer";
 import Container from "~/components/containers/Container";
 import { ChainStatCard, DataCard, DateStatCard, NumberStatCard } from "~/components/StatCards";
+import { Token } from "~/contexts/FENIXContext";
 import FENIXContext from "~/contexts/FENIXContext";
 import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
 import { fenixContract } from "~/lib/fenix-contract";
@@ -20,10 +21,11 @@ const ChainDashboard: NextPage = () => {
   const { envChains } = useEnvironmentChains();
 
   const router = useRouter();
+  const [token, setToken] = useState<Token | null>(null);
   const { chainId } = router.query as unknown as { chainId: number };
   const chainFromId = envChains.find((c) => c && c.id == chainId);
 
-  const { data: token } = useToken({
+  const { data: tokenData } = useToken({
     address: fenixContract(chainFromId).addressOrName,
     chainId: chainFromId?.id,
   });
@@ -47,7 +49,10 @@ const ChainDashboard: NextPage = () => {
     if (chainFromId) {
       setChainOverride(chainFromId);
     }
-  }, [chainFromId, setChainOverride]);
+    if (tokenData) {
+      setToken(tokenData);
+    }
+  }, [chainFromId, setChainOverride, tokenData]);
 
   return (
     <div>
@@ -93,11 +98,18 @@ const ChainDashboard: NextPage = () => {
   );
 };
 
-export async function getServerSideProps({ locale }: any) {
+export async function getStaticProps({ locale }: any) {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
+  };
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: ["/dashboard/[chainId]"],
+    fallback: "blocking",
   };
 }
 
