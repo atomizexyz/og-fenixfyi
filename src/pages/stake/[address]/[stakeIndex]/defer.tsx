@@ -2,6 +2,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { clsx } from "clsx";
 import { ethers } from "ethers";
+import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -21,7 +22,7 @@ import { fenixContract } from "~/lib/fenix-contract";
 import { WALLET_ADDRESS_REGEX } from "~/lib/helpers";
 import { truncatedAddress } from "~/lib/helpers";
 
-const Defer = () => {
+const Defer: NextPage = () => {
   const { t } = useTranslation("common");
 
   const { chain } = useNetwork();
@@ -158,7 +159,7 @@ export async function getStaticProps({ locale }: any) {
   };
 }
 
-export async function getStaticPaths({ locales }: any) {
+export function getStaticPaths() {
   return {
     paths: [],
     fallback: "blocking",

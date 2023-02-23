@@ -1,5 +1,6 @@
 import { clsx } from "clsx";
 import { ethers } from "ethers";
+import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -23,7 +24,7 @@ import FENIXContext from "~/contexts/FENIXContext";
 import { fenixContract } from "~/lib/fenix-contract";
 import { truncatedAddress } from "~/lib/helpers";
 
-const End = () => {
+const End: NextPage = () => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const { chain } = useNetwork();
@@ -147,7 +148,7 @@ export async function getStaticProps({ locale }: any) {
   };
 }
 
-export async function getStaticPaths({ locales }: any) {
+export function getStaticPaths() {
   return {
     paths: [],
     fallback: "blocking",

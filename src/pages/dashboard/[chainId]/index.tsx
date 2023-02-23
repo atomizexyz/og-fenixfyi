@@ -107,7 +107,7 @@ export async function getStaticProps({ locale }: any) {
   };
 }
 
-export const getStaticPaths = async ({ locales }: any) => {
+export function getStaticPaths({ locales }: any) {
   const allPaths = chainList.flatMap((chain) =>
     locales.map((locale: string) => ({
       params: { chainId: chain.id.toString() },
@@ -119,6 +119,6 @@ export const getStaticPaths = async ({ locales }: any) => {
     paths: allPaths,
     fallback: false,
   };
-};
+}
 
 export default ChainDashboard;

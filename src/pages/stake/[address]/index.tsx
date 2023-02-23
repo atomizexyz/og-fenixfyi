@@ -51,7 +51,7 @@ export async function getStaticProps({ locale }: any) {
   };
 }
 
-export async function getStaticPaths({ locales }: any) {
+export function getStaticPaths() {
   return {
     paths: [],
     fallback: "blocking",
