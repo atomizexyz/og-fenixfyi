@@ -14,6 +14,7 @@ import { ChainStatCard, DataCard, DateStatCard, NumberStatCard } from "~/compone
 import { Token } from "~/contexts/FENIXContext";
 import FENIXContext from "~/contexts/FENIXContext";
 import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
+import { chainList } from "~/lib/client";
 import { fenixContract } from "~/lib/fenix-contract";
 
 const ChainDashboard: NextPage = () => {
@@ -106,11 +107,18 @@ export async function getStaticProps({ locale }: any) {
   };
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths = async ({ locales }: any) => {
+  // const allPaths = chainList.flatMap((chain) =>
+  //   locales.map((locale: string) => ({
+  //     params: { chainId: chain.id.toString() },
+  //     locale,
+  //   }))
+  // );
+
   return {
     paths: [],
     fallback: "blocking",
   };
-}
+};
 
 export default ChainDashboard;
