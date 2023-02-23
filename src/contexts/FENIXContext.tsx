@@ -1,6 +1,15 @@
 import { BigNumber } from "ethers";
-import React, { createContext, useState } from "react";
-import { Chain, useAccount, useBalance, useContractRead, useContractReads, useFeeData, useNetwork } from "wagmi";
+import React, { createContext, useEffect, useState } from "react";
+import {
+  Chain,
+  useAccount,
+  useBalance,
+  useContractRead,
+  useContractReads,
+  useFeeData,
+  useNetwork,
+  useToken,
+} from "wagmi";
 
 import { chainList } from "~/lib/client";
 import { fenixContract } from "~/lib/fenix-contract";
@@ -68,6 +77,7 @@ interface IFENIXContext {
   shareRate: BigNumber;
   allowance: BigNumber;
   stakePoolTotalShares: BigNumber;
+  token?: Token;
 }
 
 const FENIXContext = createContext<IFENIXContext>({
@@ -82,6 +92,7 @@ const FENIXContext = createContext<IFENIXContext>({
   shareRate: BigNumber.from(0),
   allowance: BigNumber.from(0),
   stakePoolTotalShares: BigNumber.from(0),
+  token: undefined,
 });
 
 export const FENIXProvider = ({ children }: any) => {
@@ -96,11 +107,17 @@ export const FENIXProvider = ({ children }: any) => {
   const [shareRate, setShareRate] = useState<BigNumber>(BigNumber.from(0));
   const [allowance, setAllowance] = useState<BigNumber>(BigNumber.from(0));
   const [stakePoolTotalShares, setStakePoolTotalShares] = useState<BigNumber>(BigNumber.from(0));
+  const [token, setToken] = useState<Token | undefined>();
 
   const { address } = useAccount();
   const { chain: networkChain } = useNetwork();
 
   const chain = chainOverride ?? networkChain ?? chainList[0];
+
+  const { data: tokenData } = useToken({
+    address: fenixContract(chain).addressOrName,
+    chainId: chain?.id,
+  });
 
   useBalance({
     addressOrName: address,
@@ -196,6 +213,12 @@ export const FENIXProvider = ({ children }: any) => {
     // watch: true,
   });
 
+  useEffect(() => {
+    if (tokenData) {
+      setToken(tokenData);
+    }
+  }, [tokenData]);
+
   return (
     <FENIXContext.Provider
       value={{
@@ -210,6 +233,7 @@ export const FENIXProvider = ({ children }: any) => {
         shareRate,
         allowance,
         stakePoolTotalShares,
+        token,
       }}
     >
       {children}

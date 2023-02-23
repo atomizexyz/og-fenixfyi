@@ -9,13 +9,11 @@ import { useTheme } from "next-themes";
 import { useContext, useRef } from "react";
 import { isMobile } from "react-device-detect";
 import { Chain, useAccount, useNetwork, useSwitchNetwork } from "wagmi";
-import { useToken } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 
 import { chainIcons, linkItems, navigationItems } from "~/components/Constants";
 import FENIXContext from "~/contexts/FENIXContext";
 import { useEnvironmentChains } from "~/hooks/useEnvironmentChains";
-import { fenixContract } from "~/lib/fenix-contract";
 
 import { FenixIcon, FenixText, WalletIcon } from "../Icons";
 
@@ -29,19 +27,13 @@ export const Navbar: NextPage = () => {
   const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
-  const {} = useContext(FENIXContext);
+  const { token } = useContext(FENIXContext);
   const chainDropdown = useRef<HTMLDivElement>(null);
   const menuDropdown = useRef<HTMLDivElement>(null);
-
-  const { data: token } = useToken({
-    address: fenixContract(chain).addressOrName,
-    chainId: chain?.id,
-  });
 
   const NavigationItems = () => {
     const router = useRouter();
     const { t } = useTranslation("common");
-
     const { xenBalance, allowance } = useContext(FENIXContext);
 
     return (
@@ -156,6 +148,7 @@ export const Navbar: NextPage = () => {
             );
           }}
         </ConnectKitButton.Custom>
+
         <div className="dropdown dropdown-end" ref={menuDropdown}>
           <label tabIndex={0} className="btn glass btn-square text-neutral">
             <DotsVerticalIcon className="h-5 w-5" />
