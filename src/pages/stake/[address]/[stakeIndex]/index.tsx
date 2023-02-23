@@ -44,7 +44,7 @@ const StakeId: NextPage = () => {
   );
 };
 
-export async function getServerSideProps({ locale }: any) {
+export async function getStaticProps({ locale }: any) {
   return {
     props: {
       ...(await serverSideTranslations(locale ?? "en", ["common"])),
@@ -52,7 +52,7 @@ export async function getServerSideProps({ locale }: any) {
   };
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }: any) {
   return {
     paths: [],
     fallback: "blocking",
