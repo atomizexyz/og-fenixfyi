@@ -46,7 +46,7 @@ const Address: NextPage = () => {
 export async function getStaticProps({ locale }: any) {
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? "en", ["common"])),
+      ...(await serverSideTranslations(locale, ["common"], null, ["en"])),
     },
   };
 }
