@@ -23,6 +23,7 @@ import { truncatedAddress } from "~/lib/helpers";
 
 const Defer = () => {
   const { t } = useTranslation("common");
+
   const { chain } = useNetwork();
   const router = useRouter();
   const { address, stakeIndex } = router.query as unknown as { address: string; stakeIndex: number };
