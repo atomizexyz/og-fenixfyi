@@ -75,13 +75,13 @@ const Bonus: NextPage = () => {
                 title={t("card.reward-pool-supply")}
                 value={Number(ethers.utils.formatUnits(rewardPoolSupply))}
                 decimals={0}
-                description={t("token.fenix")}
+                description={`${t("token.fenix")}`}
               />
               <NumberStatCard
                 title={t("card.stake-pool-supply")}
                 value={Number(ethers.utils.formatUnits(stakePoolSupply))}
                 decimals={0}
-                description={t("token.fenix")}
+                description={`${t("token.fenix")}`}
               />
             </div>
             <InfoCard title={t("reward.claim")} description={t("reward.claim-details")} />

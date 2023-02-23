@@ -96,7 +96,7 @@ const End = () => {
     if (stakeData) {
       setStake(stakeData);
     }
-  }, [acocuntAddress, address, stake]);
+  }, [acocuntAddress, address, stake, stakeData]);
 
   return (
     <Container className="max-w-2xl">
@@ -139,12 +139,19 @@ const End = () => {
   );
 };
 
-export async function getServerSideProps({ locale }: any) {
+export async function getStaticProps({ locale }: any) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
     },
   };
 }
+
+export const getStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
 
 export default End;

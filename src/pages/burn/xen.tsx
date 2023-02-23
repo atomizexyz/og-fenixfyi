@@ -37,15 +37,15 @@ const Burn: NextPage = () => {
     .shape({
       burnXENAmount: yup
         .number()
-        .required(t("form-field.amount-required"))
+        .required(`${t("form-field.amount-required")}`)
         .max(
           Number(ethers.utils.formatUnits(xenBalance?.value ?? BigNumber.from(0))),
-          t("form-field.amount-maximum", {
+          `${t("form-field.amount-maximum", {
             maximumAmount: xenBalance?.formatted,
-          })
+          })}`
         )
-        .positive(t("form-field.amount-positive"))
-        .typeError(t("form-field.amount-required")),
+        .positive(`${t("form-field.amount-positive")}`)
+        .typeError(`${t("form-field.amount-required")}`),
     })
     .required();
 
@@ -132,13 +132,13 @@ const Burn: NextPage = () => {
                   title={t("card.new")}
                   value={burnXENAmount / 10_000}
                   decimals={4}
-                  description={t("token.fenix")}
+                  description={`${t("token.fenix")}`}
                 />
                 <NumberStatCard
                   title={t("card.liquid")}
                   value={Number(ethers.utils.formatUnits(fenixBalance?.value ?? BigNumber.from(0)))}
                   decimals={4}
-                  description={t("token.fenix")}
+                  description={`${t("token.fenix")}`}
                 />
               </div>
 

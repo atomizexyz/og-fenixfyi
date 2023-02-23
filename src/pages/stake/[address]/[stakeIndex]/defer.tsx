@@ -47,7 +47,7 @@ const Defer = () => {
     .shape({
       deferAddress: yup
         .string()
-        .required(t("form-field.wallet-address-required"))
+        .required(`${t("form-field.wallet-address-required")}`)
         .matches(WALLET_ADDRESS_REGEX, {
           message: t("form-field.wallet-address-invalid"),
           excludeEmptyString: true,
@@ -110,7 +110,7 @@ const Defer = () => {
     if (stakeData) {
       setStake(stakeData);
     }
-  }, [address, percentComplete, setValue]);
+  }, [address, percentComplete, setValue, stakeData]);
 
   return (
     <Container className="max-w-2xl">
@@ -149,12 +149,19 @@ const Defer = () => {
   );
 };
 
-export async function getServerSideProps({ locale }: any) {
+export async function getStaticProps({ locale }: any) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
     },
   };
 }
+
+export const getStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
 
 export default Defer;

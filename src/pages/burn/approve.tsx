@@ -36,15 +36,15 @@ const Approve: NextPage = () => {
     .shape({
       burnXENAmount: yup
         .number()
-        .required(t("form-field.amount-required"))
+        .required(`${t("form-field.amount-required")}`)
         .max(
           Number(ethers.utils.formatUnits(xenBalance?.value ?? BigNumber.from(0))),
-          t("form-field.amount-maximum", {
+          `${t("form-field.amount-maximum", {
             maximumAmount: xenBalance?.formatted,
-          })
+          })}`
         )
-        .positive(t("form-field.amount-positive"))
-        .typeError(t("form-field.amount-required")),
+        .positive(`${t("form-field.amount-positive")}`)
+        .typeError(`${t("form-field.amount-required")}`),
     })
     .required();
 
@@ -157,14 +157,14 @@ const Approve: NextPage = () => {
                   <DataCard
                     title={t("card.spend-allowance")}
                     value={t("burn.unlimited")}
-                    description={t("token.xen")}
+                    description={`${t("token.xen")}`}
                   />
                 ) : (
                   <NumberStatCard
                     title={t("card.spend-allowance")}
                     value={Number(ethers.utils.formatUnits(allowance))}
                     decimals={0}
-                    description={t("token.xen")}
+                    description={`${t("token.xen")}`}
                   />
                 )}
               </div>

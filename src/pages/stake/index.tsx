@@ -61,21 +61,21 @@ const Stake = () => {
     .shape({
       startStakeAmount: yup
         .number()
-        .required(t("form-field.amount-required"))
+        .required(`${t("form-field.amount-required")}`)
         .max(
           Number(ethers.utils.formatUnits(fenixBalance?.value ?? BigNumber.from(0))),
-          t("form-field.amount-maximum", {
+          `${t("form-field.amount-maximum", {
             maximumAmount: fenixBalance?.formatted,
-          })
+          })}`
         )
-        .positive(t("form-field.amount-positive"))
-        .typeError(t("form-field.amount-required")),
+        .positive(`${t("form-field.amount-positive")}`)
+        .typeError(`${t("form-field.amount-required")}`),
       startStakeDays: yup
         .number()
-        .required(t("form-field.days-required"))
-        .max(FENIX_MAX_STAKE_LENGTH, t("form-field.days-maximum", { numberOfDays: FENIX_MAX_STAKE_LENGTH }))
-        .positive(t("form-field.days-positive"))
-        .typeError(t("form-field.days-required")),
+        .required(`${t("form-field.days-required")}`)
+        .max(FENIX_MAX_STAKE_LENGTH, `${t("form-field.days-maximum", { numberOfDays: FENIX_MAX_STAKE_LENGTH })}`)
+        .positive(`${t("form-field.days-positive")}`)
+        .typeError(`${t("form-field.days-required")}`),
     })
     .required();
 
