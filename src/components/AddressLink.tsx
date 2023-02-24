@@ -3,13 +3,13 @@ import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import toast from "react-hot-toast";
 import { useCopyToClipboard } from "usehooks-ts";
-import { Chain } from "wagmi";
+import { Address, Chain } from "wagmi";
 
 import { truncatedAddress } from "~/lib/helpers";
 
 interface AddressLinkProps {
   name: string;
-  address: string;
+  address: Address;
   chain: Chain;
 }
 
