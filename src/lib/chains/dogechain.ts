@@ -11,19 +11,18 @@ export const dogechain: Chain = {
   },
   rpcUrls: {
     default: {
-      http: ["https://dogechain.ankr.com"],
+      http: ["https://rpc.dogechain.dog"],
     },
     public: {
       http: [
+        "https://dogechain.ankr.com",
         "https://rpc01.dogechain.dog",
         "https://dogechain-sj.ankr.com",
         "https://rpc03-sg.dogechain.dog",
         "https://rpc02-sg.dogechain.dog",
         "https://rpc01-sg.dogechain.dog",
-        "https://rpc.dogechain.dog",
         "https://rpc-sg.dogechain.dog",
         "https://rpc-us.dogechain.dog",
-        "https://rpc.dogechain.dog",
       ],
     },
   },
