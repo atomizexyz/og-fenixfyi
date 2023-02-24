@@ -127,7 +127,6 @@ const Defer: NextPage = () => {
         <form onSubmit={handleSubmit(handleDeferSubmit)}>
           <div className="flex flex-col space-y-4">
             <h2 className="card-title text-neutral">Defer</h2>
-            <p>{t("stake.address")}</p>
             <DataCard title={t("stake.address")} value={truncatedAddress(address)} description={address} />
             <DataCard title={t("stake.index")} value={String(stakeIndex)} />
             <NumberStatCard title={t("stake.shares")} value={shares} />

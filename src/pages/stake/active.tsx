@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useEffect, useState } from "react";
 import { Address, useAccount, useContractRead, useNetwork } from "wagmi";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
@@ -13,13 +14,20 @@ const ActivePortfolio: NextPage = () => {
   const { t } = useTranslation("common");
   const { chain } = useNetwork();
   const { address } = useAccount() as unknown as { address: Address };
+  const [stakeCount, setStakeCount] = useState(0);
 
-  const { data: stakeCount } = useContractRead({
+  const { data } = useContractRead({
     address: fenixContract(chain).address,
     abi: FENIX_ABI,
     functionName: "stakeCount",
     args: [address],
   }) as unknown as { data: number };
+
+  useEffect(() => {
+    if (data) {
+      setStakeCount(data);
+    }
+  }, [data]);
 
   return (
     <Container className="max-w-5xl">
