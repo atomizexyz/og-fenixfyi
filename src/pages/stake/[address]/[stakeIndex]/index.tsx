@@ -1,6 +1,5 @@
 import { BigNumber } from "ethers";
 import { NextPage } from "next";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useEffect, useState } from "react";
@@ -11,13 +10,11 @@ import { DataCard, StakeStatusCard } from "~/components/StatCards";
 import { fenixContract } from "~/lib/fenix-contract";
 import { truncatedAddress } from "~/lib/helpers";
 
-const StakeId: NextPage = () => {
-  const router = useRouter();
+const StakeId: NextPage = ({ address, stakeIndex }: any) => {
   const { chain } = useNetwork();
   const [stake, setStake] = useState<any>(null);
 
   const { t } = useTranslation("common");
-  const { address, stakeIndex } = router.query as unknown as { address: Address; stakeIndex: BigNumber };
 
   const { data: stakeData } = useContractRead({
     ...fenixContract(chain),
@@ -45,9 +42,13 @@ const StakeId: NextPage = () => {
   );
 };
 
-export async function getStaticProps({ locale }: any) {
+export async function getStaticProps({ locale, params }: any) {
+  const { address, stakeIndex } = params;
+
   return {
     props: {
+      address: address as Address,
+      stakeIndex: stakeIndex as BigNumber,
       ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
   };

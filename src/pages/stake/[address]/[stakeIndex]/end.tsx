@@ -1,7 +1,6 @@
 import { clsx } from "clsx";
 import { BigNumber, ethers } from "ethers";
 import { NextPage } from "next";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useContext, useEffect, useState } from "react";
@@ -25,13 +24,11 @@ import FENIXContext from "~/contexts/FENIXContext";
 import { fenixContract } from "~/lib/fenix-contract";
 import { truncatedAddress } from "~/lib/helpers";
 
-const End: NextPage = () => {
+const End: NextPage = ({ address, stakeIndex }: any) => {
   const { t } = useTranslation("common");
-  const router = useRouter();
-  const { chain } = useNetwork();
-  const { address: acocuntAddress } = useAccount();
 
-  const { address, stakeIndex } = router.query as unknown as { address: Address; stakeIndex: BigNumber };
+  const { chain } = useNetwork();
+  const { address: accountAddress } = useAccount();
 
   const { feeData, stakePoolSupply } = useContext(FENIXContext);
   const [stake, setStake] = useState<any>(null);
@@ -92,13 +89,13 @@ const End: NextPage = () => {
   const rewardRatio = Math.pow(elapsedTime / totalTime, 2);
 
   useEffect(() => {
-    if (address == acocuntAddress) {
+    if (address == accountAddress) {
       setDisabled(false);
     }
     if (stakeData) {
       setStake(stakeData);
     }
-  }, [acocuntAddress, address, stake, stakeData]);
+  }, [accountAddress, address, stake, stakeData]);
 
   return (
     <Container className="max-w-2xl">
@@ -141,9 +138,13 @@ const End: NextPage = () => {
   );
 };
 
-export async function getStaticProps({ locale }: any) {
+export async function getStaticProps({ locale, params }: any) {
+  const { address, stakeIndex } = params;
+
   return {
     props: {
+      address: address as Address,
+      stakeIndex: stakeIndex as BigNumber,
       ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
   };

@@ -3,7 +3,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { clsx } from "clsx";
 import { BigNumber, ethers } from "ethers";
 import { NextPage } from "next";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useContext, useEffect, useState } from "react";
@@ -29,12 +28,10 @@ import { fenixContract } from "~/lib/fenix-contract";
 import { WALLET_ADDRESS_REGEX } from "~/lib/helpers";
 import { truncatedAddress } from "~/lib/helpers";
 
-const Defer: NextPage = () => {
+const Defer: NextPage = ({ address, stakeIndex }: any) => {
   const { t } = useTranslation("common");
 
   const { chain } = useNetwork();
-  const router = useRouter();
-  const { address, stakeIndex } = router.query as unknown as { address: Address; stakeIndex: BigNumber };
 
   const { feeData, stakePoolSupply } = useContext(FENIXContext);
   const [stake, setStake] = useState<any>(null);
@@ -158,9 +155,13 @@ const Defer: NextPage = () => {
   );
 };
 
-export async function getStaticProps({ locale }: any) {
+export async function getStaticProps({ locale, params }: any) {
+  const { address, stakeIndex } = params;
+
   return {
     props: {
+      address: address as Address,
+      stakeIndex: stakeIndex as BigNumber,
       ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
   };
