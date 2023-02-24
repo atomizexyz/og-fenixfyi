@@ -1,10 +1,9 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useEffect, useState } from "react";
-import { Address, useContractRead, useNetwork } from "wagmi";
+import { useContractRead, useNetwork } from "wagmi";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
 import { CardContainer, Container } from "~/components/containers";
@@ -12,13 +11,10 @@ import { DataCard } from "~/components/StatCards";
 import { fenixContract } from "~/lib/fenix-contract";
 import { truncatedAddress } from "~/lib/helpers";
 
-const Address: NextPage = () => {
-  const { t } = useTranslation("common");
+const Address: NextPage = ({ address }: any) => {
+  const { t } = useTranslation(["common"]);
 
-  const router = useRouter();
   const { chain } = useNetwork();
-
-  const { address } = router.query as unknown as { address: Address };
 
   const [stakeCount, setStakeCount] = useState<any>(0);
 
@@ -52,27 +48,22 @@ const Address: NextPage = () => {
   );
 };
 
-export async function getServerSideProps({ locale }: any) {
+export async function getStaticProps({ locale, params }: any) {
+  const { address } = params;
+
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"], null, ["en"])),
+      address: address,
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
   };
 }
 
-// export async function getStaticProps({ locale }: any) {
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(locale, ["common"], null, ["en"])),
-//     },
-//   };
-// }
-
-// export function getStaticPaths() {
-//   return {
-//     paths: [],
-//     fallback: "blocking",
-//   };
-// }
+export function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+}
 
 export default Address;

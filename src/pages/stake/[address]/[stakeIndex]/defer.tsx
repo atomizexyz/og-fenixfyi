@@ -161,7 +161,7 @@ const Defer: NextPage = () => {
 export async function getStaticProps({ locale }: any) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common"], null, ["en"])),
+      ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
   };
 }
