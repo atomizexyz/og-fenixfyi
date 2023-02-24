@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useEffect, useState } from "react";
 import { Address, useContractRead, useNetwork } from "wagmi";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
@@ -12,19 +13,27 @@ import { fenixContract } from "~/lib/fenix-contract";
 import { truncatedAddress } from "~/lib/helpers";
 
 const Address: NextPage = () => {
+  const { t } = useTranslation("common");
+
   const router = useRouter();
   const { chain } = useNetwork();
 
-  const { t } = useTranslation("common");
   const { address } = router.query as unknown as { address: Address };
 
-  const { data: stakeCount } = useContractRead({
+  const [stakeCount, setStakeCount] = useState<any>(0);
+
+  const { data: stakeCountData } = useContractRead({
     address: fenixContract(chain).address,
     abi: FENIX_ABI,
     functionName: "stakeCount",
     args: [address],
-  }) as unknown as { data: number };
+  });
 
+  useEffect(() => {
+    if (stakeCountData) {
+      setStakeCount(stakeCountData);
+    }
+  }, [stakeCountData]);
   return (
     <Container className="max-w-2xl">
       <CardContainer>
@@ -43,7 +52,7 @@ const Address: NextPage = () => {
   );
 };
 
-export async function getStaticProps({ locale }: any) {
+export async function getServerSideProps({ locale }: any) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"], null, ["en"])),
@@ -51,11 +60,19 @@ export async function getStaticProps({ locale }: any) {
   };
 }
 
-export function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
-}
+// export async function getStaticProps({ locale }: any) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ["common"], null, ["en"])),
+//     },
+//   };
+// }
+
+// export function getStaticPaths() {
+//   return {
+//     paths: [],
+//     fallback: "blocking",
+//   };
+// }
 
 export default Address;

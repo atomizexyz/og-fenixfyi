@@ -1,4 +1,5 @@
 import { BigNumber, ethers } from "ethers";
+import { Address } from "wagmi";
 
 export const FENIX_DECIMALS = 18;
 export const FENIX_MAX_STAKE_LENGTH = 7665;
@@ -102,7 +103,8 @@ export const calculateStakeReward = (data: StakeRewardData) => {
   return 0;
 };
 
-export const truncatedAddress = (address: string) => {
+export const truncatedAddress = (address: Address) => {
+  if (address == undefined) return "";
   return `${address.slice(0, 6)}••••${address.slice(-4)}`;
 };
 

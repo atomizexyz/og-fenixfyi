@@ -19,17 +19,17 @@ const StakeId: NextPage = () => {
   const { t } = useTranslation("common");
   const { address, stakeIndex } = router.query as unknown as { address: Address; stakeIndex: BigNumber };
 
-  const { data } = useContractRead({
+  const { data: stakeData } = useContractRead({
     ...fenixContract(chain),
     functionName: "stakeFor",
     args: [address, stakeIndex],
   });
 
   useEffect(() => {
-    if (data) {
-      setStake(data);
+    if (stakeData) {
+      setStake(stakeData);
     }
-  }, [data]);
+  }, [stakeData]);
 
   return (
     <Container className="max-w-2xl">
