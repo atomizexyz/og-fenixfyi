@@ -11,8 +11,8 @@ import {
   useNetwork,
   useToken,
 } from "wagmi";
+import { mainnet } from "wagmi/chains";
 
-import { chainList } from "~/lib/client";
 import { fenixContract } from "~/lib/fenix-contract";
 import { xenContract } from "~/lib/xen-contract";
 
@@ -68,6 +68,7 @@ export interface Balance {
 
 interface IFENIXContext {
   setChainOverride: (_chain: Chain) => void;
+  currentChain: Chain;
   feeData?: FeeData;
   stakePoolSupply: BigNumber;
   rewardPoolSupply: BigNumber;
@@ -83,6 +84,7 @@ interface IFENIXContext {
 
 const FENIXContext = createContext<IFENIXContext>({
   setChainOverride: (_chain: Chain) => {},
+  currentChain: mainnet,
   feeData: undefined,
   stakePoolSupply: BigNumber.from(0),
   rewardPoolSupply: BigNumber.from(0),
@@ -98,6 +100,7 @@ const FENIXContext = createContext<IFENIXContext>({
 
 export const FENIXProvider = ({ children }: any) => {
   const [chainOverride, setChainOverride] = useState<Chain | undefined>();
+  const [currentChain, setCurrentChain] = useState<Chain>(mainnet);
   const [feeData, setFeeData] = useState<FeeData | undefined>();
   const [stakePoolSupply, setStakePoolSupply] = useState<BigNumber>(BigNumber.from(0));
   const [rewardPoolSupply, setRewardPoolSupply] = useState<BigNumber>(BigNumber.from(0));
@@ -113,7 +116,7 @@ export const FENIXProvider = ({ children }: any) => {
   const { address } = useAccount() as unknown as { address: Address };
   const { chain: networkChain } = useNetwork();
 
-  const chain = chainOverride ?? networkChain ?? chainList[0];
+  const chain = chainOverride ?? networkChain ?? mainnet;
 
   const { data: tokenData } = useToken({
     address: fenixContract(chain).address,
@@ -217,13 +220,15 @@ export const FENIXProvider = ({ children }: any) => {
   useEffect(() => {
     if (tokenData) {
       setToken(tokenData);
+      setCurrentChain(chain);
     }
-  }, [tokenData]);
+  }, [chain, tokenData]);
 
   return (
     <FENIXContext.Provider
       value={{
         setChainOverride,
+        currentChain,
         feeData,
         stakePoolSupply,
         rewardPoolSupply,
