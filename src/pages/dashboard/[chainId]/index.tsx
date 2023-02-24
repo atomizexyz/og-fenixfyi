@@ -27,7 +27,7 @@ const ChainDashboard: NextPage = () => {
   const chainFromId = envChains.find((c) => c && c.id == chainId);
 
   const { data: tokenData } = useToken({
-    address: fenixContract(chainFromId).addressOrName,
+    address: fenixContract(chainFromId).address,
     chainId: chainFromId?.id,
   });
   const { setChainOverride, genesisTs, shareRate, stakePoolSupply } = useContext(FENIXContext);
@@ -84,7 +84,7 @@ const ChainDashboard: NextPage = () => {
                 <DataCard
                   title={t("dashboard.token-address")}
                   value={token?.symbol ?? "FENIX"}
-                  description={fenixContract(chainFromId).addressOrName}
+                  description={fenixContract(chainFromId).address}
                 />
               )}
 

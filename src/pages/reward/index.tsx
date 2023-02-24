@@ -32,8 +32,8 @@ const Bonus: NextPage = () => {
   });
 
   const { config } = usePrepareContractWrite({
-    addressOrName: fenixContract(chain).addressOrName,
-    contractInterface: FENIX_ABI,
+    address: fenixContract(chain).address,
+    abi: FENIX_ABI,
     functionName: "flushRewardPool",
     enabled: !disabled,
   });

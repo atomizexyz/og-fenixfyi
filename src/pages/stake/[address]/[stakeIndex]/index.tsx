@@ -1,9 +1,10 @@
+import { BigNumber } from "ethers";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useEffect, useState } from "react";
-import { useContractRead, useNetwork } from "wagmi";
+import { Address, useContractRead, useNetwork } from "wagmi";
 
 import { CardContainer, Container } from "~/components/containers";
 import { DataCard, StakeStatusCard } from "~/components/StatCards";
@@ -16,7 +17,7 @@ const StakeId: NextPage = () => {
   const [stake, setStake] = useState<any>(null);
 
   const { t } = useTranslation("common");
-  const { address, stakeIndex } = router.query as unknown as { address: string; stakeIndex: number };
+  const { address, stakeIndex } = router.query as unknown as { address: Address; stakeIndex: BigNumber };
 
   const { data } = useContractRead({
     ...fenixContract(chain),

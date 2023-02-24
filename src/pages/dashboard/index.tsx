@@ -26,14 +26,14 @@ const Dashboard: NextPage = () => {
 
     return (
       <div className="flex flex-row-reverse lg:flex-row space-x-8 lg:space-x-2 lg:justify-end">
-        <pre className="pl-8 lg:pl-0">{truncatedAddress(fenixContract(chain).addressOrName)}</pre>
+        <pre className="pl-8 lg:pl-0">{truncatedAddress(fenixContract(chain).address)}</pre>
         <button
           className="btn btn-square btn-xs glass text-neutral"
           onClick={() => {
-            copy(fenixContract(chain).addressOrName);
+            copy(fenixContract(chain).address);
             toast.success(
               <div>
-                <pre>{truncatedAddress(fenixContract(chain).addressOrName)}</pre>
+                <pre>{truncatedAddress(fenixContract(chain).address)}</pre>
                 {"Copied to clipboard"}
               </div>
             );
@@ -42,7 +42,7 @@ const Dashboard: NextPage = () => {
           <DuplicateIcon className="w-5 h-5" />
         </button>
         <Link
-          href={`${chain?.blockExplorers?.default.url}/address/${fenixContract(chain).addressOrName}`}
+          href={`${chain?.blockExplorers?.default.url}/address/${fenixContract(chain).address}`}
           target="_blank"
           className="btn btn-square btn-xs glass text-neutral"
         >
@@ -58,7 +58,7 @@ const Dashboard: NextPage = () => {
     const [poolSupply, setPoolSupply] = useState<BigNumber>(BigNumber.from(0));
 
     const { data: tokenData } = useToken({
-      address: fenixContract(chain).addressOrName,
+      address: fenixContract(chain).address,
       chainId: chain?.id,
     });
 

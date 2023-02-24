@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useContractRead, useNetwork } from "wagmi";
+import { Address, useContractRead, useNetwork } from "wagmi";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
 import { CardContainer, Container } from "~/components/containers";
@@ -16,11 +16,11 @@ const Address: NextPage = () => {
   const { chain } = useNetwork();
 
   const { t } = useTranslation("common");
-  const { address } = router.query as unknown as { address: string };
+  const { address } = router.query as unknown as { address: Address };
 
   const { data: stakeCount } = useContractRead({
-    addressOrName: fenixContract(chain).addressOrName,
-    contractInterface: FENIX_ABI,
+    address: fenixContract(chain).address,
+    abi: FENIX_ABI,
     functionName: "stakeCount",
     args: [address],
   }) as unknown as { data: number };

@@ -1,3 +1,4 @@
+import { Address } from "@wagmi/core";
 import { BigNumber } from "ethers";
 import React, { createContext, useEffect, useState } from "react";
 import {
@@ -51,7 +52,7 @@ export interface TotalSupply {
 }
 
 export interface Token {
-  address: string;
+  address: Address;
   decimals: number;
   name: string;
   symbol: string;
@@ -109,19 +110,19 @@ export const FENIXProvider = ({ children }: any) => {
   const [stakePoolTotalShares, setStakePoolTotalShares] = useState<BigNumber>(BigNumber.from(0));
   const [token, setToken] = useState<Token | undefined>();
 
-  const { address } = useAccount();
+  const { address } = useAccount() as unknown as { address: Address };
   const { chain: networkChain } = useNetwork();
 
   const chain = chainOverride ?? networkChain ?? chainList[0];
 
   const { data: tokenData } = useToken({
-    address: fenixContract(chain).addressOrName,
+    address: fenixContract(chain).address,
     chainId: chain?.id,
   });
 
   useBalance({
-    addressOrName: address,
-    token: fenixContract(chain).addressOrName,
+    address: address,
+    token: fenixContract(chain).address,
     onSuccess(data) {
       setFenixBalance({
         decimals: data.decimals,
@@ -134,8 +135,8 @@ export const FENIXProvider = ({ children }: any) => {
   });
 
   useBalance({
-    addressOrName: address,
-    token: xenContract(chain).addressOrName,
+    address: address,
+    token: xenContract(chain).address,
     onSuccess(data) {
       setXenBalance({
         decimals: data.decimals,
@@ -150,7 +151,7 @@ export const FENIXProvider = ({ children }: any) => {
   useContractRead({
     ...xenContract(chain),
     functionName: "allowance",
-    args: [address, fenixContract(chain).addressOrName],
+    args: [address, fenixContract(chain).address],
     onSuccess(data) {
       setAllowance(BigNumber.from(data ?? 0));
     },

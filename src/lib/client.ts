@@ -1,4 +1,18 @@
-import { chain, configureChains, createClient } from "wagmi";
+import { configureChains, createClient } from "wagmi";
+import {
+  avalanche,
+  bsc,
+  evmos,
+  fantom,
+  foundry,
+  goerli,
+  localhost,
+  mainnet,
+  moonbeam,
+  okc,
+  polygon,
+  polygonMumbai,
+} from "wagmi/chains";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
@@ -6,37 +20,25 @@ import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
-import {
-  avaxMainnet,
-  bscMainnet,
-  dogechainMainnet,
-  ethwMainnet,
-  evmosMainnet,
-  fantomMainnet,
-  moonbeamMainnet,
-  okxMainnet,
-  polygonMainnet,
-  polygonTestnet,
-  x1Testnet,
-} from "~/lib/chains";
+import { dogechain, ethpow, x1Testnet } from "~/lib/chains";
 
-const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID;
+const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID as string;
 
 export const chainList = [
-  chain.mainnet,
-  bscMainnet,
-  polygonMainnet,
-  avaxMainnet,
-  ethwMainnet,
-  moonbeamMainnet,
-  evmosMainnet,
-  fantomMainnet,
-  dogechainMainnet,
-  okxMainnet,
-  chain.goerli,
-  polygonTestnet,
-  chain.foundry,
-  chain.localhost,
+  mainnet,
+  bsc,
+  polygon,
+  avalanche,
+  ethpow,
+  moonbeam,
+  evmos,
+  fantom,
+  dogechain,
+  okc,
+  goerli,
+  polygonMumbai,
+  foundry,
+  localhost,
   x1Testnet,
 ];
 

@@ -94,8 +94,8 @@ const Stake = () => {
   /*** CONTRACT WRITE SETUP ***/
 
   const { config } = usePrepareContractWrite({
-    addressOrName: fenixContract(chain).addressOrName,
-    contractInterface: FENIX_ABI,
+    address: fenixContract(chain).address,
+    abi: FENIX_ABI,
     functionName: "startStake",
     args: [
       ethers.utils.parseUnits(Number(startStakeAmount ?? 0).toString(), fenixBalance?.decimals),

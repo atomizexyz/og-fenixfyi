@@ -63,8 +63,8 @@ const Burn: NextPage = () => {
   const { burnXENAmount } = watch() as { burnXENAmount: number };
 
   const { config } = usePrepareContractWrite({
-    addressOrName: fenixContract(chain).addressOrName,
-    contractInterface: FENIX_ABI,
+    address: fenixContract(chain).address,
+    abi: FENIX_ABI,
     functionName: "burnXEN",
     args: [ethers.utils.parseUnits((burnXENAmount || 0).toString(), fenixBalance?.decimals ?? 0)],
     enabled: !disabled,

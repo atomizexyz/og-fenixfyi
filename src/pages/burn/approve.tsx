@@ -62,11 +62,11 @@ const Approve: NextPage = () => {
   const { burnXENAmount } = watch() as { burnXENAmount: number };
 
   const { config: fixedConfig } = usePrepareContractWrite({
-    addressOrName: xenContract(chain).addressOrName,
-    contractInterface: XENCryptoABI,
+    address: xenContract(chain).address,
+    abi: XENCryptoABI,
     functionName: "approve",
     args: [
-      fenixContract(chain).addressOrName,
+      fenixContract(chain).address,
       ethers.utils.parseUnits((burnXENAmount || 0).toString(), xenBalance?.decimals ?? 0),
     ],
     enabled: !disabled,
@@ -94,10 +94,10 @@ const Approve: NextPage = () => {
   const { handleSubmit: handleUnlimitedSubmit } = useForm();
 
   const { config: unlimitedConfig } = usePrepareContractWrite({
-    addressOrName: xenContract(chain).addressOrName,
-    contractInterface: XENCryptoABI,
+    address: xenContract(chain).address,
+    abi: XENCryptoABI,
     functionName: "approve",
-    args: [fenixContract(chain).addressOrName, ethers.constants.MaxUint256],
+    args: [fenixContract(chain).address, ethers.constants.MaxUint256],
   });
   const { data: unlimitedApproveData, write: unlimitedWrite } = useContractWrite({
     ...unlimitedConfig,

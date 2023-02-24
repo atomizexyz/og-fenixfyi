@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import {
+  Address,
   useAccount,
   useContractRead,
   useContractWrite,
@@ -30,7 +31,7 @@ const End: NextPage = () => {
   const { chain } = useNetwork();
   const { address: acocuntAddress } = useAccount();
 
-  const { address, stakeIndex } = router.query as unknown as { address: string; stakeIndex: number };
+  const { address, stakeIndex } = router.query as unknown as { address: Address; stakeIndex: BigNumber };
 
   const { feeData, stakePoolSupply } = useContext(FENIXContext);
   const [stake, setStake] = useState<any>(null);
@@ -54,8 +55,8 @@ const End: NextPage = () => {
   });
 
   const { config } = usePrepareContractWrite({
-    addressOrName: fenixContract(chain).addressOrName,
-    contractInterface: FENIX_ABI,
+    address: fenixContract(chain).address,
+    abi: FENIX_ABI,
     functionName: "endStake",
     args: [stakeIndex],
     enabled: !disabled,

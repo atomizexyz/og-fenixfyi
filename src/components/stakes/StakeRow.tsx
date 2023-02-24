@@ -24,15 +24,15 @@ export const StakeRow: NextPage<any> = (props) => {
   const [canDefer, setCanDefer] = useState<boolean>(false);
 
   const { data: stake } = useContractRead({
-    addressOrName: props.contractAddressOrName,
-    contractInterface: FENIX_ABI,
+    address: props.contractAddress,
+    abi: FENIX_ABI,
     functionName: "stakeFor",
     args: [props.stakerAddress, props.index],
     watch: true,
   });
 
   const startTime = Number(stake?.startTs ?? 0);
-  const endTime = startTime + stake?.term * 86400;
+  const endTime = startTime + Number(stake?.term ?? 0) * 86400;
 
   const renderProgress = (status: StakeStatus) => {
     switch (status) {

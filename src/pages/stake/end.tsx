@@ -1,10 +1,10 @@
 import type { NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useAccount,useContractRead, useNetwork } from "wagmi";
+import { Address, useAccount, useContractRead, useNetwork } from "wagmi";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
-import { CardContainer,Container } from "~/components/containers/";
+import { CardContainer, Container } from "~/components/containers/";
 import PortfolioNav from "~/components/nav/PortfolioNav";
 import { StakeHeaderFooter, StakeRow, StakeStatus } from "~/components/stakes";
 import { fenixContract } from "~/lib/fenix-contract";
@@ -12,11 +12,11 @@ import { fenixContract } from "~/lib/fenix-contract";
 const EndPortfolio: NextPage = () => {
   const { t } = useTranslation("common");
   const { chain } = useNetwork();
-  const { address } = useAccount();
+  const { address } = useAccount() as unknown as { address: Address };
 
   const { data: stakeCount } = useContractRead({
-    addressOrName: fenixContract(chain).addressOrName,
-    contractInterface: FENIX_ABI,
+    address: fenixContract(chain).address,
+    abi: FENIX_ABI,
     functionName: "stakeCount",
     args: [address],
   }) as unknown as { data: number };
@@ -37,7 +37,7 @@ const EndPortfolio: NextPage = () => {
                 {Array.from(Array(Number(stakeCount ?? 0)).keys()).map((_stake: any) => (
                   <tr key={_stake}>
                     <StakeRow
-                      contractAddressOrName={fenixContract(chain).addressOrName}
+                      contractAddress={fenixContract(chain).address}
                       stakerAddress={address}
                       index={_stake}
                       status={StakeStatus.END}

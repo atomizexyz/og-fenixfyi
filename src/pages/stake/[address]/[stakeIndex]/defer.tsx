@@ -1,7 +1,7 @@
 import { ErrorMessage } from "@hookform/error-message";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { clsx } from "clsx";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
@@ -9,7 +9,14 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useContractRead, useContractWrite, useNetwork, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import {
+  Address,
+  useContractRead,
+  useContractWrite,
+  useNetwork,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from "wagmi";
 import * as yup from "yup";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
@@ -27,7 +34,7 @@ const Defer: NextPage = () => {
 
   const { chain } = useNetwork();
   const router = useRouter();
-  const { address, stakeIndex } = router.query as unknown as { address: string; stakeIndex: number };
+  const { address, stakeIndex } = router.query as unknown as { address: Address; stakeIndex: BigNumber };
 
   const { feeData, stakePoolSupply } = useContext(FENIXContext);
   const [stake, setStake] = useState<any>(null);
@@ -71,10 +78,10 @@ const Defer: NextPage = () => {
   const { deferAddress } = watch();
 
   const { config } = usePrepareContractWrite({
-    addressOrName: fenixContract(chain).addressOrName,
-    contractInterface: FENIX_ABI,
+    address: fenixContract(chain).address,
+    abi: FENIX_ABI,
     functionName: "deferStake",
-    args: [deferAddress, stakeIndex],
+    args: [stakeIndex, deferAddress],
     enabled: !disabled,
   });
 
