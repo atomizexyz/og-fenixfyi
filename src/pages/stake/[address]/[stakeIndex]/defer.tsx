@@ -112,7 +112,6 @@ const Defer: NextPage = () => {
     if (stakeData) {
       setStake(stakeData);
     }
-    console.log(t);
   }, [address, percentComplete, setValue, stakeData]);
 
   return (

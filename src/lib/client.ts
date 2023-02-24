@@ -21,7 +21,6 @@ import {
 } from "~/lib/chains";
 
 const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID;
-const infuraId = process.env.NEXT_PUBLIC_INFURA_ID;
 
 export const chainList = [
   chain.mainnet,
