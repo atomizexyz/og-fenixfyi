@@ -22,6 +22,7 @@ export const StakeHeaderFooter: NextPage<any> = (props) => {
       <th>{t("stake.end")}</th>
       <th className="text-right">{t("stake.principal")}</th>
       <th className="text-right">{t("stake.shares")}</th>
+      <th className="text-right">{t("stake.payout")}</th>
       {progressHeader(props.status)}
       <th className="w-12"></th>
     </tr>

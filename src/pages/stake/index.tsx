@@ -26,8 +26,8 @@ import { InfoCard } from "~/components/StatCards";
 import FENIXContext from "~/contexts/FENIXContext";
 import { fenixContract } from "~/lib/fenix-contract";
 import {
+  calcBonus,
   calcSizeBonus,
-  calcSubtotalBonus,
   calcTimeBonus,
   currentYear,
   FENIX_MAX_STAKE_LENGTH,
@@ -153,9 +153,9 @@ const Stake = () => {
   };
 
   useEffect(() => {
-    setTimeBonus(calcTimeBonus(startStakeDays) * 100);
-    setSizeBonus(calcSizeBonus(startStakeAmount) * 100);
-    setSubtotalBonus(startStakeAmount * calcSubtotalBonus(sizeBonus / 100, timeBonus / 100));
+    setTimeBonus(calcTimeBonus(startStakeDays));
+    setSizeBonus(calcSizeBonus(startStakeAmount));
+    setSubtotalBonus(calcBonus(startStakeAmount, startStakeDays));
     setShares(subtotalBonus / Number(ethers.utils.formatUnits(shareRate)));
 
     if (isLockMonth && !isSameMonth(selectedFromDay(), month)) {
@@ -226,10 +226,7 @@ const Stake = () => {
             <div className="stats stats-vertical glass w-full text-neutral">
               <BonusShareCard
                 sizeBonus={sizeBonus}
-                sizeBonusWeighted={sizeBonus * 0.1}
                 timeBonus={timeBonus}
-                timeBonusWeighted={timeBonus * 0.9}
-                amplifyBonus={sizeBonus * 0.1 + timeBonus * 0.9}
                 base={startStakeAmount}
                 subtotal={subtotalBonus}
                 shareRate={Number(ethers.utils.formatUnits(shareRate))}

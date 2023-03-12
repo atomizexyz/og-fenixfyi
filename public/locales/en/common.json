@@ -59,6 +59,7 @@
     "total": "Total",
     "defer": "Defer",
     "payout": "Payout",
+    "max-payout": "Max Payout",
     "progress": "Progress",
     "start": "Start",
     "end": "End",

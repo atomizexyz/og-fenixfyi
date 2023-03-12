@@ -18,7 +18,7 @@ export const x1Testnet: Chain = {
     },
   },
   blockExplorers: {
-    default: { name: "1x Explorer", url: "https://explorer.x1-devnet.xen.network" },
+    default: { name: "X1 Explorer", url: "https://explorer.x1-devnet.xen.network" },
   },
   testnet: true,
 };

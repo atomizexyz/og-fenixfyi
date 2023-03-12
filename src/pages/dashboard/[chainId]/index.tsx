@@ -30,7 +30,7 @@ const ChainDashboard: NextPage = () => {
     address: fenixContract(chainFromId).address,
     chainId: chainFromId?.id,
   });
-  const { setChainOverride, genesisTs, shareRate, stakePoolSupply } = useContext(FENIXContext);
+  const { setChainOverride, genesisTs, shareRate, equityPoolSupply: stakePoolSupply } = useContext(FENIXContext);
 
   const stakeItems = [
     {

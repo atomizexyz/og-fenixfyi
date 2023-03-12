@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
@@ -22,6 +22,7 @@ export const StakeRow: NextPage<any> = (props) => {
   const { t } = useTranslation("common");
   const [percent, setPercent] = useState(0);
   const [canDefer, setCanDefer] = useState<boolean>(false);
+  const [potentialPayout, setPotentialPayout] = useState<BigNumber>(BigNumber.from(0));
 
   const { data: stake } = useContractRead({
     address: props.contractAddress,
@@ -108,6 +109,16 @@ export const StakeRow: NextPage<any> = (props) => {
       const totalTime = endTime - startTime;
       const percentComplete = (elapsedTime / totalTime) * 100;
 
+      const stakeShares = stake?.shares;
+      const poolTotalShares = props.equityPoolTotalShares == 0 ? BigNumber.from(1) : props.equityPoolTotalShares;
+
+      if (stakeShares && poolTotalShares && props.equityPoolSupply) {
+        const payout = stakeShares.div(poolTotalShares).mul(props.equityPoolSupply);
+        console.log("payout", payout);
+
+        setPotentialPayout(payout);
+      }
+
       setPercent(percentComplete);
       setCanDefer(percentComplete > 100.0);
     }
@@ -133,6 +144,16 @@ export const StakeRow: NextPage<any> = (props) => {
         <pre>
           <CountUp
             end={Number(ethers.utils.formatUnits(stake?.shares ?? 0))}
+            preserveValue={true}
+            separator=","
+            decimals={2}
+          />
+        </pre>
+      </td>
+      <td className="bg-transparent text-right text-sm">
+        <pre>
+          <CountUp
+            end={Number(ethers.utils.formatUnits(potentialPayout))}
             preserveValue={true}
             separator=","
             decimals={2}

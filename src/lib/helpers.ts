@@ -158,19 +158,21 @@ export const maxEndStakeYear = () => {
 };
 
 export const calcSizeBonus = (fenix: number) => {
-  var bonus = 0;
-  if (fenix > 1) {
-    bonus = 1 - 1 / fenix;
+  if (fenix < 1) {
+    return 0;
   }
-  return bonus;
+  return 1 - 1 / fenix;
 };
 
 export const calcTimeBonus = (term: number) => {
-  return Math.pow(term / FENIX_MAX_STAKE_LENGTH, 0.5);
+  return 1 + term / FENIX_MAX_STAKE_LENGTH;
 };
 
-export const calcSubtotalBonus = (size: number, time: number) => {
-  return Math.exp(size * 0.1 + time * 0.9);
+export const calcBonus = (fenix: number, term: number) => {
+  const sizeBonus = calcSizeBonus(fenix);
+  const timeBonus = calcTimeBonus(term);
+  // bonus is size * e^time
+  return sizeBonus * Math.exp(timeBonus);
 };
 
 export const titleCase = (str: string) => {

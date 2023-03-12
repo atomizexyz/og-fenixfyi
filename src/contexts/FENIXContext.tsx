@@ -70,7 +70,7 @@ interface IFENIXContext {
   setChainOverride: (_chain: Chain) => void;
   currentChain: Chain;
   feeData?: FeeData;
-  stakePoolSupply: BigNumber;
+  equityPoolSupply: BigNumber;
   rewardPoolSupply: BigNumber;
   xenBalance?: Balance;
   fenixBalance?: Balance;
@@ -78,7 +78,7 @@ interface IFENIXContext {
   cooldownUnlockTs: number;
   shareRate: BigNumber;
   allowance: BigNumber;
-  stakePoolTotalShares: BigNumber;
+  equityPoolTotalShares: BigNumber;
   token?: Token;
 }
 
@@ -86,7 +86,7 @@ const FENIXContext = createContext<IFENIXContext>({
   setChainOverride: (_chain: Chain) => {},
   currentChain: mainnet,
   feeData: undefined,
-  stakePoolSupply: BigNumber.from(0),
+  equityPoolSupply: BigNumber.from(0),
   rewardPoolSupply: BigNumber.from(0),
   xenBalance: undefined,
   fenixBalance: undefined,
@@ -94,7 +94,7 @@ const FENIXContext = createContext<IFENIXContext>({
   cooldownUnlockTs: 0,
   shareRate: BigNumber.from(0),
   allowance: BigNumber.from(0),
-  stakePoolTotalShares: BigNumber.from(0),
+  equityPoolTotalShares: BigNumber.from(0),
   token: undefined,
 });
 
@@ -102,7 +102,7 @@ export const FENIXProvider = ({ children }: any) => {
   const [chainOverride, setChainOverride] = useState<Chain | undefined>();
   const [currentChain, setCurrentChain] = useState<Chain>(mainnet);
   const [feeData, setFeeData] = useState<FeeData | undefined>();
-  const [stakePoolSupply, setStakePoolSupply] = useState<BigNumber>(BigNumber.from(0));
+  const [equityPoolSupply, setEquityPoolSupply] = useState<BigNumber>(BigNumber.from(0));
   const [rewardPoolSupply, setRewardPoolSupply] = useState<BigNumber>(BigNumber.from(0));
   const [xenBalance, setXenBalance] = useState<Balance | undefined>();
   const [fenixBalance, setFenixBalance] = useState<Balance | undefined>();
@@ -110,7 +110,7 @@ export const FENIXProvider = ({ children }: any) => {
   const [cooldownUnlockTs, setCooldownUnlockTs] = useState(0);
   const [shareRate, setShareRate] = useState<BigNumber>(BigNumber.from(0));
   const [allowance, setAllowance] = useState<BigNumber>(BigNumber.from(0));
-  const [stakePoolTotalShares, setStakePoolTotalShares] = useState<BigNumber>(BigNumber.from(0));
+  const [equityPoolTotalShares, setEquityPoolTotalShares] = useState<BigNumber>(BigNumber.from(0));
   const [token, setToken] = useState<Token | undefined>();
 
   const { address } = useAccount() as unknown as { address: Address };
@@ -173,7 +173,7 @@ export const FENIXProvider = ({ children }: any) => {
       },
       {
         ...fenixContract(chain),
-        functionName: "stakePoolSupply",
+        functionName: "equityPoolSupply",
       },
       {
         ...fenixContract(chain),
@@ -185,16 +185,17 @@ export const FENIXProvider = ({ children }: any) => {
       },
       {
         ...fenixContract(chain),
-        functionName: "stakePoolTotalShares",
+        functionName: "equityPoolTotalShares",
       },
     ],
     onSuccess(data) {
       setGenesisTs(Number(data[0]));
       setShareRate(BigNumber.from(data[1] ?? 0));
-      setStakePoolSupply(BigNumber.from(data[2] ?? 0));
+      console.log("hwew:", BigNumber.from(data[2] ?? 0));
+      setEquityPoolSupply(BigNumber.from(data[2] ?? 0));
       setRewardPoolSupply(BigNumber.from(data[3] ?? 0));
       setCooldownUnlockTs(Number(data[4]));
-      setStakePoolTotalShares(BigNumber.from(data[5] ?? 0));
+      setEquityPoolTotalShares(BigNumber.from(data[5] ?? 0));
     },
     // watch: true,
   });
@@ -230,7 +231,7 @@ export const FENIXProvider = ({ children }: any) => {
         setChainOverride,
         currentChain,
         feeData,
-        stakePoolSupply,
+        equityPoolSupply,
         rewardPoolSupply,
         xenBalance,
         fenixBalance,
@@ -238,7 +239,7 @@ export const FENIXProvider = ({ children }: any) => {
         cooldownUnlockTs,
         shareRate,
         allowance,
-        stakePoolTotalShares,
+        equityPoolTotalShares,
         token,
       }}
     >

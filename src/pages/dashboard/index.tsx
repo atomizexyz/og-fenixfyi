@@ -55,7 +55,7 @@ const Dashboard: NextPage = () => {
   const ChainRow: NextPage<{ chain: Chain }> = ({ chain }) => {
     const [token, setToken] = useState<Token | null>(null);
     const [shareRate, setShareRate] = useState<BigNumber>(BigNumber.from(0));
-    const [poolSupply, setPoolSupply] = useState<BigNumber>(BigNumber.from(0));
+    const [equityPoolSupply, setEquityPoolSupply] = useState<BigNumber>(BigNumber.from(0));
 
     const { data: tokenData } = useToken({
       address: fenixContract(chain).address,
@@ -70,12 +70,12 @@ const Dashboard: NextPage = () => {
         },
         {
           ...fenixContract(chain),
-          functionName: "stakePoolSupply",
+          functionName: "equityPoolSupply",
         },
       ],
       onSuccess(data) {
         setShareRate(BigNumber.from(data?.[0] ?? 0));
-        setPoolSupply(BigNumber.from(data?.[1] ?? 0));
+        setEquityPoolSupply(BigNumber.from(data?.[1] ?? 0));
       },
       watch: true,
     });
@@ -121,7 +121,7 @@ const Dashboard: NextPage = () => {
         <td>
           <pre className="text-right">
             <CountUp
-              end={Number(ethers.utils.formatUnits(poolSupply))}
+              end={Number(ethers.utils.formatUnits(equityPoolSupply))}
               preserveValue={true}
               separator=","
               decimals={4}

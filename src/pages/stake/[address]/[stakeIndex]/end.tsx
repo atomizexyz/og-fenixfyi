@@ -30,7 +30,7 @@ const End: NextPage = ({ address, stakeIndex }: any) => {
   const { chain } = useNetwork();
   const { address: accountAddress } = useAccount();
 
-  const { feeData, stakePoolSupply } = useContext(FENIXContext);
+  const { feeData, equityPoolSupply: stakePoolSupply } = useContext(FENIXContext);
   const [stake, setStake] = useState<any>(null);
 
   const [disabled, setDisabled] = useState(true);

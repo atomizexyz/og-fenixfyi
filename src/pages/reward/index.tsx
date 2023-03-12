@@ -20,7 +20,7 @@ const Bonus: NextPage = () => {
   const { t } = useTranslation("common");
   const { chain } = useNetwork();
 
-  const { feeData, cooldownUnlockTs, stakePoolSupply, rewardPoolSupply } = useContext(FENIXContext);
+  const { feeData, cooldownUnlockTs, equityPoolSupply: stakePoolSupply, rewardPoolSupply } = useContext(FENIXContext);
   const [disabled, setDisabled] = useState(false);
   const [processing, setProcessing] = useState(false);
 

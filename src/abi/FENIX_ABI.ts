@@ -48,6 +48,17 @@ const FENIX_ABI = [
         name: "x",
         type: "uint256",
       },
+    ],
+    name: "PRBMathUD60x18__ToUD60x18Overflow",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "x",
+        type: "uint256",
+      },
       {
         internalType: "uint256",
         name: "y",
@@ -76,6 +87,11 @@ const FENIX_ABI = [
       },
     ],
     name: "PRBMath__MulDivOverflow",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "StakeEnded",
     type: "error",
   },
   {
@@ -138,7 +154,7 @@ const FENIX_ABI = [
       {
         indexed: false,
         internalType: "uint256",
-        name: "amount",
+        name: "value",
         type: "uint256",
       },
     ],
@@ -200,7 +216,7 @@ const FENIX_ABI = [
       {
         indexed: false,
         internalType: "uint256",
-        name: "amount",
+        name: "value",
         type: "uint256",
       },
     ],
@@ -222,33 +238,7 @@ const FENIX_ABI = [
   },
   {
     inputs: [],
-    name: "DOMAIN_SEPARATOR",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "MAX_STAKE_LENGTH_DAYS",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "TIME_BONUS",
     outputs: [
       {
         internalType: "uint256",
@@ -274,7 +264,7 @@ const FENIX_ABI = [
   },
   {
     inputs: [],
-    name: "XEN_RATIO",
+    name: "XEN_BURN_RATIO",
     outputs: [
       {
         internalType: "uint256",
@@ -289,12 +279,12 @@ const FENIX_ABI = [
     inputs: [
       {
         internalType: "address",
-        name: "",
+        name: "owner",
         type: "address",
       },
       {
         internalType: "address",
-        name: "",
+        name: "spender",
         type: "address",
       },
     ],
@@ -337,7 +327,7 @@ const FENIX_ABI = [
     inputs: [
       {
         internalType: "address",
-        name: "",
+        name: "account",
         type: "address",
       },
     ],
@@ -502,6 +492,63 @@ const FENIX_ABI = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "bonus",
+        type: "uint256",
+      },
+    ],
+    name: "calculateShares",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "fenix",
+        type: "uint256",
+      },
+    ],
+    name: "calculateSizeBonus",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "term",
+        type: "uint256",
+      },
+    ],
+    name: "calculateTimeBonus",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "pure",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "cooldownUnlockTs",
     outputs: [
@@ -525,6 +572,30 @@ const FENIX_ABI = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -560,14 +631,7 @@ const FENIX_ABI = [
   },
   {
     inputs: [],
-    name: "flushRewardPool",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "maxInflationEndTs",
+    name: "equityPoolSupply",
     outputs: [
       {
         internalType: "uint256",
@@ -576,6 +640,63 @@ const FENIX_ABI = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "equityPoolTotalShares",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "flushRewardPool",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "genesisTs",
+    outputs: [
+      {
+        internalType: "uint40",
+        name: "",
+        type: "uint40",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -595,25 +716,6 @@ const FENIX_ABI = [
     inputs: [
       {
         internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    name: "nonces",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
         name: "user",
         type: "address",
       },
@@ -624,49 +726,6 @@ const FENIX_ABI = [
       },
     ],
     name: "onTokenBurned",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "deadline",
-        type: "uint256",
-      },
-      {
-        internalType: "uint8",
-        name: "v",
-        type: "uint8",
-      },
-      {
-        internalType: "bytes32",
-        name: "r",
-        type: "bytes32",
-      },
-      {
-        internalType: "bytes32",
-        name: "s",
-        type: "bytes32",
-      },
-    ],
-    name: "permit",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -778,32 +837,6 @@ const FENIX_ABI = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "stakePoolSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "stakePoolTotalShares",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
@@ -873,19 +906,6 @@ const FENIX_ABI = [
     name: "startStake",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "genesisTs",
-    outputs: [
-      {
-        internalType: "uint40",
-        name: "",
-        type: "uint40",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {

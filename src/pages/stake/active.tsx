@@ -1,17 +1,20 @@
 import type { NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Address, useAccount, useContractRead, useNetwork } from "wagmi";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
 import { CardContainer, Container } from "~/components/containers/";
 import PortfolioNav from "~/components/nav/PortfolioNav";
 import { StakeHeaderFooter, StakeRow, StakeStatus } from "~/components/stakes";
+import FENIXContext from "~/contexts/FENIXContext";
 import { fenixContract } from "~/lib/fenix-contract";
 
 const ActivePortfolio: NextPage = () => {
   const { t } = useTranslation("common");
+  const { equityPoolSupply, equityPoolTotalShares } = useContext(FENIXContext);
+
   const { chain } = useNetwork();
   const { address } = useAccount() as unknown as { address: Address };
   const [stakeCount, setStakeCount] = useState(0);
@@ -49,6 +52,8 @@ const ActivePortfolio: NextPage = () => {
                       stakerAddress={address}
                       index={_stake}
                       status={StakeStatus.ACTIVE}
+                      equityPoolSupply={equityPoolSupply}
+                      equityPoolTotalShares={equityPoolTotalShares}
                     />
                   </tr>
                 ))}
