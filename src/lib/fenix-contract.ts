@@ -27,19 +27,19 @@ export const fenixContract = (contractChain?: Chain) => {
       };
     case goerli.id:
       return {
-        address: "0x03E5BF7A1A861F23c9E1aAccAB02f172F6FDd8A9" as Address,
+        address: "0xE3bf463862ECA89c7f39D3108c4f9f01D1dDE6C6" as Address,
         abi: FENIX_ABI,
         chainId: contractChain.id,
       };
     case polygonMumbai.id:
       return {
-        address: "0x79E968E74618C24BA48D8DC2D3673fD23B68A07f" as Address,
+        address: "0xCdD5536bCCf4c34a3b5E6B111f9da41B28ae50F1" as Address,
         abi: FENIX_ABI,
         chainId: contractChain.id,
       };
     case x1Testnet.id:
       return {
-        address: "0xf4a0dfD69Cb0AD1dA2056b31b911C7dd51129cBe" as Address,
+        address: "0x79E968E74618C24BA48D8DC2D3673fD23B68A07f" as Address,
         abi: FENIX_ABI,
         chainId: contractChain.id,
       };
