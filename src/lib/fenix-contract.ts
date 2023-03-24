@@ -14,7 +14,7 @@ import {
 } from "wagmi/chains";
 
 import FENIX_ABI from "~/abi/FENIX_ABI";
-import { dogechain, ethpow, x1Testnet } from "~/lib/chains";
+import { dogechain, ethpow, pulseChain, x1Testnet } from "~/lib/chains";
 
 export const fenixContract = (contractChain?: Chain) => {
   switch (contractChain?.id) {
@@ -40,6 +40,12 @@ export const fenixContract = (contractChain?: Chain) => {
     case x1Testnet.id:
       return {
         address: "0x79E968E74618C24BA48D8DC2D3673fD23B68A07f" as Address,
+        abi: FENIX_ABI,
+        chainId: contractChain.id,
+      };
+    case pulseChain.id:
+      return {
+        address: "0xd2ac6954b3f08f7024E90CFAe252fb8c06c0a868" as Address,
         abi: FENIX_ABI,
         chainId: contractChain.id,
       };

@@ -20,7 +20,7 @@ import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
-import { dogechain, ethpow, x1Testnet } from "~/lib/chains";
+import { dogechain, ethpow, pulseChain, x1Testnet } from "~/lib/chains";
 
 const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID as string;
 
@@ -40,6 +40,7 @@ export const chainList = [
   foundry,
   localhost,
   x1Testnet,
+  pulseChain,
 ];
 
 export const { chains, provider, webSocketProvider } = configureChains(chainList, [
