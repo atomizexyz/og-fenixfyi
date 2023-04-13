@@ -1,47 +1,17 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
-
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
     "./src/components/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
+    "./src/app/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: "class",
   theme: {
-    minHeight: {
-      "1/2": "50%",
-    },
     extend: {
-      fontFamily: {
-        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
   },
-  plugins: [require("daisyui")],
-  daisyui: {
-    themes: [
-      {
-        light: {
-          ...require("daisyui/src/colors/themes")["[data-theme=light]"],
-          primary: "#e879f9",
-          neutral: "black",
-          "base-100": "white",
-          "neutral-content": "#6b7280",
-          accent: "#F5C5A1",
-          "accent-focus": "#F4B1C3",
-        },
-      },
-      {
-        dark: {
-          ...require("daisyui/src/colors/themes")["[data-theme=dark]"],
-          primary: "#a21caf",
-          neutral: "white",
-          "base-100": "black",
-          "neutral-content": "#d1d5db",
-          accent: "#7B4422",
-          "accent-focus": "#813242",
-        },
-      },
-    ],
-  },
+  plugins: [require("@tailwindcss/forms")],
 };
