@@ -3,7 +3,7 @@
 import { ConnectKitProvider } from "connectkit";
 import { WagmiConfig } from "wagmi";
 import { client } from "@/libraries/client";
-import { FenixProvider } from "@/contexts/FenixContext";
+import { FenixProvider } from "@/app/contexts/FenixContext";
 
 export default function GlobalContainer({ children }: any) {
   return (
